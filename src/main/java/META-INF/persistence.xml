@@ -3,5 +3,12 @@
     <persistence-unit name="PracticeCalendar">
         <class>PracticeCalendar.Role</class>
         <class>PracticeCalendar.User</class>
+        <class>PracticeCalendar.Devices</class>
+        <class>PracticeCalendar.DevicesOrder</class>
+        <class>PracticeCalendar.DevicesStatus</class>
+        <class>PracticeCalendar.Feedback</class>
+        <class>PracticeCalendar.Notify</class>
+        <class>PracticeCalendar.Room</class>
+        <class>PracticeCalendar.RoomType</class>
     </persistence-unit>
 </persistence>
