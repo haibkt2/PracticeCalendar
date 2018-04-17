@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,18 +40,23 @@ public class MainController {
 	@Autowired
 	UserServiceImpl userserviceimpl;
 
+	@Value("${string.domain.default}")
+	private String domain;
+	
 	@GetMapping("/403")
 	public String accessDenied() {
 		return "403";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginOrSigin", method = RequestMethod.GET)
 	public String login(Model model, String error, String logout, HttpSession session, HttpServletRequest req) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String userName = auth.getName();
 		User user = userRepository.findByUserName(userName);
-
+		// check
+		
 		if (user != null) {
+			model.addAttribute("userLogin",user.getUserId());
 			return "home";
 		}
 
@@ -58,24 +64,31 @@ public class MainController {
 			model.addAttribute("error", "msg.login.invalid");
 		if (logout != null)
 			model.addAttribute("message", "msg.logout");
-		return "login";
+		return "loginOrSigin";
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String homeLogin(Model model) {
-		model.addAttribute("userForm", new User());
+	@RequestMapping(value = { "/", "home" }, method = RequestMethod.GET)
+	public String home(Model model) {
+		// model.addAttribute("userForm", new User());
 		return "home";
 	}
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String homeRe(Model model) {
-		model.addAttribute("userForm", new User());
-		return "register";
-	}
+
+//	@RequestMapping(value = "/register", method = RequestMethod.GET)
+//	public String homeRe(Model model) {
+//		model.addAttribute("userForm", new User());
+//		return "register";
+//	}
+
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
-	public String register(Model model, HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("userForm") User user) throws ParseException {
-		model.addAttribute("userForm", new User());
+	public String register(Model model, HttpServletRequest request, HttpServletResponse response) throws ParseException {
+		User user = new User();
+		user.setUserId(request.getParameter("mssv"));
+		user.setName(request.getParameter("f_name")+" "+request.getParameter("l_name"));
+		user.setPhone(request.getParameter("phone"));
+		user.setEmail(request.getParameter("mssv")+domain);
+		System.out.println(domain);
+		
 		// userValidator.validate(userForm, bindingResult);
 		userserviceimpl.insertOrUpdateUser(user);
 		return "mySelf" + user.getPhone();
