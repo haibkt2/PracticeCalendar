@@ -74,8 +74,8 @@ h1 {
 
 label {
   position: absolute;
-  -webkit-transform: translateY(9px);
-          transform: translateY(9px);
+  -webkit-transform: translateY(2px);
+          transform: translateY(2px);
   left: 13px;
   color: #333333;
   transition: all 0.25s ease;
