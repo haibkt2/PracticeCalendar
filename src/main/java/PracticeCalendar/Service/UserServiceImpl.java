@@ -48,14 +48,14 @@ public class UserServiceImpl {
 			user.setRole(findRole);
 			user.setUserName(user.getUserId());
 			user.setCreateDate(coService.currentDate());
-			user.setPassword(coService.setPassword(8));
-			getSendMail = emailService.SendMail(user);
-			emailService.sendMail(getSendMail.get("mailform"), getSendMail.get("toMail"), getSendMail.get("subject"),
-					getSendMail.get("body"));
-			user.setPassword(bcrypass.encode(user.getPassword()));
-			userRepository.save(user);
-
 		}
+		user.setPassword(coService.setPassword(8));
+		getSendMail = emailService.SendMail(user);
+		emailService.sendMail(getSendMail.get("mailform"), getSendMail.get("toMail"), getSendMail.get("subject"),
+				getSendMail.get("body"));
+		user.setPassword(bcrypass.encode(user.getPassword()));
+		userRepository.save(user);
+
 	}
 
 }

@@ -42,7 +42,7 @@ public class MainController {
 
 	@Value("${string.domain.default}")
 	private String domain;
-	
+
 	@GetMapping("/403")
 	public String accessDenied() {
 		return "403";
@@ -54,9 +54,9 @@ public class MainController {
 		String userName = auth.getName();
 		User user = userRepository.findByUserName(userName);
 		// check
-		
+
 		if (user != null) {
-			model.addAttribute("userLogin",user.getUserId());
+			model.addAttribute("userLogin", user.getUserId());
 			return "home";
 		}
 
@@ -73,23 +73,27 @@ public class MainController {
 		return "home";
 	}
 
-//	@RequestMapping(value = "/register", method = RequestMethod.GET)
-//	public String homeRe(Model model) {
-//		model.addAttribute("userForm", new User());
-//		return "register";
-//	}
+	// @RequestMapping(value = "/register", method = RequestMethod.GET)
+	// public String homeRe(Model model) {
+	// model.addAttribute("userForm", new User());
+	// return "register";
+	// }
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
-	public String register(Model model, HttpServletRequest request, HttpServletResponse response) throws ParseException {
+	public String register(Model model, HttpServletRequest request, HttpServletResponse response)
+			throws ParseException {
 		User user = new User();
-		user.setUserId(request.getParameter("mssv"));
-		user.setName(request.getParameter("f_name")+" "+request.getParameter("l_name"));
-		user.setPhone(request.getParameter("phone"));
-		user.setEmail(request.getParameter("mssv")+domain);
-		System.out.println(domain);
-		
-		// userValidator.validate(userForm, bindingResult);
+		String fg_pass = request.getParameter("mssv_fg");
+		if (fg_pass != null)
+			user = userRepository.findByUserId(fg_pass);
+		else {
+			user.setUserId(request.getParameter("mssv"));
+			user.setName(request.getParameter("f_name") + " " + request.getParameter("l_name"));
+			user.setPhone(request.getParameter("phone"));
+			user.setEmail(request.getParameter("mssv") + domain);
+			// userValidator.validate(userForm, bindingResult);
+		}
 		userserviceimpl.insertOrUpdateUser(user);
 		return "mySelf" + user.getPhone();
 	}

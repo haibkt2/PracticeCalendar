@@ -101,7 +101,7 @@
             <label>
               Phone number<span class="req">*</span>
             </label>
-            <input type="tel" required pattern="^[0-9-+s()]*$" autocomplete="off"name="phone"/>
+            <input type="tel" required pattern="^[0-9-+s()]*$" autocomplete="off" name="phone"/>
           </div>
           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           <button type="submit" class="button button-block">Sign Up</button>
@@ -122,24 +122,26 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Enter your student code, please!</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Nhập mã số sinh viên.</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <form>
+              <form method="post" action="${contextPath}/register?fg_pass=t">
                 <div class="form-group">
-                  <p for="recipient-name" class="col-form-label">Student Code</p>
-                  <input type="text" class="form-control" id="recipient-name" placeholder="Enter here!">
+                  <p for="recipient-name" class="col-form-label">MSSV</p>
+                  <input type="text" class="form-control" id="recipient-name" placeholder="Enter here!" name="mssv_fg"/>
                   <p for="recipient-name" class="col-form-label" style="color: red; text-align: right;"><i>Check you email after you finish.</i></p>
                 </div>
-              </form>
-            </div>
-            <div class="modal-footer">
+              <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Send message</button>
+             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+              <button type="submit" class="btn btn-primary">Send message</button>
             </div>
+            </form>
+            </div>
+            
           </div>
         </div>
     </div>
