@@ -33,6 +33,6 @@ public class CheckAutheticationSuccessHandler implements AuthenticationSuccessHa
 		User loginUser = userRepo.findByUserName(userName);
 		session.setAttribute("userName", loginUser.getUserName());
 		session.setAttribute("userid", loginUser.getUserId());
-		redirectStrategy.sendRedirect(request, response, "/");
+		redirectStrategy.sendRedirect(request, response, "/home");
 	}
 }

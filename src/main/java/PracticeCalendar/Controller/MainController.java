@@ -60,12 +60,13 @@ public class MainController {
 			model.addAttribute("message", "msg.logout");
 		return "login";
 	}
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String homeLogin(Model model) {
-		model.addAttribute("userForm", new User());
+	
+	@RequestMapping(value={"/", "welcome"}, method = RequestMethod.GET)
+	public String home(Model model) {
+//		model.addAttribute("userForm", new User());
 		return "home";
 	}
+
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String homeRe(Model model) {
 		model.addAttribute("userForm", new User());
