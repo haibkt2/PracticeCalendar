@@ -61,12 +61,12 @@
           </div>
           
           <p class="forgot"><a href="#" data-toggle="modal" data-target="#exampleModal">Forgot Password?</a></p>
-          
+          <i>${error}</i>
           <button class="button button-block" d>Log In</button>                   
           </form>
 
           <hr>
-          <p><a href=""><button class="btn btn-outline-dark button-block btn-lg">Come back home</button></a></p>
+          <p><a href="${contextPath}/home"><button class="btn btn-outline-dark button-block btn-lg">Come back home</button></a></p>
 
         </div>
         <div id="signup">   
@@ -108,7 +108,7 @@
           
           </form>
           <hr>
-          <p><a href=""><button class="btn btn-outline-dark button-block btn-lg">Come back home</button></a></p>
+          <p><a href="${contextPath}/home"><button class="btn btn-outline-dark button-block btn-lg">Come back home</button></a></p>
 
         </div>
         
