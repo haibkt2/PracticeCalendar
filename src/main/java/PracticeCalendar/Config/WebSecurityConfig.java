@@ -50,12 +50,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .logout()
 				.logoutUrl("/logout")
-				.logoutSuccessUrl("/login?logout")
+				.logoutSuccessUrl("/home?logout")
                 .invalidateHttpSession(true)
                 .permitAll();
         http
             .exceptionHandling()
-            .accessDeniedPage("/403");
+            .accessDeniedPage("/home");
 
     }
 
@@ -63,6 +63,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
             .ignoring()
-            .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+            .antMatchers("/resources/**",  "/css/**", "/js/**", "/images/**");
     }
 }

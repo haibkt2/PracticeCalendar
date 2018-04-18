@@ -109,7 +109,7 @@
           </form>
           <hr>
           <p><a href="${contextPath}/home"><button class="btn btn-outline-dark button-block btn-lg">Come back home</button></a></p>
-
+         <a href="http://daotao.dut.udn.vn/download2/Email_Guide.pdf" target="_blank"><i>Hướng dẫn sử dủng mail sinh viên</i></a>
         </div>
         
 

@@ -56,7 +56,6 @@ public class MainController {
 		// check
 
 		if (user != null) {
-			model.addAttribute("userLogin", user.getUserId());
 			return "home";
 		}
 
@@ -67,9 +66,16 @@ public class MainController {
 		return "loginOrSigin";
 	}
 
+
 	@RequestMapping(value = { "/", "home" }, method = RequestMethod.GET)
 	public String home(Model model) {
 		// model.addAttribute("userForm", new User());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String userName = auth.getName();
+		User user = userRepository.findByUserName(userName);
+		if (user != null) {
+			model.addAttribute("userLogin", user.getUserName());
+		}
 		return "home";
 	}
 
