@@ -74,7 +74,7 @@ public class MainController {
 		String userName = auth.getName();
 		User user = userRepository.findByUserName(userName);
 		if (user != null) {
-			model.addAttribute("userLogin", user.getUserName());
+			model.addAttribute("userLogin", user.getName());
 		}
 		return "home";
 	}

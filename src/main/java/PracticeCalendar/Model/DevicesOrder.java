@@ -1,10 +1,3 @@
-/*
- * System name: Time record system
- * Company name: ARCH-VN
- * Author: doan-xuanliem
- * Create day: 2017/12/04
- * Version: 1.0
- */
 
 package PracticeCalendar.Model;
 
