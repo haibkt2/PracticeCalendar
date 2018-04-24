@@ -39,6 +39,7 @@
 						<li><a href="#">Hướng dẫn</a></li>
 						<c:if test="${empty userLogin}">
 						<li><a href="${contextPath}/loginOrSigin"><i class="fa fa-sign-in"></i> Login</a></li>
+						<li></li>
 						</c:if>
 						
 						<c:if test="${not empty userLogin}">
