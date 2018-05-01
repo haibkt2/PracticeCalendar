@@ -6,26 +6,38 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Đại Học Bách Khoa ĐN - Khoa CNTT</title>
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700%7CLato:300,400"
-	rel="stylesheet">
-<link type="text/css" rel="stylesheet"
-	href="${contextPath}/resources/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet"
-	href="${contextPath}/resources/css/owl.carousel.css" />
-<link type="text/css" rel="stylesheet"
-	href="${contextPath}/resources/css/owl.theme.default.css" />
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/font-awesome.min.css">
-<link type="text/css" rel="stylesheet"
-	href="${contextPath}/resources/css/style.css" />
-<script src="${contextPath}/resources/js/index.js"></script>
-</head>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<title>Magnews HTML Template</title>
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700%7CLato:300,400" rel="stylesheet"> 
+		
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/bootstrap.min.css"/>
+
+		<!-- Owl Carousel -->
+		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/owl.carousel.css" />
+		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/owl.theme.default.css" />
+		
+		<!-- Font Awesome Icon -->
+		<link rel="stylesheet" href="${contextPath}/resources/css/font-awesome.min.css">
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/style.css"/>
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    </head>
 <body>
 	<header id="header">
 		<div id="top-header">
@@ -83,10 +95,6 @@
 		<div id="nav-header">
 			<div class="container">
 				<nav id="main-nav">
-					<div class="nav-logo">
-						<a href="#" class="logo"><img
-							src="${contextPath}/resources/img/logo-alt.png" alt=""></a>
-					</div>
 					<ul class="main-nav nav navbar-nav">
 						<li class="active"><a href="#">TB chung</a></li>
 						<li><a href="#">TB đến lớp học phần</a></li>
