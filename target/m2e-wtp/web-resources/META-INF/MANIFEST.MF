@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: PracticeCalendar
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Admin
+Built-By: Nhat Nguyen Van
 Implementation-Vendor-Id: PracticeCalendar
 Build-Jdk: 1.8.0_171
 Implementation-URL: http://projects.spring.io/spring-boot/PracticeCale

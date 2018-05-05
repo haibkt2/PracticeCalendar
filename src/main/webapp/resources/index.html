@@ -12,7 +12,9 @@
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700%7CLato:300,400" rel="stylesheet"> 
 		
 		<!-- Bootstrap -->
-		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+		  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		  <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.min.css">
+		  <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 
 		<!-- Owl Carousel -->
 		<link type="text/css" rel="stylesheet" href="css/owl.carousel.css" />
@@ -40,23 +42,37 @@
 			<div id="top-header">
 				<div class="container">
 					<div class="header-links">
-						<ul>
-							<li><a href="#">Thông báo</a></li>
-							<li><a href="#">Chương trình đào tạo</a></li>
-							<li><a href="#">Kế hoạch</a></li>
-							<li><a href="#">Quy chế & Quy định</a></li>
-							<li><a href="#">Hướng dẫn</a></li>
-							<li><a href="#"><i class="fa fa-sign-in"></i> Login</a></li>
-						</ul>
-					</div>
-					<div class="header-social">
-						<ul>
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#"><i class="fa fa-youtube"></i></a></li>
-						</ul>
+						<div class="row" style="margin-top: 6px; margin-bottom: -9px;">
+							<div class="col-lg-7">							
+								<ul>
+									<li><a href="#">Thông báo</a></li>
+									<li><a href="#">Chương trình đào tạo</a></li>
+									<li><a href="#">Kế hoạch</a></li>
+									<li><a href="#">Quy chế & Quy định</a></li>
+									<li><a href="#">Hướng dẫn</a></li>							
+								</ul>
+							</div>
+
+							<div class="col-lg-3" >
+								<form class="form-group login_form"  >
+									<div class="row">
+										<div class="col-lg-5" >
+											<input class="form-control"  type="text"required autocomplete="off" placeholder="Username" />
+										</div>
+										<div class="col-lg-5" >
+											<input class="form-control"  type="password"required autocomplete="off" placeholder="Password" />
+										</div>
+										<div class="col-lg-2">
+											<button type="submit" class="btn btn-dark">Login</button>				
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="col-lg-2" s>
+								<button style="margin-left: 18px;" type="submit" class="btn btn-dark">Logup</button>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -79,9 +95,6 @@
 			<div id="nav-header">
 				<div class="container">
 					<nav id="main-nav">
-						<div class="nav-logo">
-							<a href="#" class="logo"><img src="./img/logo-alt.png" alt=""></a>
-						</div>
 						<ul class="main-nav nav navbar-nav">
 							<li class="active"><a href="#">TB chung</a></li>
 							<li><a href="#">TB đến lớp học phần</a></li>
