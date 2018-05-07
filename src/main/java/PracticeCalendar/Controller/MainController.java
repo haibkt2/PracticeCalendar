@@ -78,7 +78,11 @@ public class MainController {
 		}
 		return "home";
 	}
-
+	@RequestMapping(value = {"profile" }, method = RequestMethod.GET)
+	public String profile(Model model) {
+		
+		return "profile";
+	}
 	// @RequestMapping(value = "/register", method = RequestMethod.GET)
 	// public String homeRe(Model model) {
 	// model.addAttribute("userForm", new User());
