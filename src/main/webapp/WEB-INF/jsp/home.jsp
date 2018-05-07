@@ -60,14 +60,15 @@
 							</div>
 
 							<div class="col-lg-3" >
-								<form class="form-group login_form"  >
+								<form class="form-group login_form" action="${contextPath}/home" method="post">
 									<div class="row">
 										<div class="col-lg-5" >
-											<input class="form-control"  type="text"required autocomplete="off" placeholder="Username" />
+											<input class="form-control"  type="text"required autocomplete="off" placeholder="Username" name="userId"/>
 										</div>
 										<div class="col-lg-5" >
-											<input class="form-control"  type="password"required autocomplete="off" placeholder="Password" />
+											<input class="form-control"  type="password"required autocomplete="off" placeholder="Password" name="password"/>
 										</div>
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 										<div class="col-lg-2">
 											<button type="submit" class="btn btn-dark">Login</button>				
 										</div>

@@ -31,8 +31,8 @@ public class CheckAutheticationSuccessHandler implements AuthenticationSuccessHa
 		HttpSession session = request.getSession();
 		String userName = auth.getName();
 		User loginUser = userRepo.findByUserName(userName);
-		session.setAttribute("userName", loginUser.getUserName());
-		session.setAttribute("userid", loginUser.getUserId());
-		redirectStrategy.sendRedirect(request, response, "/");
+		session.setAttribute("UserLogin", loginUser.getName());
+		session.setAttribute("RoleLogin", loginUser.getRole().getRoleName());
+		redirectStrategy.sendRedirect(request, response, "/profile");
 	}
 }

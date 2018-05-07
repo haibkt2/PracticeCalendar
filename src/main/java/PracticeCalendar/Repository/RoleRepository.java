@@ -11,6 +11,5 @@ import PracticeCalendar.Model.Role;
  * Provide the basic CRUD functions of Role table on a repository
  */
 public interface RoleRepository extends CrudRepository<Role, Integer> {
-
     Role findByRoleName(String roleName);
 }
