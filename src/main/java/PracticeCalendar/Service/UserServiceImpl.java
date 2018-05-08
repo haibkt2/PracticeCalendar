@@ -45,10 +45,13 @@ public class UserServiceImpl {
 		User findUserId = userRepository.findByUserId(user.getUserId());
 		Role findRole = roleRepository.findByRoleName(role);
 		if (findUserId == null) {
-			user.setRole(findRole);
+			if (user.getRole() == null)
+				user.setRole(findRole);
 			user.setUserName(user.getUserId());
 			user.setCreateDate(coService.currentDate());
 		}
+		if(user.getEmail() == null)
+			user.setEmail("mailnull@gmail.com");
 		user.setPassword(coService.setPassword(8));
 		getSendMail = emailService.SendMail(user);
 		emailService.sendMail(getSendMail.get("mailform"), getSendMail.get("toMail"), getSendMail.get("subject"),

@@ -11,7 +11,7 @@
 <title>register</title>
 </head>
 <body>
-	<form:form action="${contextPath}/register" modelAttribute="userForm">
+	<form:form action="${contextPath}/addUser">
 		mssv : <form:input type="text" id="name" path="userId" />
 		<br>
 		name : <form:input type="text" path="name" />

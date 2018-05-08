@@ -34,7 +34,7 @@ public class EmailService {
 		mapSendmail.put("mailform", username);
 		mapSendmail.put("toMail", user.getEmail());
 		mapSendmail.put("subject", "Password");
-		mapSendmail.put("body", "MSSV : "+user.getUserId()+" Password : " + user.getPassword());
+		mapSendmail.put("body", "User Id : "+user.getUserId()+" Password : " + user.getPassword());
 		return mapSendmail;
 	}
 }
