@@ -123,5 +123,118 @@ public class MainController {
 		userserviceimpl.insertOrUpdateUser(user);
 		return "mySelf" + user.getPhone();
 	}
+	 @RequestMapping(value = "/addUser", method = RequestMethod.GET)
+	    public String registration(Model model, HttpServletRequest request, HttpSession session) {
+
+	        List<Role> lstrole = (List<Role>) roleRepository.findAll();
+	        List<Timezone> lstTimezone = (List<Timezone>) timezoneRepository.findAll();
+	        // set model
+	        model.addAttribute("lstRole", lstrole);
+	        model.addAttribute("lstTimezone", lstTimezone);
+	        model.addAttribute("userForm", new User());
+	        model.addAttribute("userId", userserviceimpl.autoCodeUserId());
+	        return "AddUser";
+	    }
+
+	    // Insert staff information
+	    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+	    public String insertOrupdateUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult,
+	            Model model, HttpSession session) throws ParseException {
+	        userValidator.validate(userForm, bindingResult);
+	        // get session userId
+	        String sessionUserid = (String) session.getAttribute("userid");
+	        List<Role> lstrole = (List<Role>) roleRepository.findAll();
+	        List<Timezone> lstTimezone = (List<Timezone>) timezoneRepository.findAll();
+	        model.addAttribute("lstRole", lstrole);
+	        model.addAttribute("lstTimezone", lstTimezone);
+	        // check error input
+	        if (bindingResult.hasErrors()) {
+	            model.addAttribute("userId", userserviceimpl.autoCodeUserId());
+	            return "AddUser";
+	        }
+
+	        userForm.setCreateId(sessionUserid);
+	        userserviceimpl.insertOrupdate(userForm);
+	        model.addAttribute("message", messageSave);
+	        model.addAttribute("userId", userserviceimpl.autoCodeUserId());
+	        model.addAttribute("userForm", new User());
+	        return "AddUser";
+	    }
+
+	    // Update Staff information
+	    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	    public String updateUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model,
+	            HttpSession session, final RedirectAttributes redirectAttributes) throws ParseException {
+	        updateuserValidator.validate(userForm, bindingResult);
+
+	        // contructor user
+	        List<Role> lstrole = (List<Role>) roleRepository.findAll();
+	        List<Timezone> lstTimezone = (List<Timezone>) timezoneRepository.findAll();
+	        String sessionUserid = (String) session.getAttribute("userid");
+	        User u = new User();
+	        u = userRepository.findByUserId(userForm.getUserId());
+
+	        // check error input
+	        if (bindingResult.hasErrors()) {
+	            redirectAttributes.addFlashAttribute("bindingResult", bindingResult);
+	            redirectAttributes.addFlashAttribute("userForm", userForm);
+	            return "redirect:/updateUser" + "?userid=" + userForm.getUserId();
+	        }
+
+	        model.addAttribute("lstRole", lstrole);
+	        model.addAttribute("lstTimezone", lstTimezone);
+	        userForm.setCreateId(u.getCreateId());
+	        userForm.setUpdateId(sessionUserid);
+	        userserviceimpl.insertOrupdate(userForm);
+	        session.setAttribute("userTimezone", userForm.getTimezone().getValue());
+	        session.setAttribute("userTimezoneName", userForm.getTimezone().getName());
+	        return "redirect:/updateUser" + "?userid=" + userForm.getUserId() + "&updateUser=" + messageInfo;
+	    }
+
+	    // Show view form update information 
+	    @RequestMapping(value = "/updateUser", method = RequestMethod.GET)
+	    public String updateInfo(Model model, HttpServletRequest request,
+	            @ModelAttribute("userForm") final User userForm, Locale locale) {
+
+	        // get parameter date
+	        String userId = request.getParameter("userid");
+	        String resetPass = request.getParameter("resetPass");
+	        String updateuser = request.getParameter("updateUser");
+
+	        User user = new User();
+	        user = userserviceimpl.searchUserId(userId);
+	        List<Role> lstrole = (List<Role>) roleRepository.findAll();
+	        List<Timezone> lstTimezone = (List<Timezone>) timezoneRepository.findAll();
+	        Map<String, String> mapStatus = new HashMap<String, String>();
+	        String localeString = locale.toString();
+	        // Set date of week English
+	        if (localeString.equalsIgnoreCase("en")) {
+	            mapStatus = commonservice.mapStatus("en");
+	        } else if (localeString.equalsIgnoreCase("ja_JP")) {
+	            mapStatus = commonservice.mapStatus("ja_JP");
+	        }
+	        // set model
+	        model.addAttribute("listStaus", mapStatus);
+	        model.addAttribute("lstRole", lstrole);
+	        model.addAttribute("lstTimezone", lstTimezone);
+	        model.addAttribute("userForm", user);
+
+	        if (resetPass != null) {
+	            // set message value "Reseted Password Success!"
+
+	            model.addAttribute("message", messagePass);
+	        }
+	        if (updateuser != null) {
+	            // set message value "Update Information Success!"
+	            model.addAttribute("message", messageInfo);
+	        }
+
+	        if (model.asMap().containsKey("bindingResult")) {
+	            model.addAttribute("org.springframework.validation.BindingResult.userForm",
+	                    model.asMap().get("bindingResult"));
+	        }
+
+	        return "UpdateUser";
+	    }
 
 }
