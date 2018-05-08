@@ -69,7 +69,95 @@
 								</form>
 							</div>
 							<div class="col-lg-2" s>
-								<button style="margin-left: 18px;" type="submit" class="btn btn-dark">Logup</button>
+								<button style="margin-left: 18px;" type="submit" data-toggle="modal" data-target="#logupModal" class="btn btn-dark">Logup</button>
+
+								 <div class="modal fade" id="logupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">			
+								        <div class="modal-dialog" role="document">
+								          <div class="modal-content">
+								            <div class="modal-header">
+								              <h2 style="text-align: center;" class="modal-title" id="exampleModalLabel">Sign up for free</h2>
+								              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								                <span aria-hidden="true">&times;</span>
+								              </button>
+								            </div>
+								            <div class="modal-body">
+								              <form>
+								                <div class="form-group">
+								                    <div >
+											            <input type="text" required minlength="3" maxlength="60" autocomplete="off" />
+											            <p for="recipient-name" class="col-form-label">First name *</p>
+										            </div>
+										        
+										            <div >
+										                <input type="text" required autocomplete="off"/>
+										                <p for="recipient-name" class="col-form-label">Last name *</p>
+										            </div>
+
+											        <div >
+											            <input type="text" required autocomplete="off"/ value="">
+											            <p for="recipient-name" class="col-form-label">Student Code *</p>
+											        </div>
+
+											        <div >
+											            <input type="tel" required pattern="^[0-9-+s()]*$" autocomplete="off"/>
+											            <p for="recipient-name" class="col-form-label">Phone number *</p>
+											        </div>
+
+											        <div>
+											            <input type="date" id="birthday" name="birthday" class="form-control" placeholder ="'dd/mm/yyyy'" data-mask>
+											            <p for="recipient-name" class="col-form-label">Birthday *</p>
+											        </div>
+
+											        <div class="form-group">
+						                                <input class="form-control" type="file" name="hinhanh" required="true" />
+						                                <p for="recipient-name" class="col-form-label">Avatar *</p>
+						                            </div>
+
+											        <div >
+											            <select class="form-control select2" name="gender" id="gender" required="true" style="width: 100%;">
+						                                  <option selected="selected">Man</option>
+						                                  <option>Women</option>
+						                                </select>
+											            <p for="recipient-name" class="col-form-label">Gender </p>
+											        </div>
+
+								                  <p for="recipient-name" class="col-form-label" style="color: red; text-align: right;"><i>Check you email after you finish, please!</i></p>
+								                </div>
+									            <div class="modal-footer">
+									              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									              <button type="submit" class="btn btn-primary">Logup</button>
+								            	</div>
+								              </form>
+								            </div>
+								          </div>
+								        </div>
+								    </div>
+
+								 <div class="modal fade" id="forgotpassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">			
+								        <div class="modal-dialog" role="document">
+								          <div class="modal-content">
+								            <div class="modal-header">
+								              <h5 class="modal-title" id="exampleModalLabel">Enter your student code, please!</h5>
+								              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								                <span aria-hidden="true">&times;</span>
+								              </button>
+								            </div>
+								            <div class="modal-body">
+								              <form>
+								                <div class="form-group">
+								                  <p for="recipient-name" class="col-form-label">Student Code</p>
+								                  <input type="text" class="form-control" id="recipient-name" placeholder="Enter here!">
+								                  <p for="recipient-name" class="col-form-label" style="color: red; text-align: right;"><i>Check you email after you finish.</i></p>
+								                </div>
+								              </form>
+								            </div>
+								            <div class="modal-footer">
+								              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								              <button type="button" class="btn btn-primary">Send message</button>
+								            </div>
+								          </div>
+								        </div>
+								    </div>
 							</div>
 						</div>
 
