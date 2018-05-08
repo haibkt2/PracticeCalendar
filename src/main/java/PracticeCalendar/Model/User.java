@@ -15,92 +15,94 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name="USER_ID")
-    private String userId;
+	@Id
+	@Column(name = "USER_ID")
+	private String userId;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name="CREATE_DATE")
-    private Date createDate;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATE_DATE")
+	private Date createDate;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "BIRTH_DATE")
+	private Date birthday;
 
-    private String email;
+	private String email;
 
-    private String password;
+	private String password;
 
-    private String phone;
+	private String phone;
+	private String gender;
+	private String status;
+	
 
+	@Column(name = "USER_NAME")
+	private String userName;
 
-    @Column(name="USER_NAME")
-    private String userName;
+	private String name;
 
-    private String name;
-    
-    //bi-directional many-to-one association to Role
-    
-    @ManyToOne
-    @JoinColumn(name="ROLE_ID")
-    private Role role;
-    
+	// bi-directional many-to-one association to Role
 
-    public User() {
-    }
+	@ManyToOne
+	@JoinColumn(name = "ROLE_ID")
+	private Role role;
 
-    public String getUserId() {
-        return this.userId;
-    }
+	public User() {
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public String getUserId() {
+		return this.userId;
+	}
 
-    public Date getCreateDate() {
-        return this.createDate;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
+	public Date getCreateDate() {
+		return this.createDate;
+	}
 
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
-    public String getEmail() {
-        return this.email;
-    }
+	public String getEmail() {
+		return this.email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
+	public String getPassword() {
+		return this.password;
+	}
 
-    public String getPassword() {
-        return this.password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getPhone() {
+		return this.phone;
+	}
 
-    public String getPhone() {
-        return this.phone;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public String getUserName() {
+		return this.userName;
+	}
 
-    public String getUserName() {
-        return this.userName;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-
-    public String getName() {
+	public String getName() {
 		return name;
 	}
 
@@ -109,12 +111,35 @@ public class User implements Serializable {
 	}
 
 	public Role getRole() {
-        return this.role;
-    }
+		return this.role;
+	}
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-    
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 }

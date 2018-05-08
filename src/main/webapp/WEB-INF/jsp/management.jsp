@@ -15,11 +15,25 @@
 
 <jsp:include page="header.jsp"></jsp:include>
 
+
+<!-- LEFT BAR START -->
+
+   <!-- Left side column. contains the logo and sidebar -->
+  
+
+
+<!--  LEFT BAR END -->
+
 <!-- TRANG SHOW -->
   <div class="content-wrapper">
     <div class="box">
         <div class="box-header">
-          <h3 class="box-title">List of Order Calendar</h3>
+          <h3 class="box-title">List of Account</h3>
+              <p style="text-align: center;">
+                <a href="#" class="addtop"><img src="assets/img/add.png" alt="" /> 
+                  <button type="button" class="btn bg-green margin">Creat a new item</button>
+                </a>
+              </p>
 
         </div>
             <!-- /.box-header -->
@@ -27,38 +41,40 @@
       <table id="example1" class="table table-bordered table-striped">
         <thead>
         <tr>
-          <th>User name</th>
-          <th>Date Order</th>
-          <th>Room</th>
+          <th>User Id</th>
+          <th>Full name</th>
+          <th>Role</th>
+          <th>Email</th>
+          <th>Birthday</th>
+          <th>Phone number</th>
+          <th>Gender</th>
           <th>Status</th>
-          <th>Cacel</th>
-          
+          <th>Edit</th>
         </tr>
         </thead>
         <tbody>
+        <c:forEach items="${listUser}" var="listUser">
           <tr>
-            <td>1Demo</td>
-            <td>Demo</td>
-            <td>Demo</td>
-            <td>Demo</td>
-            <td>Demo</td>
-          
-          </tr>
-
-          <tr>
-            <td>Demo</td>
-            <td>Demo</td>
-            <td>Demo</td>
-            <td>Demo</td>
-            <td>Demo</td>
+             
+            <td>${listUser.getUserId()}</td>
+            <td>${listUser.getName()}</td>
+            <td>${listUser.getRole().getRoleName()}</td>
+            <td>${listUser.getEmail()}</td>
+            <td>${listUser.getCreateDate()}</td>
+            <td>${listUser.getPhone()}</td>
+            <td>${listUser.getGender()}</td>
+            <td>${listUser.getStatus()}</td>
+            <td><button>Edit</button></td>
             
           </tr>
-        </tfoot>
+          </c:forEach>
+        </tbody>
       </table>
       </div>
       <!-- /.box-body -->
     </div>
   </div>
+
 
   </div>
 

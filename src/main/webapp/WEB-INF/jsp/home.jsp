@@ -76,7 +76,7 @@
 								</form>
 							</div>
 							<div class="col-lg-2" s>
-								<button style="margin-left: 18px;" type="submit" class="btn btn-dark">Logup</button>
+								<button style="margin-left: 18px;" type="submit" class="btn btn-dark">Register</button>
 							</div>
 						</div>
 

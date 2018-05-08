@@ -83,21 +83,21 @@
                                 <!-- /.input group -->
                               </div>
                             
-                            <div class="form-group">
-                                <label>Content</label>
-                                <textarea class="ckeditor" id="mess_content" required="true" rows="5" name="mess_content" placeholder="Enter your email content"></textarea>
-                                <script>
-                                     CKEDITOR.replace( 'mess_content',
-                                      {
-                                        filebrowserBrowseUrl : '{{ $ADMIN_URL }}ckfinder/ckfinder.html',
-                                        filebrowserImageBrowseUrl : '{{ $ADMIN_URL }}ckfinder/ckfinder.html?type=Images',
-                                        filebrowserFlashBrowseUrl : '{{ $ADMIN_URL }}ckfinder/ckfinder.html?type=Flash',
-                                        filebrowserUploadUrl : '{{ $ADMIN_URL }}ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                                        filebrowserImageUploadUrl : '{{ $ADMIN_URL }}ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                                        filebrowserFlashUploadUrl : '{{ $ADMIN_URL }}ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-                                      });
-                                  </script>
-                            </div>
+<!--                             <div class="form-group"> -->
+<!--                                 <label>Content</label> -->
+<!--                                 <textarea class="ckeditor" id="mess_content" required="true" rows="5" name="mess_content" placeholder="Enter your email content"></textarea> -->
+<!--                                 <script> -->
+<!-- //                                      CKEDITOR.replace( 'mess_content', -->
+<!-- //                                       { -->
+<!-- //                                         filebrowserBrowseUrl : '{{ $ADMIN_URL }}ckfinder/ckfinder.html', -->
+<!-- //                                         filebrowserImageBrowseUrl : '{{ $ADMIN_URL }}ckfinder/ckfinder.html?type=Images', -->
+<!-- //                                         filebrowserFlashBrowseUrl : '{{ $ADMIN_URL }}ckfinder/ckfinder.html?type=Flash', -->
+<!-- //                                         filebrowserUploadUrl : '{{ $ADMIN_URL }}ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files', -->
+<!-- //                                         filebrowserImageUploadUrl : '{{ $ADMIN_URL }}ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images', -->
+<!-- //                                         filebrowserFlashUploadUrl : '{{ $ADMIN_URL }}ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash' -->
+<!-- //                                       }); -->
+<!--                                   </script> -->
+<!--                             </div> -->
 
                             <div class="form-group">
                                 <label>Status</label>

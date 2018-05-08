@@ -94,6 +94,12 @@ public class MainController {
 		}
 		return "profile";
 	}
+	@RequestMapping(value = "/management" , method = RequestMethod.GET)
+	public String management(Model model,HttpServletRequest request) {
+	List<User> listUser = userRepository.findAllUser();
+	model.addAttribute("listUser",listUser);
+	return "management";
+	}
 	@RequestMapping(value = "/addUser" , method = RequestMethod.GET)
 	public String addUser(Model model) {
 		return "addUser";
