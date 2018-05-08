@@ -14,6 +14,4 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     User findByUserName(String userName);
     User findByUserId(String userId); 
     
-    @Query("Select u from User u")
-    List<User> findAllUser();
 }

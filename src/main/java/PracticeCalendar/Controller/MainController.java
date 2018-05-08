@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import PracticeCalendar.Model.Role;
 import PracticeCalendar.Model.User;
@@ -46,6 +47,9 @@ public class MainController {
 	@Value("${string.domain.default}")
 	private String domain;
 
+	@Value("${button.save.success}")
+    private String messageSave;
+	
 	@GetMapping("/403")
 	public String accessDenied() {
 		return "403";
@@ -96,7 +100,7 @@ public class MainController {
 	}
 	@RequestMapping(value = "/management" , method = RequestMethod.GET)
 	public String management(Model model,HttpServletRequest request) {
-	List<User> listUser = userRepository.findAllUser();
+	List<User> listUser = (List<User>) userRepository.findAll();
 	model.addAttribute("listUser",listUser);
 	return "management";
 	}
@@ -123,40 +127,27 @@ public class MainController {
 		userserviceimpl.insertOrUpdateUser(user);
 		return "mySelf" + user.getPhone();
 	}
+	
+	// show view form insert formation
 	 @RequestMapping(value = "/addUser", method = RequestMethod.GET)
 	    public String registration(Model model, HttpServletRequest request, HttpSession session) {
 
 	        List<Role> lstrole = (List<Role>) roleRepository.findAll();
-	        List<Timezone> lstTimezone = (List<Timezone>) timezoneRepository.findAll();
 	        // set model
 	        model.addAttribute("lstRole", lstrole);
-	        model.addAttribute("lstTimezone", lstTimezone);
 	        model.addAttribute("userForm", new User());
-	        model.addAttribute("userId", userserviceimpl.autoCodeUserId());
-	        return "AddUser";
+	        return "addUser";
 	    }
 
 	    // Insert staff information
 	    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	    public String insertOrupdateUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult,
+	    public String insertOrupdateUser(@ModelAttribute("userForm") User userForm,
 	            Model model, HttpSession session) throws ParseException {
-	        userValidator.validate(userForm, bindingResult);
 	        // get session userId
-	        String sessionUserid = (String) session.getAttribute("userid");
 	        List<Role> lstrole = (List<Role>) roleRepository.findAll();
-	        List<Timezone> lstTimezone = (List<Timezone>) timezoneRepository.findAll();
 	        model.addAttribute("lstRole", lstrole);
-	        model.addAttribute("lstTimezone", lstTimezone);
-	        // check error input
-	        if (bindingResult.hasErrors()) {
-	            model.addAttribute("userId", userserviceimpl.autoCodeUserId());
-	            return "AddUser";
-	        }
-
-	        userForm.setCreateId(sessionUserid);
-	        userserviceimpl.insertOrupdate(userForm);
+	        userserviceimpl.insertOrUpdateUser(userForm);
 	        model.addAttribute("message", messageSave);
-	        model.addAttribute("userId", userserviceimpl.autoCodeUserId());
 	        model.addAttribute("userForm", new User());
 	        return "AddUser";
 	    }
@@ -185,7 +176,7 @@ public class MainController {
 	        model.addAttribute("lstTimezone", lstTimezone);
 	        userForm.setCreateId(u.getCreateId());
 	        userForm.setUpdateId(sessionUserid);
-	        userserviceimpl.insertOrupdate(userForm);
+	        userserviceimpl.insertOrUpdateUser(userForm);
 	        session.setAttribute("userTimezone", userForm.getTimezone().getValue());
 	        session.setAttribute("userTimezoneName", userForm.getTimezone().getName());
 	        return "redirect:/updateUser" + "?userid=" + userForm.getUserId() + "&updateUser=" + messageInfo;
