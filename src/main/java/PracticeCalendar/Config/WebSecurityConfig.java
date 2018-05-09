@@ -35,12 +35,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/home").permitAll().antMatchers("/").permitAll()
-				.antMatchers("userStatistics").hasAnyRole("ADMIN").antMatchers("managementAccount").hasAnyRole("ADMIN")
-				.antMatchers("managementClass").hasAnyRole("ADMIN").antMatchers("managementPost").hasAnyRole("ADMIN")
-				.antMatchers("/profile").hasAnyRole("STUDENT", "ADMIN").antMatchers("/addUser").hasAnyRole("ADMIN")
-				.antMatchers("/register").permitAll().anyRequest().authenticated();
-		http.formLogin().loginPage("/home").usernameParameter("userId").passwordParameter("password")
+		http.authorizeRequests()
+				.antMatchers("/home").permitAll()
+				.antMatchers("/").permitAll()
+				.antMatchers("userStatistics").hasAnyRole("ADMIN")
+				.antMatchers("managementAccount").hasAnyRole("ADMIN")
+				.antMatchers("managementClass").hasAnyRole("ADMIN")
+				.antMatchers("managementPost").hasAnyRole("ADMIN")
+				.antMatchers("/profile").hasAnyRole("STUDENT", "ADMIN")
+				.antMatchers("/addUser").hasAnyRole("ADMIN")
+				.antMatchers("/orderCld").hasAnyRole("STUDENT","ADMIN")
+				.antMatchers("/viewClass").hasAnyRole("STUDENT","ADMIN")
+				.antMatchers("/register").permitAll()
+				.anyRequest()
+				.authenticated();
+		http.formLogin().loginPage("/home")
+				.usernameParameter("userId")
+				.passwordParameter("password")
 				.successHandler(successHandler);
 		http.formLogin().loginPage("/").usernameParameter("userId").passwordParameter("password")
 				.successHandler(successHandler);

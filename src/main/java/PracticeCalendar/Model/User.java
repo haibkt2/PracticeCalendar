@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
@@ -27,9 +29,7 @@ public class User implements Serializable {
 	@Column(name = "CREATE_DATE")
 	private Date createDate;
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "BIRTH_DATE")
-	private Date birthday;
+	private String birthday;
 
 	private String email;
 
@@ -118,11 +118,11 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 

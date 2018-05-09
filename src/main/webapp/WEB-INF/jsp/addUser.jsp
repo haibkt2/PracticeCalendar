@@ -28,8 +28,7 @@
 						</c:choose>
 					</div>
 					<div class="content">
-						<form:form action="${contextPath}/addUser"
-							modelAttribute="userForm" method="POST">
+						<form:form action = "${contextPath}/addUser" modelAttribute="userForm">
 							<div class="box-body">
 
 								<div class="form-group">
@@ -81,14 +80,11 @@
 								<!-- 								<div class="form-group"> -->
 								<!-- 									<label>Date masks:</label> -->
 
-								<!-- 									<div class="input-group"> -->
-								<!-- 										<div class="input-group-addon"> -->
-								<!-- 											<i class="fa fa-calendar"></i> -->
-								<!-- 										</div> -->
-								<!-- 										<input type="date" id="birthday" name="birthday" -->
-								<!-- 											class="form-control" placeholder="'dd/mm/yyyy'"> -->
-								<!-- 									</div> -->
-								<!-- 								</div> -->
+<!-- 									<div class="input-group"> -->
+<!-- 										<label>Date masks:</label> -->
+<%-- 										<form:input type="date" id="birthday" name="birthday" path="birthday" --%>
+<%-- 											class="form-control" placeholder="'dd/mm/yyyy'"/>  --%>
+<!-- 										</div> -->
 
 								<!--                             <div class="form-group"> -->
 								<!--                                 <label>Content</label> -->
@@ -118,14 +114,14 @@
 								<!-- 									<label>Avatar</label> <input type="file" name="hinhanh" -->
 								<!-- 										required="true" /> -->
 								<!-- 								</div> -->
-							</div>
-							<!-- /.box-body -->
+							
+							
 
 							<div class="box-footer">
 								<button class="btn btn-primary">Submit</button>
 							</div>
 
-							<div class="clearfix"></div>
+							</div>
 						</form:form>
 					</div>
 				</div>

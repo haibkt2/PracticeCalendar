@@ -12,7 +12,7 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div style="margin: 340px">
-Hiện thị profile của User
+Hiện thị list class
 
 </div>
 <jsp:include page="footer.jsp"></jsp:include>
