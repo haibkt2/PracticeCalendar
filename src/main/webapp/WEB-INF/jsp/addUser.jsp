@@ -6,16 +6,14 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page isELIgnored="false"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<jsp:include page="header.jsp"></jsp:include>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Create New User</title>
 </head>
-<body lass="hold-transition skin-blue sidebar-mini">
-	<div class="wrapper">
-		<jsp:include page="header.jsp"></jsp:include>
+<body class="hold-transition skin-blue sidebar-mini">
 		<div class="row">
 			<div class="col-lg-12 col-md-12">
 				<div class="content-wrapper">
@@ -23,7 +21,7 @@
 						<h3 class="box-title">Create a new account</h3>
 						<c:choose>
 							<c:when test="${message=='1'}">
-								<spring:message code="msg.save.success" />
+								"msg.add.user.success"
 							</c:when>
 							<c:otherwise>
 							</c:otherwise>
@@ -135,6 +133,6 @@
 
 
 		</div>
-		<jsp:include page="footer.jsp"></jsp:include>
+  <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

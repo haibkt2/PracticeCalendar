@@ -48,15 +48,6 @@
   <link rel="stylesheet" href="${contextPath}/resources/AdminUI/bower_components/select2/dist/css/select2.min.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="${contextPath}/resources/AdminUI/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-  <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
 </head>
@@ -292,36 +283,17 @@
                   <small>Member since ${UserLogin.getCreateDate()}</small>
                 </p>
               </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
-              <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="${contextPath}/profile" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="${contextPath}/home?logout=log" class="btn btn-default btn-flat">Logout</a>
                 </div>
               </li>
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="${contextPath}/PracticeCalendar" >Logout</a>
-          </li>
         </ul>
       </div>
     </nav>
@@ -363,9 +335,11 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#" ><i class="fa fa-circle-o"></i> Management's home</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> System setting</a></li>
-            <li><a href="${contextPath}/PracticeCalendar"><i class="fa fa-circle-o"></i> View website</a></li>
+            <li><a href="${contextPath}/managementPost"><i class="fa fa-circle-o"></i> Management Post</a></li>
+            <li><a href="${contextPath}/managementAccount"><i class="fa fa-circle-o"></i> Management Account </a></li>
+            <li><a href="${contextPath}/managementClass"><i class="fa fa-circle-o"></i> Management Class</a></li>
+            <li><a href="${contextPath}/home"><i class="fa fa-circle-o"></i> View Website</a></li>
+            <li><a href="${contextPath}/userStatistics"><i class="fa fa-circle-o"></i> User Statistics</a></li>
           </ul>
         </li>
 
@@ -378,9 +352,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="${contextPath}/addUser" ><i class="fa fa-circle-o"></i>Create New User</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> List of level</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> List of role</a></li>
+            <li><a href="${contextPath}/addUser" ><i class="fa fa-circle-o"></i>View Class</a></li>
+            <li><a href="${contextPath}/addUser" ><i class="fa fa-circle-o"></i>Management Profile</a></li>
+            <li><a href="${contextPath}/addUser" ><i class="fa fa-circle-o"></i>Management Order </a></li>
           </ul>
         </li>
 
