@@ -39,26 +39,60 @@ public class UserServiceImpl {
 	EmailService emailService;
 	private BCryptPasswordEncoder bcrypass = new BCryptPasswordEncoder();
 
-	public void insertOrUpdateUser(User user) throws ParseException {
+	public String insertUser(User user) throws ParseException {
+		String messInsert = "";
 		Map<String, String> getSendMail = new HashMap<String, String>();
 		CommonService coService = new CommonService();
-		User findUserId = userRepository.findByUserId(user.getUserId());
-		Role findRole = roleRepository.findByRoleName(role);
-		if (findUserId == null) {
+		User findUser = userRepository.findByUserId(user.getUserId());
+		if (findUser == null) {
 			if (user.getRole() == null)
-				user.setRole(findRole);
+				user.setRole(new Role(1, role));
 			user.setUserName(user.getUserId());
 			user.setCreateDate(coService.currentDate());
+			if (user.getEmail() == null)
+				user.setEmail("mailnull@gmail.com");
+			user.setPassword(coService.setPassword(8));
+			getSendMail = emailService.SendMail(user);
+			emailService.sendMail(getSendMail.get("mailform"), getSendMail.get("toMail"), getSendMail.get("subject"),
+					getSendMail.get("body"));
+			user.setPassword(bcrypass.encode(user.getPassword()));
+			userRepository.save(user);
+			messInsert = "Create New User Sussecs";
 		}
-		if(user.getEmail() == null)
-			user.setEmail("mailnull@gmail.com");
-		user.setPassword(coService.setPassword(8));
-		getSendMail = emailService.SendMail(user);
-		emailService.sendMail(getSendMail.get("mailform"), getSendMail.get("toMail"), getSendMail.get("subject"),
-				getSendMail.get("body"));
-		user.setPassword(bcrypass.encode(user.getPassword()));
-		userRepository.save(user);
+		if (findUser != null)
+			messInsert = "Create New User Fail";
+		return messInsert;
 
+	}
+
+	public String updateUser(User user) throws ParseException {
+		String messageInfo = "";
+		// Map<String, String> getSendMail = new HashMap<String, String>();
+		CommonService coService = new CommonService();
+		User findUser = userRepository.findByUserId(user.getUserId());
+		Role findRole = roleRepository.findByRoleName(role);
+		if (user.getRole() == null)
+			user.setRole(findRole);
+		user.setPassword(findUser.getPassword());
+		user.setUserName(user.getUserId());
+		user.setCreateDate(coService.currentDate());
+		messageInfo = "Update Sussecs";
+		// if(user.getEmail() == null)
+		// user.setEmail("mailnull@gmail.com");
+		// user.setPassword(coService.setPassword(8));
+		// getSendMail = emailService.SendMail(user);
+		// emailService.sendMail(getSendMail.get("mailform"), getSendMail.get("toMail"),
+		// getSendMail.get("subject"),
+		// getSendMail.get("body"));
+		// user.setPassword(bcrypass.encode(user.getPassword()));
+		userRepository.save(user);
+		return messageInfo;
+
+	}
+
+	public User searchUserId(String userId) {
+		User user = userRepository.findByUserId(userId);
+		return user;
 	}
 
 }

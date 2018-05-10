@@ -22,7 +22,10 @@ public class Role implements Serializable {
 
     public Role() {
     }
-
+    public Role(int roleId,String roleName) {
+    	this.roleId = roleId;
+    	this.roleName = roleName;
+    }
     public int getRoleId() {
         return this.roleId;
     }

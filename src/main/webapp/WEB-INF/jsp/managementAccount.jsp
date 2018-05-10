@@ -48,11 +48,11 @@
             <td>${listUser.getName()}</td>
             <td>${listUser.getRole().getRoleName()}</td>
             <td>${listUser.getEmail()}</td>
-            <td>${listUser.getCreateDate()}</td>
+            <td>${listUser.getBirthday()}</td>
             <td>${listUser.getPhone()}</td>
             <td>${listUser.getGender()}</td>
             <td>${listUser.getStatus()}</td>
-            <td><button>Edit</button></td>
+            <td><a href="${contextPath}/updateInfo?userid=${listUser.getUserId()}"><button>Update</button></a></td>
             
           </tr>
           </c:forEach>

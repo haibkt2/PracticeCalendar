@@ -42,8 +42,3 @@ $('.tab a').on('click', function (e) {
   
 });
 
-function addURL(element) {
-	$(element).attr('href', function() {
-		return 'home?logout';
-	});
-}

@@ -18,26 +18,26 @@
 			<div class="col-lg-12 col-md-12">
 				<div class="content-wrapper">
 					<div class="box-header">
-						<h3 class="box-title">Create a new account</h3>
+						<h3 class="box-title">Update User</h3>
 						<br>
-						${messageSave}
+						${messUpdate}
 					</div>
 					<div class="content">
-						<form:form action = "${contextPath}/addUser" modelAttribute="userForm">
+						<form:form action = "${contextPath}/updateInfo" modelAttribute="userForm">
 							<div class="box-body">
 
 								<div class="form-group">
 									<label for="">User Id</label>
 									<form:input type="text" path="userId" class="form-control"
 										required="true" name="userId" id="username"
-										placeholder="Enter User Id" />
+										readonly="true" />
 								</div>
 
 								<div class="form-group">
 									<label for="">Full of name</label>
 									<form:input type="text" path="name" class="form-control"
 										required="true" name="fullname" id="fullname"
-										placeholder="Enter fullname" />
+										/>
 								</div>
 
 								<div class="form-group">
@@ -46,7 +46,7 @@
 										required="true" style="width: 100%;" path="role">
 										<c:forEach items="${lstRole}" var="items">
 											<option value="<c:out value = "${items.roleId}"/>"
-												${items.roleId == 2 ? 'selected' : ''}><c:out
+												${items.roleId == 1 ? 'selected' : ''}><c:out
 													value="${items.roleName}" /></option>
 										</c:forEach>
 									</form:select>
@@ -61,7 +61,7 @@
 								<div class="form-group">
 									<label>Phone number:</label>
 									<form:input type="tel" path="phone" required="true"
-										class="form-control" placeholder="Enter your phone number" />
+										class="form-control" />
 								</div>
 
 								<div class="form-group">
@@ -76,10 +76,9 @@
 								<!-- 									<label>Date masks:</label> -->
 
 									<div class="input-group">
-										<label>Date masks:</label>
-										<form:input type="date" id="birthday" name="birthday" path="birthday"
- 											class="form-control" placeholder="'dd/mm/yyyy'"/>  
-										</div>
+										<label>Birthday</label>
+										<form:input type="date" id="birthday" name="birthday" path="birthday" class="form-control" placeholder="'dd/mm/yyyy'"/> 
+									</div>
 
 								<!--                             <div class="form-group"> -->
 								<!--                                 <label>Content</label> -->
@@ -97,13 +96,13 @@
 								<!--                                   </script> -->
 								<!--                             </div> -->
 
-								<div class="form-group">
-									<label>Status</label> <select class="form-control select2"
-										name="status" id="status" required="true" style="width: 100%;">
-										<option selected="selected" value="Actived">Actived</option>
-										<option value="Blocked">Blocked</option>
-									</select>
-								</div>
+<!-- 								<div class="form-group"> -->
+<!-- 									<label>Status</label> <select class="form-control select2" -->
+<!-- 										name="status" id="status" required="true" style="width: 100%;"> -->
+<!-- 										<option selected="selected" value="Actived">Actived</option> -->
+<!-- 										<option value="Blocked">Blocked</option> -->
+<!-- 									</select> -->
+<!-- 								</div> -->
 
 								<!-- 								<div class="form-group"> -->
 								<!-- 									<label>Avatar</label> <input type="file" name="hinhanh" -->
@@ -114,12 +113,9 @@
 
 							<div class="box-footer">
 								<button class="btn btn-primary">Submit</button>
-								<a href="${contextPath}/managementAccount" style="margin-left: 10px" >
-									<button type="button" class="btn btn-danger" id="btncancel">
-									Cancel</button>
-								</a>
-							</div>
 								
+							</div>
+
 							</div>
 						</form:form>
 					</div>
