@@ -106,7 +106,7 @@
 											</button>
 										</div>
 										<div class="modal-body">
-											<form >
+											<form action="${contextPath}/register" method="post">
 												<div class="form-group">
 													<div>
 														<p for="recipient-name" class="col-form-label">First
@@ -137,6 +137,12 @@
 															autocomplete="off" name="phone" />
 														
 													</div>
+													
+													<div>
+														<p for="recipient-mail" class="col-form-label">Email *</p>
+														<input type="text" required autocomplete="off"  name="mail">
+														
+													</div>
 
 													<div>
 														<p for="recipient-name" class="col-form-label">Birthday
@@ -146,28 +152,34 @@
 														
 													</div>
 
-													<div class="form-group">
-														<input class="form-control" type="file" name="hinhanh"
-															required="true" />
-														<p for="recipient-name" class="col-form-label">Avatar
-															*</p>
-													</div>
+<!-- 													<div class="form-group"> -->
+<!-- 														<input class="form-control" type="file" name="hinhanh" -->
+<!-- 															required="true" /> -->
+<!-- 														<p for="recipient-name" class="col-form-label">Avatar -->
+<!-- 															*</p> -->
+<!-- 													</div> -->
 
 													<div>
-														<select class="form-control select2" name="gender"
-															id="gender" required="true" style="width: 100%;">
-															<option selected="selected">Man</option>
-															<option>Women</option>
-														</select>
 														<p for="recipient-name" class="col-form-label">Gender
 														</p>
+														<select class="form-control select2" name="gender"
+															id="gender" required="true" style="width: 100%;">
+															<option selected="selected" value="Man">Man</option>
+															<option value="Women">Women</option>
+														</select>
+														
 													</div>
 
 													<p for="recipient-name" class="col-form-label"
 														style="color: red; text-align: right;">
 														<i>Check you email after you finish, please!</i>
 													</p>
+													<p for="recipient-name" class="col-form-label"
+														style="color: red; text-align: right;">
+														<a href="https://www.youtube.com/watch?v=MuanZsUy5lQ" target="_blank"><i>Guide to student email</i></a>
+													</p>
 												</div>
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary"
 														data-dismiss="modal">Close</button>
@@ -179,43 +191,45 @@
 								</div>
 							</div>
 
-							<div class="modal fade" id="forgotpassModal" tabindex="-1"
-								role="dialog" aria-labelledby="exampleModalLabel"
-								aria-hidden="true">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Enter
-												your student code, please!</h5>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form>
-												<div class="form-group">
-													<p for="recipient-name" class="col-form-label">Student
-														Code</p>
-													<input type="text" class="form-control" id="recipient-name"
-														placeholder="Enter here!">
-													<p for="recipient-name" class="col-form-label"
-														style="color: red; text-align: right;">
-														<i>Check you email after you finish.</i>
-													</p>
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-primary">Send
-												message</button>
-										</div>
-									</div>
-								</div>
-							</div>
+<!-- 							<div class="modal fade" id="forgotpassModal" tabindex="-1" -->
+<!-- 								role="dialog" aria-labelledby="exampleModalLabel" -->
+<!-- 								aria-hidden="true"> -->
+<!-- 								<div class="modal-dialog" role="document"> -->
+<!-- 									<div class="modal-content"> -->
+<!-- 										<div class="modal-header"> -->
+<!-- 											<h5 class="modal-title" id="exampleModalLabel">Enter -->
+<!-- 												your student code, please!</h5> -->
+<!-- 											<button type="button" class="close" data-dismiss="modal" -->
+<!-- 												aria-label="Close"> -->
+<!-- 												<span aria-hidden="true">&times;</span> -->
+<!-- 											</button> -->
+<!-- 										</div> -->
+<!-- 										<div class="modal-body"> -->
+<!-- 											<form> -->
+<!-- 												<div class="form-group"> -->
+<!-- 													<p for="recipient-name" class="col-form-label">Student -->
+<!-- 														Code</p> -->
+<!-- 													<input type="text" class="form-control" id="recipient-name" -->
+<!-- 														placeholder="Enter here!"> -->
+<!-- 													<p for="recipient-name" class="col-form-label" -->
+<!-- 														style="color: red; text-align: right;"> -->
+<!-- 														<i>Check you email after you finish.</i> -->
+<!-- 													</p> -->
+<!-- 												</div> -->
+<!-- 											</form> -->
+<!-- 										</div> -->
+<!-- 										<div class="modal-footer"> -->
+<!-- 											<button type="button" class="btn btn-secondary" -->
+<!-- 												data-dismiss="modal">Close</button> -->
+<!-- 											<button type="button" class="btn btn-primary">Send -->
+<!-- 												message</button> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 						</div>
+						
+						${messageRegis}
 					</div>
 
 				</div>

@@ -40,10 +40,6 @@ public class UserController {
 	@Value("${string.domain.default}")
 	private String domain;
 
-	@Value("${button.save.success}")
-	private String messageSave;
-
-
 	@RequestMapping(value = "/orderCld", method = RequestMethod.GET)
 	public String orderCld(Model model) {
 		return "orderCld";
@@ -63,26 +59,30 @@ public class UserController {
 		return "viewClass";
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(Model model, HttpServletRequest request, @ModelAttribute("userForm") final User userForm)
-			throws ParseException {
+	@RequestMapping(value = "/register")
+	public String register(Model model, HttpServletRequest request) {
 		User user = new User();
-		String fg_pass = request.getParameter("mssv_fg");
-		if (fg_pass != null)
-			user = userRepository.findByUserId(fg_pass);
-		else {
-			user.setUserId(request.getParameter("mssv"));
-			user.setName(request.getParameter("f_name") + " " + request.getParameter("l_name"));
-			user.setPhone(request.getParameter("phone"));
-			user.setEmail(request.getParameter("mssv") + domain);
+		user.setUserId(request.getParameter("mssv"));
+		user.setName(request.getParameter("f_name") + " " + request.getParameter("l_name"));
+		user.setPhone(request.getParameter("phone"));
+		user.setEmail(request.getParameter("mail"));
+		user.setBirthday(request.getParameter("birthday"));
+		user.setGender(request.getParameter("gender"));
+		String messageRegis;
+		try {
+			messageRegis = userserviceimpl.insertUser(user);
+			model.addAttribute("messageRegis", messageRegis);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-//		userserviceimpl.insertOrUpdateUser(user);
+		
 		return "home";
 	}
 
 	@RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
-	public String updateUser(@ModelAttribute("userForm") User userForm, Model model,
-			HttpSession session) throws ParseException {
+	public String updateUser(@ModelAttribute("userForm") User userForm, Model model, HttpSession session)
+			throws ParseException {
 		List<Role> lstrole = (List<Role>) roleRepository.findAll();
 		model.addAttribute("lstRole", lstrole);
 		String messageInfo = userserviceimpl.updateUser(userForm);

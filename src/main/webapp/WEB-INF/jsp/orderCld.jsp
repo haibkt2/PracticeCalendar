@@ -15,7 +15,44 @@
             <div class="content-wrapper">
                 <div class="box-header">
                   <h3 class="box-title">Order</h3>                     
-
+				<div class="box-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>Full name</th>
+          <th>Date Order</th>
+          <th>Class</th>
+          <th>Time Order</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${listUser}" var="listUser">
+          <tr>
+            <td>${UserLogin.getName()}</td>
+            <td>Date Order</td>
+            <td>Class</td>
+            <td>Time Order</td>
+            <td><a href="${contextPath}/updateInfo?userid=${listUser.getUserId()}"><button>Delete</button></a></td>
+          </tr>
+          <tr>
+            <td>${UserLogin.getName()}</td>
+            <td>Date Order</td>
+            <td>Class</td>
+            <td>Time Order</td>
+            <td><a href="${contextPath}/updateInfo?userid=${listUser.getUserId()}"><button>Delete</button></a></td>
+          </tr>
+          <tr>
+            <td>${UserLogin.getName()}</td>
+            <td>Date Order</td>
+            <td>Class</td>
+            <td>Time Order</td>
+            <td><a href="${contextPath}/updateInfo?userid=${listUser.getUserId()}"><button>Delete</button></a></td>
+          </tr>
+          </c:forEach>
+        </tbody>
+      </table>
+      </div>
                 </div>
                 <div class="content">
                    <!--  @if ($errors->any())

@@ -43,6 +43,8 @@ public class UserServiceImpl {
 			user.setCreateDate(coService.currentDate());
 			if (user.getEmail() == null)
 				user.setEmail("mailnull@gmail.com");
+			if (user.getStatus() == null)
+				user.setStatus("Activate");
 			user.setPassword(coService.setPassword(8));
 			getSendMail = emailService.SendMail(user);
 			emailService.sendMail(getSendMail.get("mailform"), getSendMail.get("toMail"), getSendMail.get("subject"),
@@ -52,7 +54,7 @@ public class UserServiceImpl {
 			messInsert = "Create New User Sussecs";
 		}
 		if (findUser != null)
-			messInsert = "Create New User Fail";
+			messInsert = "Create New User Fail! UserId already exist.";
 		return messInsert;
 
 	}
