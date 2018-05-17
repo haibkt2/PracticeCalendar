@@ -70,9 +70,9 @@
 	href="${contextPath}/resources/AdminUI/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
+<script src="${contextPath}/resources/js/index.js"></script>
 </head>
-<body>
+<body onload= "currentYm(); currentYmd();">
 
 	<header class="main-header">
 		<!-- Logo -->
@@ -375,8 +375,17 @@
 					</span>
 				</a>
 					<ul class="treeview-menu">
-						<li><a href="${contextPath}/viewClass"><i
+						<li><a href="${contextPath}/viewRoom"><i
 								class="fa fa-circle-o"></i>View Class</a></li>
+						<li>
+							<form id="getDateForm" method="GET"
+								action="${contextPath}/viewRoom">
+								<input type="hidden" name="d" id="date-picker" /> <input
+									type="submit"
+									value="btn.dailytimesheet'"
+									class="btn btn-primary" style="margin-left: 20px" />
+							</form>
+						</li>
 						<li><a href="${contextPath}/profile"><i
 								class="fa fa-circle-o"></i>Profile</a></li>
 						<li><a href="${contextPath}/orderCld"><i

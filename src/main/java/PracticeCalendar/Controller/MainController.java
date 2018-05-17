@@ -2,6 +2,8 @@
 package PracticeCalendar.Controller;
 
 
+import java.util.Calendar;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import PracticeCalendar.Repository.RoleRepository;
 import PracticeCalendar.Repository.UserRepository;
@@ -60,4 +63,10 @@ public class MainController {
 		}
 		return "home";
 	}
+	
+	@RequestMapping(value = "/getServerTime", method = RequestMethod.GET)
+    @ResponseBody
+    public String getServerTime() {
+    	return String.valueOf(Calendar.getInstance().getTimeInMillis());
+    }
 }

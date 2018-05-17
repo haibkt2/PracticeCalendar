@@ -29,8 +29,34 @@ public class Room implements Serializable {
     @JoinColumn(name="ROOM_TYPE_ID")
     private RoomType roomType;
     
+    private String orderMin;
+	private String orderMax;
+	
+	@ManyToOne
+    @JoinColumn(name="ROOM_STATUS_ID")
+    private RoomStatus roomStatus;
+	
+    public String getOrderMin() {
+		return orderMin;
+	}
 
-    public Room() {
+
+	public void setOrderMin(String orderMin) {
+		this.orderMin = orderMin;
+	}
+
+
+	public String getOrderMax() {
+		return orderMax;
+	}
+
+
+	public void setOrderMax(String orderMax) {
+		this.orderMax = orderMax;
+	}
+
+
+	public Room() {
     }
 
 
@@ -73,6 +99,26 @@ public class Room implements Serializable {
 
 	public void setRoom(RoomType roomType) {
 		this.roomType = roomType;
+	}
+
+
+	public RoomType getRoomType() {
+		return roomType;
+	}
+
+
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
+	}
+
+
+	public RoomStatus getRoomStatus() {
+		return roomStatus;
+	}
+
+
+	public void setRoomStatus(RoomStatus roomStatus) {
+		this.roomStatus = roomStatus;
 	}
 
 

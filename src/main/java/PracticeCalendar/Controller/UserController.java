@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import PracticeCalendar.Model.Role;
+import PracticeCalendar.Model.Room;
 import PracticeCalendar.Model.User;
 import PracticeCalendar.Repository.RoleRepository;
+import PracticeCalendar.Repository.RoomRepository;
 import PracticeCalendar.Repository.UserRepository;
+import PracticeCalendar.Service.RoomServiceImpl;
 import PracticeCalendar.Service.UserServiceImpl;
 
 @Controller
@@ -29,6 +34,9 @@ public class UserController {
 	UserRepository userRepository;
 
 	@Autowired
+	RoomRepository roomRepository;
+
+	@Autowired
 	RoleRepository roleRepository;
 
 	@Autowired
@@ -36,6 +44,9 @@ public class UserController {
 
 	@Autowired
 	UserServiceImpl userserviceimpl;
+
+	@Autowired
+	RoomServiceImpl roomserviceimpl;
 
 	@Value("${string.domain.default}")
 	private String domain;
@@ -76,7 +87,7 @@ public class UserController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return "home";
 	}
 
@@ -111,6 +122,38 @@ public class UserController {
 		}
 
 		return "updateUser";
+	}
+
+	@RequestMapping(value = "/orderCalendar", method = RequestMethod.POST)
+	public String orderCalendar(@ModelAttribute("roomForm") Room roomForm, Model model, HttpSession session)
+			throws ParseException {
+		List<Room> lstroom = (List<Room>) roomRepository.findAll();
+		model.addAttribute("lstroom", lstroom);
+		String messageInfo = roomserviceimpl.orderRoom(roomForm);
+		return "redirect:/orderCalendar" + "?roomName=" + roomForm.getRoomName() + "&messageInfo=" + messageInfo;
+	}
+
+	@RequestMapping(value = "/orderCalendar", method = RequestMethod.GET)
+	public String viewRoom(Model model, HttpServletRequest request, @ModelAttribute("roomForm") final User userForm) {
+		// get parameter date
+		String roomName = request.getParameter("roomName");
+		Room room = new Room();
+		room = roomserviceimpl.searchRoomName(roomName);
+		String messageInfo = request.getParameter("messageInfo");
+		if (messageInfo != null) {
+			model.addAttribute("messUpdate", messageInfo);
+			model.addAttribute("messUpdate", roomName);
+		}
+		model.addAttribute("roomForm", room);
+		return "orderCalendar";
+	}
+	
+	@RequestMapping(value = "/viewRoom", method = RequestMethod.GET)
+	public String listRoom(@RequestParam("d") String date,Model model, String error, String logout, HttpSession session,
+			HttpServletRequest req, HttpServletResponse response) {
+		List<Room> listRoom = (List<Room>) roomRepository.findAll();
+		model.addAttribute("listRoom", listRoom);
+		return "viewRoom";
 	}
 
 }
