@@ -70,9 +70,9 @@
 	href="${contextPath}/resources/AdminUI/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-<script src="${contextPath}/resources/js/index.js"></script>
+
 </head>
-<body onload= "currentYm(); currentYmd();">
+<body >
 
 	<header class="main-header">
 		<!-- Logo -->
