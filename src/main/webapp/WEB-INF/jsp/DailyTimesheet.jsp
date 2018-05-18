@@ -1,55 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="ISO-8859-1"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>="page.title.dailytimesheet" /></title>
-<link href="${contextPath}/resources/css/multifreezer.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-  rel="stylesheet">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Practice</title>
 <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"
   rel="stylesheet">
-<script src="${contextPath}/resources/js/jquery-1.12.1.min.js"></script>
-<script src="${contextPath}/resources/js/jquery-1.10.2.js"></script>
-<script src="${contextPath}/resources/js/pagination.js"></script>
-<script src="${contextPath}/resources/js/materialize.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-<script src="${contextPath}/resources/js/multifreezer.js"></script>
 <script src="${contextPath}/resources/js/jquery-ui.js"></script>
-</head>
+<script src="${contextPath}/resources/js/jquery-1.12.1.min.js"></script>
 <script>
-  $(document)
-      .ready(
-          function() {
-            $("#date-picker")
-                .datepicker(
-                    {
-                      dateFormat : 'yy/mm/dd',
-                      onSelect : function(dateText, inst) {
-                        var queryParameters = {}, queryString = location.search
-                            .substring(1), re = /([^&=]+)=([^&]*)/g, m;
-                        while (m = re.exec(queryString)) {
-                          queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-                        }
-                        queryParameters['d'] = dateText;
-                        location.search = $.param(queryParameters);
-                      },
-                      changeMonth : true,
-                      changeYear : true,
-                      yearRange : "1950:2050"
-                    });
-            $('#tableBody').pageMe({
-              pagerSelector : '#page_number',
-              showPrevNext : true,
-              perPage : 20
-            });
-          });
+	$(document)
+			.ready(
+					function() {
+						$("#date-picker")
+								.datepicker(
+										{
+											dateFormat : 'yy/mm/dd',
+											onSelect : function(dateText, inst) {
+												var queryParameters = {}, queryString = location.search
+														.substring(1), re = /([^&=]+)=([^&]*)/g, m;
+												while (m = re.exec(queryString)) {
+													queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+												}
+												queryParameters['d'] = dateText;
+												location.search = $
+														.param(queryParameters);
+											},
+											changeMonth : true,
+											changeYear : true,
+											yearRange : "1950:2050"
+										});
+						$('#tableBody').pageMe({
+							pagerSelector : '#page_number',
+							showPrevNext : true,
+							perPage : 20
+						});
+					});
 </script>
-<jsp:include page="testHead.jsp"></jsp:include>
-<body class="hold-transition skin-blue sidebar-mini">
+<%-- <jsp:include page="header.jsp"></jsp:include> --%>
+</head>
+<body class="hold-transition skin-blue sidebar-mini"
+	onload="currentYmd();">
 	<div class="wrapper">
 		<div class="content-wrapper">
 			<div class="box">

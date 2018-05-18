@@ -11,11 +11,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<script src="${contextPath}/resources/js/index.js"></script>
+<script src="${contextPath}/resources/js/scripts.js"></script>
 <title>Create New User</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini"
-	onload="startTime()">
+	onload="startTime();">
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
