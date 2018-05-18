@@ -1,6 +1,7 @@
 package PracticeCalendar.Model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 @Entity
 @NamedQuery(name="Room.findAll", query="SELECT r FROM Room r")
@@ -29,22 +31,15 @@ public class Room implements Serializable {
     @JoinColumn(name="ROOM_TYPE_ID")
     private RoomType roomType;
     
-    private String orderMin;
 	private String orderMax;
+	
 	
 	@ManyToOne
     @JoinColumn(name="ROOM_STATUS_ID")
     private RoomStatus roomStatus;
 	
-    public String getOrderMin() {
-		return orderMin;
-	}
-
-
-	public void setOrderMin(String orderMin) {
-		this.orderMin = orderMin;
-	}
-
+	 @OneToMany(mappedBy="room")
+	    private List<OrderCalendar> orderCalendar;
 
 	public String getOrderMax() {
 		return orderMax;
@@ -119,6 +114,16 @@ public class Room implements Serializable {
 
 	public void setRoomStatus(RoomStatus roomStatus) {
 		this.roomStatus = roomStatus;
+	}
+
+
+	public List<OrderCalendar> getOrderCalendar() {
+		return orderCalendar;
+	}
+
+
+	public void setOrderCalendar(List<OrderCalendar> orderCalendar) {
+		this.orderCalendar = orderCalendar;
 	}
 
 

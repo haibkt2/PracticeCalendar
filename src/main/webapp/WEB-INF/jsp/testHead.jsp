@@ -73,7 +73,7 @@
 <script
 		src="${contextPath}/resources/js/scripts.js"></script>
 </head>
-<body onload="currentYmd();startTime();">
+<body>
 	<header class="main-header">
 		<!-- Logo -->
 		<a href="#" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->

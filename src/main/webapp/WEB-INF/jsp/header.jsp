@@ -375,22 +375,24 @@
 					</span>
 				</a>
 					<ul class="treeview-menu">
-						<li><a href="${contextPath}/viewRoom"><i
-								class="fa fa-circle-o"></i>View Class</a></li>
-						<li>
-							<form id="getDateForm" method="GET"
-								action="${contextPath}/viewRoom">
-								<input type="hidden" name="d" id="date-picker" /> <input
-									type="submit"
-									value="btn.dailytimesheet'"
-									class="btn btn-primary" style="margin-left: 20px" />
-							</form>
-						</li>
+						
 						<li><a href="${contextPath}/profile"><i
 								class="fa fa-circle-o"></i>Profile</a></li>
 						<li><a href="${contextPath}/orderCld"><i
 								class="fa fa-circle-o"></i>Order Calendar </a></li>
+						<li>
+							
+						</li>
 					</ul></li>
+					<li>
+					<form method="GET"
+								action="${contextPath}/viewRoom">
+								<input type="hidden" name="d" id="date-picker" /><input
+									type="submit"
+									value="View Room"
+									class="btn btn-primary" style="margin-left: 20px" />
+							</form>
+					</li>
 			</ul>
 		</section>
 		<!-- /.sidebar -->

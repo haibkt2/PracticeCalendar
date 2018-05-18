@@ -35,6 +35,8 @@ public class OrderCalendar implements Serializable {
     
     private String flg;
     
+    private String orderMin;
+    
     public User getUser() {
 		return user;
 	}
@@ -103,5 +105,13 @@ public class OrderCalendar implements Serializable {
 		this.flg = flg;
 	}
 
+	public String getOrderMin() {
+		return orderMin;
+	}
+
+	public void setOrderMin(String orderMin) {
+		this.orderMin = orderMin;
+	}
 	
+
 }

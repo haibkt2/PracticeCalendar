@@ -7,15 +7,16 @@
 <%@ page isELIgnored="false"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<jsp:include page="header.jsp"></jsp:include>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="${contextPath}/resources/js/scripts.js"></script>
 <title>Create New User</title>
 </head>
+<jsp:include page="header.jsp"></jsp:include>
 <body class="hold-transition skin-blue sidebar-mini"
 	onload="startTime();">
+	
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">

@@ -2,6 +2,8 @@
 package PracticeCalendar.Controller;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,7 @@ import PracticeCalendar.Model.User;
 import PracticeCalendar.Repository.RoleRepository;
 import PracticeCalendar.Repository.RoomRepository;
 import PracticeCalendar.Repository.UserRepository;
+import PracticeCalendar.Service.CommonService;
 import PracticeCalendar.Service.RoomServiceImpl;
 import PracticeCalendar.Service.UserServiceImpl;
 
@@ -147,11 +150,20 @@ public class UserController {
 		model.addAttribute("roomForm", room);
 		return "orderCalendar";
 	}
-	
+
 	@RequestMapping(value = "/viewRoom", method = RequestMethod.GET)
-	public String listRoom(@RequestParam("d") String date,Model model, String error, String logout, HttpSession session,
-			HttpServletRequest req, HttpServletResponse response) {
-		List<Room> listRoom = (List<Room>) roomRepository.findAll();
+	public String listRoom(@RequestParam("d") String date, Model model, String error, String logout,
+			HttpSession session, HttpServletRequest req, HttpServletResponse response) throws ParseException {
+		if(date == null || date.isEmpty()) {
+			CommonService coService = new CommonService();
+			date  = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+		}
+		// Get date, month, year value
+//		String yearVal = date.substring(0, 4);
+//		String monthVal = date.substring(5, 7);
+//		String dateVal = date.substring(8);
+		
+		List<Room> listRoom = roomRepository.findByOrderTime(date);
 		model.addAttribute("listRoom", listRoom);
 		return "viewRoom";
 	}

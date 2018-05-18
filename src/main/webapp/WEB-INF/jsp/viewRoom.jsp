@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>="page.title.dailytimesheet" /></title>
+<title>View Room</title>
 <link href="${contextPath}/resources/css/multifreezer.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
   rel="stylesheet">
@@ -80,12 +80,12 @@
 								<tr>
 									<td>${listRoom.getRoomName()}</td>
 									<td>${listRoom.getRoomType().getRoomTypeValue()}</td>
-									<td>${listRoom.getOrderMin()}/${listRoom.getOrderMax()}</td>
+									<td>${listRoom.getOrderCalendar().getOrderMin()}/${listRoom.getOrderMax()}</td>
 									<td>${listRoom.getRoomStatus().getRoomStatusValue()}</td>
 									<td><a
 										href="${contextPath}/orderCalendar?roomName=${listRoom.getRoomName()}">
 											<button
-												${listRoom.getOrderMax() < listRoom.getOrderMin()
+												${listRoom.getOrderMax() < listRoom.getOrderCalendar().getOrderMin()
             ||
             (listRoom.getRoomType().getRoomTypeValue() eq 'Private' && UserLogin.getRole().getRoleName() ne 'ROLE_ADMIN')
             ||
@@ -102,34 +102,34 @@
 					</div>
 				</div>
 				<br> <br>
-				<div class="box-body">
-					<table id="example1" class="table table-bordered table-striped">
-						<thead>
-							<tr>
-								<th>Class Name</th>
-								<th>Room Type</th>
-								<th>Quantity Order</th>
-								<th>Status Class</th>
-								<th>Order</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${listRoom}" var="listRoom">
-								<tr>
-									<td>${listRoom.getRoomName()}</td>
-									<td>${listRoom.getRoomType().getRoomTypeValue()}</td>
-									<td>${listRoom.getOrderMin()}/${listRoom.getOrderMax()}</td>
-									<td>${listRoom.getRoomStatus().getRoomStatusValue()}</td>
-									<td><a
-										href="${contextPath}/viewRoom?roomName=${listRoom.getRoomName()}"><button>Delete</button></a>
-										<a
-										href="${contextPath}/viewRoom?roomName=${listRoom.getRoomName()}"><button>Off</button></a>
-									</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
+<!-- 				<div class="box-body"> -->
+<!-- 					<table id="example1" class="table table-bordered table-striped"> -->
+<!-- 						<thead> -->
+<!-- 							<tr> -->
+<!-- 								<th>Class Name</th> -->
+<!-- 								<th>Room Type</th> -->
+<!-- 								<th>Quantity Order</th> -->
+<!-- 								<th>Status Class</th> -->
+<!-- 								<th>Order</th> -->
+<!-- 							</tr> -->
+<!-- 						</thead> -->
+<!-- 						<tbody> -->
+<%-- 							<c:forEach items="${listRoom}" var="listRoom"> --%>
+<!-- 								<tr> -->
+<%-- 									<td>${listRoom.getRoomName()}</td> --%>
+<%-- 									<td>${listRoom.getRoomType().getRoomTypeValue()}</td> --%>
+<%-- 									<td>${listRoom.getOrderMin()}/${listRoom.getOrderMax()}</td> --%>
+<%-- 									<td>${listRoom.getRoomStatus().getRoomStatusValue()}</td> --%>
+<!-- 									<td><a -->
+<%-- 										href="${contextPath}/viewRoom?roomName=${listRoom.getRoomName()}"><button>Delete</button></a> --%>
+<!-- 										<a -->
+<%-- 										href="${contextPath}/viewRoom?roomName=${listRoom.getRoomName()}"><button>Off</button></a> --%>
+<!-- 									</td> -->
+<!-- 								</tr> -->
+<%-- 							</c:forEach> --%>
+<!-- 						</tbody> -->
+<!-- 					</table> -->
+<!-- 				</div> -->
 				<!-- /.box-body -->
 			</div>
 		</div>

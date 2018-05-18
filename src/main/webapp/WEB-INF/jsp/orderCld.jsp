@@ -86,7 +86,7 @@
                             <div class="form-group">
                                 <label>Time</label>
                                 <select class="form-control select2" name="role" id="role" required="true" style="width: 100%;">
-                                    <option selected="false" value="">The morning</option>
+                                    <option selected="false" value="">The Morning</option>
                                     <option selected="false" value="">The Lunch</option>
                                     <option selected="false" value="">The Afternoon</option>
                                     <option selected="false" value="">The Evening</option>
