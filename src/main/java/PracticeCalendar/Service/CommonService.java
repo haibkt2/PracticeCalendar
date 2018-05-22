@@ -2,7 +2,9 @@ package PracticeCalendar.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 public class CommonService {
@@ -24,5 +26,20 @@ public class CommonService {
 			password.append(ch);
 		}
 		return password.toString();
+	}
+	
+	public static String getDayOfWeekName(String year, String month, String date, Locale locale) {
+		Calendar cal = initDate(year, month, date);
+		return cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, locale);
+	}
+	
+	public static Calendar initDate(String year, String month, String date) {
+		int _year = Integer.parseInt(year);
+		int _month = Integer.parseInt(month);
+		int _date = Integer.parseInt(date);
+		Calendar cal = Calendar.getInstance();
+    	cal.setFirstDayOfWeek(Calendar.MONDAY);
+    	cal.set(_year, _month - 1, _date);
+    	return cal;
 	}
 }

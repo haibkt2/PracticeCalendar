@@ -1,8 +1,12 @@
 
 package PracticeCalendar.Service;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,37 +37,31 @@ public class RoomServiceImpl {
 	EmailService emailService;
 	private BCryptPasswordEncoder bcrypass = new BCryptPasswordEncoder();
 
-	public String orderRoom(Room room) throws ParseException {
-		String messInsert = "";
-//		Map<String, String> getSendMail = new HashMap<String, String>();
-//		CommonService coService = new CommonService();
-//		User findUser = userRepository.findByUserId(user.getUserId());
-//		if (findUser == null) {
-//			if (user.getRole() == null)
-//				user.setRole(new Role(1, role));
-//			user.setUserName(user.getUserId());
-//			user.setCreateDate(coService.currentDate());
-//			if (user.getEmail() == null)
-//				user.setEmail("mailnull@gmail.com");
-//			if (user.getStatus() == null)
-//				user.setStatus("Activate");
-//			user.setPassword(coService.setPassword(8));
-//			getSendMail = emailService.SendMail(user);
-//			emailService.sendMail(getSendMail.get("mailform"), getSendMail.get("toMail"), getSendMail.get("subject"),
-//					getSendMail.get("body"));
-//			user.setPassword(bcrypass.encode(user.getPassword()));
-//			userRepository.save(user);
-//			messInsert = "Create New User Sussecs";
-//		}
-//		if (findUser != null)
-//			messInsert = "Create New User Fail! UserId already exist.";
-		return messInsert;
+	public List<Room> listRoom(List<Room> listRoom) throws ParseException {
+		CommonService cm = new CommonService();
+		Date dateCr = cm.currentDate();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+
+		//
+		// for(int i = 0 ; i<7 ;i++) {
+		// Date dateSet = new Date(dateCr.getTime() + (1000 * 60 * 60 * 24*i));
+		// Date curenddate = dateFormat.parse(dateFormat.format(dm)) ;
+		// }
+		for (Room room : listRoom) {
+			for (int i = 0; i < 7; i++) {
+				Date dateSet = new Date(dateCr.getTime() + (1000 * 60 * 60 * 24 * i));
+				Date curenddate = dateFormat.parse(dateFormat.format(dateSet));
+				room.getOrderCalendar().get(i).setDateOrder(curenddate);
+			}
+		}
+		System.out.println(1);
+		return listRoom;
 
 	}
-	
+
 	public Room searchRoomName(String roomName) {
-        Room room = roomRepository.findByRoomName(roomName);
-        return room;
-    }
+		Room room = roomRepository.findByRoomName(roomName);
+		return room;
+	}
 
 }

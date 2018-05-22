@@ -138,14 +138,14 @@ public class UserController {
 		return "updateUser";
 	}
 
-	@RequestMapping(value = "/orderCalendar", method = RequestMethod.POST)
-	public String orderCalendar(@ModelAttribute("roomForm") Room roomForm, Model model, HttpSession session)
-			throws ParseException {
-		List<Room> lstroom = (List<Room>) roomRepository.findAll();
-		model.addAttribute("lstroom", lstroom);
-		String messageInfo = roomserviceimpl.orderRoom(roomForm);
-		return "redirect:/orderCalendar" + "?roomName=" + roomForm.getRoomName() + "&messageInfo=" + messageInfo;
-	}
+//	@RequestMapping(value = "/orderCalendar", method = RequestMethod.POST)
+//	public String orderCalendar(@ModelAttribute("roomForm") Room roomForm, Model model, HttpSession session)
+//			throws ParseException {
+//		List<Room> lstroom = (List<Room>) roomRepository.findAll();
+//		model.addAttribute("lstroom", lstroom);
+//		String messageInfo = roomserviceimpl.orderRoom(roomForm);
+//		return "redirect:/orderCalendar" + "?roomName=" + roomForm.getRoomName() + "&messageInfo=" + messageInfo;
+//	}
 
 	@RequestMapping(value = "/orderCalendar", method = RequestMethod.GET)
 	public String viewRoom(Model model, HttpServletRequest request, @ModelAttribute("roomForm") final User userForm) {
@@ -181,6 +181,7 @@ public class UserController {
 			roomType = "public";
 		}
 		List<Room> listRoom = (List<Room>) roomRepository.findAllRoom(roomType);
+		
 		model.addAttribute("listRoom", listRoom);
 		return "viewRoom";
 	}

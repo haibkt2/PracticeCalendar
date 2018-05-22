@@ -1,8 +1,9 @@
 
 package PracticeCalendar.Controller;
 
-
+import java.text.ParseException;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import PracticeCalendar.Model.Room;
+import PracticeCalendar.Model.User;
 import PracticeCalendar.Repository.RoleRepository;
+import PracticeCalendar.Repository.RoomRepository;
 import PracticeCalendar.Repository.UserRepository;
+import PracticeCalendar.Service.RoomServiceImpl;
 import PracticeCalendar.Service.UserServiceImpl;
 
 @Controller
@@ -45,6 +50,9 @@ public class MainController {
 	@Value("${button.save.success}")
 	private String messageSave;
 
+	@Autowired
+	RoomRepository roomRepository;
+
 	@GetMapping("/403")
 	public String accessDenied() {
 		return "404";
@@ -54,19 +62,36 @@ public class MainController {
 	public String login(Model model, String error, String logout, String view, HttpServletRequest req,
 			HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		logout = req.getParameter("logout");
-		if (logout != null) {
-			if (auth != null) {
-				new SecurityContextLogoutHandler().logout(req, response, auth);
+		String userName = auth.getName();
+		User user = userRepository.findByUserName(userName);
+		if (user != null) {
+			String roomType = "public";
+			if (user.getRole().getRoleName().equals("ROLE_TEACHER"))
+				roomType = "protected";
+			else if (user.getRole().getRoleName().equals("ROLE_STUDENT")) {
+				roomType = "public";
 			}
-			return "home";
+			RoomServiceImpl rSiml = new RoomServiceImpl();
+			List<Room> listRoom;
+			listRoom = (List<Room>) roomRepository.findAllRoom(roomType);
+			model.addAttribute("listRoom", listRoom);
+			return "profile";
+
 		}
 		return "home";
 	}
-	
+
+	@RequestMapping(value = { "/logout" }, method = RequestMethod.GET)
+	public String logout(Model model, String error, String logout, String view, HttpServletRequest req,
+			HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		new SecurityContextLogoutHandler().logout(req, response, auth);
+		return "home";
+	}
+
 	@RequestMapping(value = "/getServerTime", method = RequestMethod.GET)
-    @ResponseBody
-    public String getServerTime() {
-    	return String.valueOf(Calendar.getInstance().getTimeInMillis());
-    }
+	@ResponseBody
+	public String getServerTime() {
+		return String.valueOf(Calendar.getInstance().getTimeInMillis());
+	}
 }
