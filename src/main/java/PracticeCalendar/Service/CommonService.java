@@ -1,11 +1,16 @@
 package PracticeCalendar.Service;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 public class CommonService {
 	public Date currentDate() throws ParseException {
@@ -27,19 +32,36 @@ public class CommonService {
 		}
 		return password.toString();
 	}
-	
-	public static String getDayOfWeekName(String year, String month, String date, Locale locale) {
+
+	public String getDayOfWeekName(String year, String month, String date, Locale locale) {
 		Calendar cal = initDate(year, month, date);
 		return cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, locale);
 	}
-	
-	public static Calendar initDate(String year, String month, String date) {
+
+	public Calendar initDate(String year, String month, String date) {
 		int _year = Integer.parseInt(year);
 		int _month = Integer.parseInt(month);
 		int _date = Integer.parseInt(date);
 		Calendar cal = Calendar.getInstance();
-    	cal.setFirstDayOfWeek(Calendar.MONDAY);
-    	cal.set(_year, _month - 1, _date);
-    	return cal;
+		cal.setFirstDayOfWeek(Calendar.MONDAY);
+		cal.set(_year, _month - 1, _date);
+		return cal;
+	}
+
+	public List<String> setDay() {
+		List<String> setDay = new ArrayList<>();
+		CommonService cmsv = new CommonService();
+		Date crdate = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		for (int i = 0; i < 7; i++) {
+			Date d_set = new Date(crdate.getTime() + (1000 * 60 * 60 * 24 * i));
+			String crday[] = simpleDateFormat.format(d_set).split("/");
+			String Yeart = crday[0];
+			String Month = crday[1];
+			String Day = crday[2];
+			String dayOfW = cmsv.getDayOfWeekName(Yeart, Month, Day, new Locale("en"));
+			setDay.add(dayOfW+" "+ Day+"-"+Month);
+		}
+		return setDay;
 	}
 }

@@ -26,6 +26,7 @@ import PracticeCalendar.Model.User;
 import PracticeCalendar.Repository.RoleRepository;
 import PracticeCalendar.Repository.RoomRepository;
 import PracticeCalendar.Repository.UserRepository;
+import PracticeCalendar.Service.CommonService;
 import PracticeCalendar.Service.RoomServiceImpl;
 import PracticeCalendar.Service.UserServiceImpl;
 
@@ -71,10 +72,12 @@ public class MainController {
 			else if (user.getRole().getRoleName().equals("ROLE_STUDENT")) {
 				roomType = "public";
 			}
-			RoomServiceImpl rSiml = new RoomServiceImpl();
+			CommonService cmsv = new CommonService();
+			List<String> setDay = cmsv.setDay();
 			List<Room> listRoom;
 			listRoom = (List<Room>) roomRepository.findAllRoom(roomType);
 			model.addAttribute("listRoom", listRoom);
+			model.addAttribute("setDay",setDay);
 			return "profile";
 
 		}

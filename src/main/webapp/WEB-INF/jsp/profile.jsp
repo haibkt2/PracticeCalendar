@@ -1,4 +1,4 @@
-
+<%@ page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -396,14 +396,15 @@
 													<thead style="background-color: #2fb7d8">
 														<tr>
 															<th style="color: black;">Room</th>
-															<th style="color: black; background-color: #00c0ef52">Sun
-																20/05</th>
-															<th style="color: black;">Mon 21/05</th>
-															<th style="color: black;">Tue 22/05</th>
-															<th style="color: black;">Wed 23/05</th>
-															<th style="color: black;">Thu 24/05</th>
-															<th style="color: black;">Fri 25/05</th>
-															<th style="color: black;">Sat 26/05</th>
+															<%
+															List<String> setDay = (List)request.getAttribute("setDay");
+															for(int i = 0;i<setDay.size();i++){
+															%>
+															<th style="color: black;">
+															<%=setDay.get(i)%>
+															</th>
+															
+															<%} %>
 														</tr>
 													</thead>
 													<tbody>
