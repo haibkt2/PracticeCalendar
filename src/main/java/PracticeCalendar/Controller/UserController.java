@@ -1,8 +1,11 @@
 
 package PracticeCalendar.Controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -33,6 +36,8 @@ import PracticeCalendar.Service.UserServiceImpl;
 @Controller
 public class UserController {
 
+	private static final String String = null;
+
 	@Autowired
 	UserRepository userRepository;
 
@@ -62,7 +67,6 @@ public class UserController {
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String profile(Model model) {
 		// model.addAttribute("userForm", new User());
-
 		return "profile";
 	}
 
@@ -95,10 +99,17 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
-	public String updateUser(@ModelAttribute("userForm") User userForm, Model model, HttpSession session)
-			throws ParseException {
+	public String updateUser(@ModelAttribute("userForm") User userForm, Model model, HttpSession session,
+			HttpServletRequest request) throws ParseException {
 		List<Role> lstrole = (List<Role>) roleRepository.findAll();
 		model.addAttribute("lstRole", lstrole);
+		String profile = (String) request.getParameter("update");
+		if (profile.equals("profile")) {
+			User  userlg =(User) session.getAttribute("UserLogin");
+			userForm.setPassword(userlg.getPassword());
+			userForm.setUserId(userlg.getUserId());
+			userForm.setUserName(userlg.getUserName());
+		}
 		String messageInfo = userserviceimpl.updateUser(userForm);
 		return "redirect:/updateInfo" + "?userid=" + userForm.getUserId() + "&messageInfo=" + messageInfo;
 	}
@@ -154,18 +165,23 @@ public class UserController {
 	@RequestMapping(value = "/viewRoom", method = RequestMethod.GET)
 	public String listRoom(@RequestParam("d") String date, Model model, String error, String logout,
 			HttpSession session, HttpServletRequest req, HttpServletResponse response) throws ParseException {
-		if(date == null || date.isEmpty()) {
+		if (date == null || date.isEmpty()) {
 			CommonService coService = new CommonService();
-			date  = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+			date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 		}
 		// Get date, month, year value
-//		String yearVal = date.substring(0, 4);
-//		String monthVal = date.substring(5, 7);
-//		String dateVal = date.substring(8);
-		
-		List<Room> listRoom = roomRepository.findByOrderTime(date);
+		// String yearVal = date.substring(0, 4);
+		// String monthVal = date.substring(5, 7);
+		// String dateVal = date.substring(8);
+		String roomType = "public";
+		User user = (User) session.getAttribute("UserLogin");
+		if (user.getRole().getRoleName().equals("ROLE_TEACHER"))
+			roomType = "protected";
+		else if (user.getRole().getRoleName().equals("ROLE_STUDENT")) {
+			roomType = "public";
+		}
+		List<Room> listRoom = (List<Room>) roomRepository.findAllRoom(roomType);
 		model.addAttribute("listRoom", listRoom);
 		return "viewRoom";
 	}
-
 }

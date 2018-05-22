@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import PracticeCalendar.Model.Request;
 import PracticeCalendar.Model.Role;
 import PracticeCalendar.Model.User;
+import PracticeCalendar.Repository.RequestRepository;
 import PracticeCalendar.Repository.RoleRepository;
 import PracticeCalendar.Repository.UserRepository;
 import PracticeCalendar.Service.UserServiceImpl;
@@ -31,6 +33,9 @@ public class AdminController {
 
 	@Autowired
 	RoleRepository roleRepository;
+	
+	@Autowired
+	RequestRepository requestRepository;
 
 	@Autowired
 	MessageSource msgSrc;
@@ -44,6 +49,8 @@ public class AdminController {
 	
 	@RequestMapping(value = "/userStatistics", method = RequestMethod.GET)
 	public String userStatistics(Model model) {
+		List<Request> listReq = (List<Request>) requestRepository.findAll();
+		model.addAttribute("listReq", listReq);
 		return "userStatistics";
 	}
 	

@@ -36,6 +36,8 @@ public class CheckAutheticationSuccessHandler implements AuthenticationSuccessHa
 			redirectStrategy.sendRedirect(request, response, "/userStatistics");
 		else if (loginUser.getRole().getRoleName().equals("ROLE_STUDENT"))
 			redirectStrategy.sendRedirect(request, response, "/profile");
+		else if (loginUser.getRole().getRoleName().equals("ROLE_TEACHER"))
+			redirectStrategy.sendRedirect(request, response, "/profile");
 		else redirectStrategy.sendRedirect(request, response, "/home");
 	}
 }

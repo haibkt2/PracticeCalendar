@@ -6,7 +6,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page isELIgnored="false"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="header.jsp"></jsp:include>
 <html>
 <head>

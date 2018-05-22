@@ -27,23 +27,39 @@
 			<input type="hidden" id="serverTime" />
 		</section>
 
-		<!-- Main content -->
-		<!--     <!-- <section class="content">
-<!--       <div class="error-page"> -->
-		<!--         <h2 class="headline text-yellow"> 404</h2> -->
-
-		<!--         <div class="error-content"> -->
-		<!--           <h3><i class="fa fa-warning text-yellow"></i> Error Page not found.</h3> -->
-
-		<!--           <p style="font-size: 30px;color: blue;"> -->
-		<!--             We could not find the page you were looking for. -->
-		<!--           </p> -->
-		<!--         </div> -->
-		<!--         /.error-content -->
-		<!--       </div> -->
-		<!--       /.error-page -->
-		<!--     </section> -->
-		<!-- /.content -->
+<div class="box-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>User Id</th>
+          <th>Full name</th>
+          <th>Room</th>
+          <th>Date Request</th>
+          <th>Date Order</th>
+          <th>Time Order</th>
+          <th>Status</th>
+          <th>Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${listReq}" var="listReq">
+          <tr>
+             
+            <td>${listReq.getUser().getUserId()}</td>
+            <td>${listReq.getUser().getName()}</td>
+            <td>${listReq.getRoom().getRoomName()}</td>
+            <td>${listReq.getCreatDate()}</td>
+            <td>${listReq.getDateReq()}</td>
+            <td>${listReq.getTimeOrder()}</td>
+            <td>${listReq.getStatus()}</td>
+            <td>Button phản hồi</td>
+<%--             <td><a href="${contextPath}/updateInfo?userid=${listUser.getUserId()}"><button>Update</button></a></td> --%>
+            
+          </tr>
+          </c:forEach>
+        </tbody>
+      </table>
+      </div>
 	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>

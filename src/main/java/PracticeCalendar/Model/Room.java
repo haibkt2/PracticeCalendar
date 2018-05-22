@@ -39,13 +39,11 @@ public class Room implements Serializable {
     private RoomStatus roomStatus;
 	
 	 @OneToMany(mappedBy="room")
-	    private List<OrderCalendar> orderCalendar;
+	private List<OrderCalendar> orderCalendar;
 
 	public String getOrderMax() {
 		return orderMax;
 	}
-
-
 	public void setOrderMax(String orderMax) {
 		this.orderMax = orderMax;
 	}

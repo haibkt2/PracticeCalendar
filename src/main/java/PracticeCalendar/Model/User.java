@@ -50,6 +50,12 @@ public class User implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "ROLE_ID")
 	private Role role;
+	
+	@OneToMany(mappedBy="user")
+    private List<OrderCalendar> orderCalendar;
+	
+	@OneToMany(mappedBy="user")
+    private List<Request> request;
 
 	public User() {
 	}
