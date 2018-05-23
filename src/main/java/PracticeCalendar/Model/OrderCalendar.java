@@ -2,6 +2,7 @@
 package PracticeCalendar.Model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -112,6 +113,10 @@ public class OrderCalendar implements Serializable {
 	public void setOrderMin(String orderMin) {
 		this.orderMin = orderMin;
 	}
-	
+	public String setDateString() {
+		Date date = getDateOrder();
+		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");
+		return dt1.format(date);
+	}
 
 }
