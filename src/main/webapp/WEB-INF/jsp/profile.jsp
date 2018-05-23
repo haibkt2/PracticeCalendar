@@ -418,46 +418,78 @@
 																		<!-- 																		ss -->
 																		<c:choose>
 																			<c:when test="${empty listRoom.getOrderCalendar()}">
-<!-- 																			dd -->
+																				<!-- 																			dd -->
 																				<td style="background-color: #00c0ef52"><a
-																					href="#"> <span> Sáng: </span> <strong
-																						style="padding-left: 10px; padding-right: 15px;">
+																					href="#" style="background-color: #00c0ef52"> <span> Sáng: </span> <strong
+																						style="padding-left: 10px; padding-right: 5px;">
 																							<a data-toggle="modal"
-																							data-target="#booking-info"> 0/40 </a>
+																							data-target="#booking-info">
+																								0/${listRoom.getOrderMax() }</a>
+																					</strong>
+																					</a><a href="#" style="background-color: #00c0ef52">
+																					<span> Chiều: </span> <strong
+																						style="padding-left: 10px; padding-right: 4px;">
+																							<a data-toggle="modal"
+																							data-target="#booking-info">
+																								0/${listRoom.getOrderMax() }</a>
 																					</strong>
 																				</a></td>
 																			</c:when>
 																			<c:otherwise>
+																				<%
+																					int i = 0;
+																					int j = 0;
+																					String b_cl_s = "#00c0ef52";
+																					String b_cl_c = "#00c0ef52";
+																				%>
 																				<c:forEach items="${listRoom.getOrderCalendar()}"
 																					var="lsOrder" varStatus="orderIndex">
 																					<c:set var="isDay"
 																						value="${lsOrder.setDateString().substring(0, 5)}" />
+
 																					<c:choose>
+
 																						<c:when
 																							test="${isDay eq setDay.get(loopday.index).substring(4,9)}">
-
-																							<td style="background-color: #00c0ef52"><a
-																								href="#"> <span> Sáng: </span> <strong
-																									style="padding-left: 10px; padding-right: 15px;">
-																										<a data-toggle="modal"
-																										data-target="#booking-info"> 11/40 </a>
-																								</strong>
-																							</a></td>
-																							<%-- 																				<c:choose> --%>
-
-																							<%-- 																				</c:choose> --%>
+																							<c:if
+																								test="${lsOrder.getTimeOrder() eq 'Morning'}">
+																								<%
+																									i++;
+																								%>
+																								<c:if test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId()}">
+																								<%
+																								 b_cl_s ="red";
+																								%>
+																								</c:if>
+																							</c:if>
+																							<c:if test="${lsOrder.getTimeOrder() eq 'Noon'}">
+																								<%
+																									j++;
+																								%>
+																								<c:if test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId()}">
+																								<%
+																								 b_cl_c ="red";
+																								%>
+																								</c:if>
+																							</c:if>
 																						</c:when>
-																						<c:otherwise>
-																							<td style="background-color: #00c0ef52"><a
-																								href="#"> <span> Sáng: </span> <strong
-																									style="padding-left: 10px; padding-right: 15px;">
-																										<a data-toggle="modal"
-																										data-target="#booking-info">22/40</a>
-																								</strong>
-																							</a></td>
-																						</c:otherwise>
+
 																					</c:choose>
 																				</c:forEach>
+																				<td style="background-color: #00c0ef52"><a
+																					href="#" style="background-color: <%=b_cl_s%>"> <span> Sáng: </span> <strong
+																						style="padding-left: 10px; padding-right: 5px;">
+																							<a data-toggle="modal"
+																							data-target="#booking-info"><%=i %>/${listRoom.getOrderMax() }</a>
+																					</strong>
+																					</a><a href="#" style="background-color: <%=b_cl_c%>">
+																					<span> Chiều: </span> <strong
+																						style="padding-left: 10px; padding-right: 5px;">
+																							<a data-toggle="modal"
+																							data-target="#booking-info"><%=j %>/${listRoom.getOrderMax() }</a>
+																					</strong>
+																				</a></td>
+																				
 																			</c:otherwise>
 
 																		</c:choose>
