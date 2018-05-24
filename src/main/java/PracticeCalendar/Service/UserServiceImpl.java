@@ -4,6 +4,7 @@ package PracticeCalendar.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -105,4 +106,15 @@ public class UserServiceImpl {
 		return dateCurrent;
 	}
 
+	public Date setDateOrder(String date) {
+		String d = date.split("-")[1];
+		String m = date.split("-")[0];
+		Date day = null;
+		Calendar myCal = Calendar.getInstance();
+		myCal.setTime(day);
+		int year = myCal.get(Calendar.YEAR);
+		myCal.set(year, Integer.parseInt(m), Integer.parseInt(d));
+		day = myCal.getTime();
+		return day;
+	}
 }

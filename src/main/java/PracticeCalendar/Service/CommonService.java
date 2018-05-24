@@ -79,16 +79,6 @@ public class CommonService {
 		return "ORDER".concat("" + countUserId);
 	}
 
-	public Date setDateOrder(String date) {
-		String d = date.split("-")[1];
-		String m = date.split("-")[0];
-		Date day = null;
-		Calendar myCal = Calendar.getInstance();
-		myCal.setTime(day);
-		int year = myCal.get(Calendar.YEAR);
-		myCal.set(year,Integer.parseInt(m),Integer.parseInt(d));
-		day =  myCal.getTime();
-		return day;
-	}
+	
 
 }

@@ -149,7 +149,7 @@ public class UserController {
 		OrderCalendar orderCalendar = new OrderCalendar();
 		orderCalendar.setOrderId(userserviceimpl.autoCodeOrderId());
 		orderCalendar.setCreatDate(userserviceimpl.currentDate().toString());
-		orderCalendar.setDateOrder(new DateTime(2010, 3, 5, 0, 0));
+		orderCalendar.setDateOrder(userserviceimpl.setDateOrder(day));
 		return "redirect";
 	}
 
