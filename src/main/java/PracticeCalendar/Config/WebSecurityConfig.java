@@ -58,8 +58,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("userId")
 				.passwordParameter("password")
 				.successHandler(successHandler);
-		http.formLogin().loginPage("/").usernameParameter("userId").passwordParameter("password")
-				.successHandler(successHandler);
+		http.formLogin().loginPage("/")
+				.usernameParameter("userId")
+				.passwordParameter("password")
+				.successHandler(successHandler)
+				.and()
+				.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/home?logout")
+				.invalidateHttpSession(true)
+				.permitAll();
 		http.exceptionHandling().accessDeniedPage("/403");
 
 	}

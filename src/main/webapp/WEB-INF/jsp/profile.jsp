@@ -78,9 +78,15 @@
 									</li>
 
 								</ul>
+								<a href="javascript:document.forms['logoutForm'].submit();"
+									style="color: blue; float: right"
+									class="btn btn-primary btn-block"> Log out </a>
+								<form id="logoutForm" method="POST"
+									action="${contextPath}/logout">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
+								</form>
 
-								<a href="${contextPath}/logout?logout=log"
-									class="btn btn-primary btn-block"><b>Logout</b></a>
 							</div>
 							<!-- /.box-body -->
 						</div>
@@ -384,8 +390,14 @@
 									<div class="">
 										<div class="">
 											<div class="">
-												<h3 style="text-align: center; color: #337ab7;" class="">May
-													20 – 26, 2018</h3>
+												<jsp:include page="testHead.jsp"></jsp:include>
+												<section class="content-header">
+													<div id="header-info-center">
+														<div id="header-time"
+															style="padding-top: 10px; text-align: center; color: red; font-size: 40px;"></div>
+													</div>
+													<input type="hidden" id="serverTime" />
+												</section>
 												<hr>
 											</div>
 											<!-- /.box-header -->
@@ -399,11 +411,17 @@
 															<%
 																List<String> setDay = (List) request.getAttribute("setDay");
 																for (int i = 0; i < setDay.size(); i++) {
+																	if (setDay.get(i).substring(0, 3).equals("Sat") || setDay.get(i).substring(0, 3).equals("Sun")) {
 															%>
-															<th style="color: black;"><%=setDay.get(i)%></th>
+															<th style="color: black; background-color: red"><%=setDay.get(i)%></th>
 
 															<%
+																} else {
+															%>
+															<th style="color: black;"><%=setDay.get(i)%></th>
+															<%
 																}
+															}
 															%>
 														</tr>
 													</thead>
@@ -416,84 +434,99 @@
 																		style="margin-top: 15px;">${listRoom.getRoomName()}</button>
 																	<c:forEach begin="0" end="6" varStatus="loopday">
 																		<!-- 																		ss -->
-																		<c:choose>
-																			<c:when test="${empty listRoom.getOrderCalendar()}">
-																				<!-- 																			dd -->
-																				<td style="background-color: #00c0ef52"><a
-																					href="#" style="background-color: #00c0ef52"> <span> Sáng: </span> <strong
-																						style="padding-left: 10px; padding-right: 5px;">
-																							<a data-toggle="modal"
-																							data-target="#booking-info">
-																								0/${listRoom.getOrderMax() }</a>
-																					</strong>
+																		<c:if
+																			test="${setDay.get(loopday.index).substring(0,3) eq 'Sun'}">
+																			<td style="background-color: #00c0ef52"><a
+																				data-toggle="modal" data-target="#booking-info">
+																					Day Off </a> </strong> </a></td>
+																		</c:if>
+																		<c:if
+																			test="${setDay.get(loopday.index).substring(0,3) ne 'Sun'}">
+
+																			<c:choose>
+																				<c:when test="${empty listRoom.getOrderCalendar()}">
+																					<!-- 																			dd -->
+																					<td style="background-color: #00c0ef52"><a
+																						href="#" style="background-color: #00c0ef52">
+																							<span> Sáng: </span> <strong
+																							style="padding-left: 10px; padding-right: 5px;">
+																								<a data-toggle="modal"
+																								data-target="#booking-info">
+																									0/${listRoom.getOrderMax() }</a>
+																						</strong>
 																					</a><a href="#" style="background-color: #00c0ef52">
-																					<span> Chiều: </span> <strong
-																						style="padding-left: 10px; padding-right: 4px;">
-																							<a data-toggle="modal"
-																							data-target="#booking-info">
-																								0/${listRoom.getOrderMax() }</a>
-																					</strong>
-																				</a></td>
-																			</c:when>
-																			<c:otherwise>
-																				<%
-																					int i = 0;
-																					int j = 0;
-																					String b_cl_s = "#00c0ef52";
-																					String b_cl_c = "#00c0ef52";
-																				%>
-																				<c:forEach items="${listRoom.getOrderCalendar()}"
-																					var="lsOrder" varStatus="orderIndex">
-																					<c:set var="isDay"
-																						value="${lsOrder.setDateString().substring(0, 5)}" />
+																							<span> Chiều: </span> <strong
+																							style="padding-left: 10px; padding-right: 4px;">
+																								<a data-toggle="modal"
+																								data-target="#booking-info">
+																									0/${listRoom.getOrderMax() }</a>
+																						</strong>
+																					</a></td>
+																				</c:when>
+																				<c:otherwise>
+																					<%
+																						int i = 0;
+																						int j = 0;
+																						String b_cl_s = "#00c0ef52";
+																						String b_cl_c = "#00c0ef52";
+																					%>
+																					<c:forEach items="${listRoom.getOrderCalendar()}"
+																						var="lsOrder" varStatus="orderIndex">
+																						<c:set var="isDay"
+																							value="${lsOrder.setDateString().substring(0, 5)}" />
 
-																					<c:choose>
+																						<c:choose>
 
-																						<c:when
-																							test="${isDay eq setDay.get(loopday.index).substring(4,9)}">
-																							<c:if
-																								test="${lsOrder.getTimeOrder() eq 'Morning'}">
-																								<%
-																									i++;
-																								%>
-																								<c:if test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId()}">
-																								<%
-																								 b_cl_s ="red";
-																								%>
+																							<c:when
+																								test="${isDay eq setDay.get(loopday.index).substring(4,9)}">
+																								<c:if
+																									test="${lsOrder.getTimeOrder() eq 'Morning'}">
+																									<%
+																										i++;
+																									%>
+																									<c:if
+																										test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId()}">
+																										<%
+																											b_cl_s = "red";
+																										%>
+																									</c:if>
 																								</c:if>
-																							</c:if>
-																							<c:if test="${lsOrder.getTimeOrder() eq 'Noon'}">
-																								<%
-																									j++;
-																								%>
-																								<c:if test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId()}">
-																								<%
-																								 b_cl_c ="red";
-																								%>
+																								<c:if test="${lsOrder.getTimeOrder() eq 'Noon'}">
+																									<%
+																										j++;
+																									%>
+																									<c:if
+																										test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId()}">
+																										<%
+																											b_cl_c = "red";
+																										%>
+																									</c:if>
 																								</c:if>
-																							</c:if>
-																						</c:when>
+																							</c:when>
 
-																					</c:choose>
-																				</c:forEach>
-																				<td style="background-color: #00c0ef52"><a
-																					href="#" style="background-color: <%=b_cl_s%>"> <span> Sáng: </span> <strong
-																						style="padding-left: 10px; padding-right: 5px;">
-																							<a data-toggle="modal"
-																							data-target="#booking-info"><%=i %>/${listRoom.getOrderMax() }</a>
-																					</strong>
-																					</a><a href="#" style="background-color: <%=b_cl_c%>">
-																					<span> Chiều: </span> <strong
-																						style="padding-left: 10px; padding-right: 5px;">
-																							<a data-toggle="modal"
-																							data-target="#booking-info"><%=j %>/${listRoom.getOrderMax() }</a>
-																					</strong>
-																				</a></td>
-																				
-																			</c:otherwise>
+																						</c:choose>
+																					</c:forEach>
 
-																		</c:choose>
+																					<td style="background-color: #00c0ef52"><a
+																						href="${contextPath}/<%if(b_cl_s.equals("red")){%>#<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>" style="background-color: <%=b_cl_s%>">
+																							<span> Sáng: </span> <strong
+																							style="padding-left: 10px; padding-right: 5px;">
+																								<a data-toggle="modal"
+																								data-target="#booking-info"><%=i%>/${listRoom.getOrderMax() }</a>
+																						</strong>
+																						
+																					</a><a href="${contextPath}/<%if(b_cl_c.equals("red")){%>#<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>" style="background-color: <%=b_cl_c%>">
+																							<span> Chiều: </span> <strong
+																							style="padding-left: 10px; padding-right: 5px;">
+																								<a data-toggle="modal"
+																								data-target="#booking-info"><%=j%>/${listRoom.getOrderMax() }</a>
+																						</strong>
+																					</a></td>
 
+																				</c:otherwise>
+
+																			</c:choose>
+																		</c:if>
 																	</c:forEach>
 																</td>
 															</tr>

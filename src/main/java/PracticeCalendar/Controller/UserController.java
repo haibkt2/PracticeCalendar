@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import PracticeCalendar.Model.Role;
 import PracticeCalendar.Model.Room;
@@ -137,30 +138,13 @@ public class UserController {
 
 		return "updateUser";
 	}
-
-//	@RequestMapping(value = "/orderCalendar", method = RequestMethod.POST)
-//	public String orderCalendar(@ModelAttribute("roomForm") Room roomForm, Model model, HttpSession session)
-//			throws ParseException {
-//		List<Room> lstroom = (List<Room>) roomRepository.findAll();
-//		model.addAttribute("lstroom", lstroom);
-//		String messageInfo = roomserviceimpl.orderRoom(roomForm);
-//		return "redirect:/orderCalendar" + "?roomName=" + roomForm.getRoomName() + "&messageInfo=" + messageInfo;
-//	}
-
+	@ResponseBody
 	@RequestMapping(value = "/orderCalendar", method = RequestMethod.GET)
-	public String viewRoom(Model model, HttpServletRequest request, @ModelAttribute("roomForm") final User userForm) {
-		// get parameter date
-		String roomName = request.getParameter("roomName");
-		Room room = new Room();
-		room = roomserviceimpl.searchRoomName(roomName);
-		String messageInfo = request.getParameter("messageInfo");
-		if (messageInfo != null) {
-			model.addAttribute("messUpdate", messageInfo);
-			model.addAttribute("messUpdate", roomName);
-		}
-		model.addAttribute("roomForm", room);
-		return "orderCalendar";
+	public String orderCalendar(Model model, HttpSession session)
+			throws ParseException {
+		return "redirect";
 	}
+
 
 	@RequestMapping(value = "/viewRoom", method = RequestMethod.GET)
 	public String listRoom(@RequestParam("d") String date, Model model, String error, String logout,

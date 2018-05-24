@@ -83,6 +83,31 @@ public class UserServiceImpl {
 		return messageInfo;
 
 	}
+	
+	public String orderCalendar(User user) throws ParseException {
+		String messageInfo = "";
+		// Map<String, String> getSendMail = new HashMap<String, String>();
+		CommonService coService = new CommonService();
+		User findUser = userRepository.findByUserId(user.getUserId());
+		Role findRole = roleRepository.findByRoleName(role);
+		if (user.getRole() == null)
+			user.setRole(findRole);
+		user.setPassword(findUser.getPassword());
+		user.setUserName(user.getUserId());
+		user.setCreateDate(coService.currentDate());
+		messageInfo = "Update Sussecs";
+		// if(user.getEmail() == null)
+		// user.setEmail("mailnull@gmail.com");
+		// user.setPassword(coService.setPassword(8));
+		// getSendMail = emailService.SendMail(user);
+		// emailService.sendMail(getSendMail.get("mailform"), getSendMail.get("toMail"),
+		// getSendMail.get("subject"),
+		// getSendMail.get("body"));
+		// user.setPassword(bcrypass.encode(user.getPassword()));
+		userRepository.save(user);
+		return messageInfo;
+
+	}
 
 	public User searchUserId(String userId) {
 		User user = userRepository.findByUserId(userId);
