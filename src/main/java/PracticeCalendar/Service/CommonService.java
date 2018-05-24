@@ -60,8 +60,35 @@ public class CommonService {
 			String Month = crday[1];
 			String Day = crday[2];
 			String dayOfW = cmsv.getDayOfWeekName(Yeart, Month, Day, new Locale("en"));
-			setDay.add(dayOfW+" "+ Day+"-"+Month);
+			setDay.add(dayOfW + " " + Day + "-" + Month);
 		}
 		return setDay;
 	}
+
+	public String autoOrderId(String orderId) {
+		String strorderid = orderId.substring(5, 9);
+		int odId = Integer.parseInt(strorderid);
+		++odId;
+		String countUserId = "" + odId;
+		if (countUserId.trim().length() != 4) {
+			int count = 4 - countUserId.trim().length();
+			for (int i = 0; i < count; i++) {
+				countUserId = "0" + countUserId;
+			}
+		}
+		return "ORDER".concat("" + countUserId);
+	}
+
+	public Date setDateOrder(String date) {
+		String d = date.split("-")[1];
+		String m = date.split("-")[0];
+		Date day = null;
+		Calendar myCal = Calendar.getInstance();
+		myCal.setTime(day);
+		int year = myCal.get(Calendar.YEAR);
+		myCal.set(year,Integer.parseInt(m),Integer.parseInt(d));
+		day =  myCal.getTime();
+		return day;
+	}
+
 }

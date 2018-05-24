@@ -503,28 +503,23 @@
 																									</c:if>
 																								</c:if>
 																							</c:when>
-
 																						</c:choose>
 																					</c:forEach>
-
 																					<td style="background-color: #00c0ef52"><a
-																						href="${contextPath}/<%if(b_cl_s.equals("red")){%>#<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>" style="background-color: <%=b_cl_s%>">
+																						href="${contextPath}/<%if(b_cl_s.equals("red")){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>" style="background-color: <%=b_cl_s%>">
 																							<span> Sáng: </span> <strong
 																							style="padding-left: 10px; padding-right: 5px;">
 																								<a data-toggle="modal"
 																								data-target="#booking-info"><%=i%>/${listRoom.getOrderMax() }</a>
 																						</strong>
-																						
-																					</a><a href="${contextPath}/<%if(b_cl_c.equals("red")){%>#<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>" style="background-color: <%=b_cl_c%>">
+																					</a><a href="${contextPath}/<%if(b_cl_c.equals("red")){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>" style="background-color: <%=b_cl_c%>">
 																							<span> Chiều: </span> <strong
 																							style="padding-left: 10px; padding-right: 5px;">
 																								<a data-toggle="modal"
 																								data-target="#booking-info"><%=j%>/${listRoom.getOrderMax() }</a>
 																						</strong>
 																					</a></td>
-
 																				</c:otherwise>
-
 																			</c:choose>
 																		</c:if>
 																	</c:forEach>

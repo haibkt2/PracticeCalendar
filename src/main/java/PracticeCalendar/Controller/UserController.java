@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import PracticeCalendar.Model.OrderCalendar;
 import PracticeCalendar.Model.Role;
 import PracticeCalendar.Model.Room;
 import PracticeCalendar.Model.User;
@@ -140,8 +141,15 @@ public class UserController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/orderCalendar", method = RequestMethod.GET)
-	public String orderCalendar(Model model, HttpSession session)
+	public String orderCalendar(Model model, HttpSession session,HttpServletRequest req, HttpServletResponse resp)
 			throws ParseException {
+		String day = req.getParameter("dayBooking");
+		String time = req.getParameter("timeBooking");
+		String room = req.getParameter("room");
+		OrderCalendar orderCalendar = new OrderCalendar();
+		orderCalendar.setOrderId(userserviceimpl.autoCodeOrderId());
+		orderCalendar.setCreatDate(userserviceimpl.currentDate().toString());
+		orderCalendar.setDateOrder(new DateTime(2010, 3, 5, 0, 0));
 		return "redirect";
 	}
 

@@ -1,8 +1,12 @@
 
 package PracticeCalendar.Service;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +15,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import PracticeCalendar.Model.OrderCalendar;
 import PracticeCalendar.Model.Role;
 import PracticeCalendar.Model.User;
+import PracticeCalendar.Repository.OrderCalendarRepository;
 import PracticeCalendar.Repository.RoleRepository;
 import PracticeCalendar.Repository.UserRepository;
 
@@ -23,6 +29,9 @@ public class UserServiceImpl {
 
 	@Autowired
 	private RoleRepository roleRepository;
+
+	@Autowired
+	private OrderCalendarRepository orderCalendarRepository;
 
 	@Value("${string.role.default}")
 	private String role;
@@ -71,39 +80,6 @@ public class UserServiceImpl {
 		user.setUserName(user.getUserId());
 		user.setCreateDate(coService.currentDate());
 		messageInfo = "Update Sussecs";
-		// if(user.getEmail() == null)
-		// user.setEmail("mailnull@gmail.com");
-		// user.setPassword(coService.setPassword(8));
-		// getSendMail = emailService.SendMail(user);
-		// emailService.sendMail(getSendMail.get("mailform"), getSendMail.get("toMail"),
-		// getSendMail.get("subject"),
-		// getSendMail.get("body"));
-		// user.setPassword(bcrypass.encode(user.getPassword()));
-		userRepository.save(user);
-		return messageInfo;
-
-	}
-	
-	public String orderCalendar(User user) throws ParseException {
-		String messageInfo = "";
-		// Map<String, String> getSendMail = new HashMap<String, String>();
-		CommonService coService = new CommonService();
-		User findUser = userRepository.findByUserId(user.getUserId());
-		Role findRole = roleRepository.findByRoleName(role);
-		if (user.getRole() == null)
-			user.setRole(findRole);
-		user.setPassword(findUser.getPassword());
-		user.setUserName(user.getUserId());
-		user.setCreateDate(coService.currentDate());
-		messageInfo = "Update Sussecs";
-		// if(user.getEmail() == null)
-		// user.setEmail("mailnull@gmail.com");
-		// user.setPassword(coService.setPassword(8));
-		// getSendMail = emailService.SendMail(user);
-		// emailService.sendMail(getSendMail.get("mailform"), getSendMail.get("toMail"),
-		// getSendMail.get("subject"),
-		// getSendMail.get("body"));
-		// user.setPassword(bcrypass.encode(user.getPassword()));
 		userRepository.save(user);
 		return messageInfo;
 
@@ -112,6 +88,21 @@ public class UserServiceImpl {
 	public User searchUserId(String userId) {
 		User user = userRepository.findByUserId(userId);
 		return user;
+	}
+
+	public String autoCodeOrderId() {
+		List<OrderCalendar> lstOrder = (List<OrderCalendar>) orderCalendarRepository.findAll();
+		String orderId = lstOrder.get(lstOrder.size() - 1).getOrderId();
+		CommonService autoCode = new CommonService();
+		String uId = autoCode.autoOrderId(orderId);
+		return uId;
+	}
+
+	public Date currentDate() throws ParseException {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		Date dateCurrent = dateFormat.parse(dateFormat.format(date));
+		return dateCurrent;
 	}
 
 }
