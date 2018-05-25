@@ -106,13 +106,6 @@ public class OrderCalendar implements Serializable {
 		this.flg = flg;
 	}
 
-	public String getOrderMin() {
-		return orderMin;
-	}
-
-	public void setOrderMin(String orderMin) {
-		this.orderMin = orderMin;
-	}
 	public String setDateString() {
 		Date date = getDateOrder();
 		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");

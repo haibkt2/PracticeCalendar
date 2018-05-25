@@ -93,7 +93,7 @@ public class UserServiceImpl {
 
 	public String autoCodeOrderId() {
 		List<OrderCalendar> lstOrder = (List<OrderCalendar>) orderCalendarRepository.findAll();
-		String orderId = lstOrder.get(lstOrder.size() - 1).getOrderId();
+		String orderId = lstOrder.get(lstOrder.size()-1).getOrderId();
 		CommonService autoCode = new CommonService();
 		String uId = autoCode.autoOrderId(orderId);
 		return uId;
@@ -106,15 +106,24 @@ public class UserServiceImpl {
 		return dateCurrent;
 	}
 
-	public Date setDateOrder(String date) {
-		String d = date.split("-")[1];
-		String m = date.split("-")[0];
+	public Date setDateOrder(String date) throws ParseException {
+		String d = date.split("-")[0];
+		String m = date.split("-")[1];
 		Date day = null;
 		Calendar myCal = Calendar.getInstance();
-		myCal.setTime(day);
 		int year = myCal.get(Calendar.YEAR);
-		myCal.set(year, Integer.parseInt(m), Integer.parseInt(d));
-		day = myCal.getTime();
+		day = new SimpleDateFormat("yyyy-MM-dd").parse(year + "-" + m + "-" + d);
+
 		return day;
+	}
+
+	public void orderCalendar(OrderCalendar orderCalendar) {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date day = orderCalendar.getDateOrder();
+		String date = df.format(day);
+		OrderCalendar order = orderCalendarRepository.findByOrderId(orderCalendar.getOrderId());
+		if (order == null)
+			orderCalendarRepository.save(orderCalendar);
+
 	}
 }

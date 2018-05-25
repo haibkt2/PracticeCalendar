@@ -106,62 +106,7 @@
 								<li><a href="#message" data-toggle="tab">Messages</a></li>
 							</ul>
 							<div class="tab-content">
-								<div class="tab-pane" id="event">
-									<div class="">
-										<div class="">
-											<div class="">
-												<h3 class="box-title">List of Events</h3>
-												<hr />
-											</div>
-											<!-- /.box-header -->
-											<div class="box-body">
-												<table id="example1"
-													class="table table-bordered table-striped">
-													<thead>
-														<tr>
-															<th>Event ID</th>
-															<th>Event name</th>
-															<th>Category</th>
-															<th>Host</th>
-															<th>Time</th>
-															<th>Avatar</th>
-															<th>Location</th>
-															<th>Price</th>
-															<!-- <th>Content</th> -->
-															<th>Status</th>
-															<th>Edit</th>
-															<th>Delete</th>
-														</tr>
-													</thead>
-													<tbody>
-
-														<tr>
-															<td>Google</td>
-															<td>Google</td>
-															<td>Google</td>
-															<td>Google</td>
-															<td>Google</td>
-															<td><img src="img/nhat.jpg" alt="" height="80px"
-																width="80px" /></td>
-															<td>Google</td>
-															<td>Google</td>
-															<td>Google</td>
-
-															<td><a href="#">
-																	<button type="button" class="btn bg-green1 margin">Edit</button>
-															</a></td>
-															<td><a href="#">
-																	<button type="button" class="btn bg-red margin">Del</button>
-															</a></td>
-														</tr>
-													</tfoot>
-												</table>
-											</div>
-											<!-- /.box-body -->
-										</div>
-									</div>
-								</div>
-
+								
 								<div class="tab-pane" id="message">
 									<div class="">
 										<div class="">

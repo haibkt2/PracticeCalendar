@@ -1,11 +1,8 @@
 
 package PracticeCalendar.Controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -28,6 +25,7 @@ import PracticeCalendar.Model.OrderCalendar;
 import PracticeCalendar.Model.Role;
 import PracticeCalendar.Model.Room;
 import PracticeCalendar.Model.User;
+import PracticeCalendar.Repository.OrderCalendarRepository;
 import PracticeCalendar.Repository.RoleRepository;
 import PracticeCalendar.Repository.RoomRepository;
 import PracticeCalendar.Repository.UserRepository;
@@ -42,6 +40,9 @@ public class UserController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	OrderCalendarRepository orderRepository;
 
 	@Autowired
 	RoomRepository roomRepository;
@@ -139,18 +140,25 @@ public class UserController {
 
 		return "updateUser";
 	}
-	@ResponseBody
 	@RequestMapping(value = "/orderCalendar", method = RequestMethod.GET)
 	public String orderCalendar(Model model, HttpSession session,HttpServletRequest req, HttpServletResponse resp)
 			throws ParseException {
 		String day = req.getParameter("dayBooking");
 		String time = req.getParameter("timeBooking");
 		String room = req.getParameter("room");
+		User u = (User)session.getAttribute("UserLogin");
 		OrderCalendar orderCalendar = new OrderCalendar();
 		orderCalendar.setOrderId(userserviceimpl.autoCodeOrderId());
 		orderCalendar.setCreatDate(userserviceimpl.currentDate().toString());
 		orderCalendar.setDateOrder(userserviceimpl.setDateOrder(day));
-		return "redirect";
+		orderCalendar.setCreatDate(userserviceimpl.currentDate().toString());
+		orderCalendar.setUser(u);
+		orderCalendar.setFlg("1");
+		orderCalendar.setTimeOrder(time);
+		Room r = roomRepository.findByRoomName(room);
+		orderCalendar.setRoom(r);
+		userserviceimpl.orderCalendar(orderCalendar);
+		return "redirect:/home";
 	}
 
 
