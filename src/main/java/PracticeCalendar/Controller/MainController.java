@@ -78,17 +78,9 @@ public class MainController {
 			listRoom = (List<Room>) roomRepository.findAllRoom(roomType);
 			model.addAttribute("listRoom", listRoom);
 			model.addAttribute("setDay",setDay);
-			return "profile";
+			return "viewRoom";
 
 		}
-		return "home";
-	}
-
-	@RequestMapping(value = { "/logout" }, method = RequestMethod.GET)
-	public String logout(Model model, String error, String logout, String view, HttpServletRequest req,
-			HttpServletResponse response) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		new SecurityContextLogoutHandler().logout(req, response, auth);
 		return "home";
 	}
 

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -40,7 +42,7 @@ public class UserController {
 
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	OrderCalendarRepository orderRepository;
 
@@ -73,12 +75,7 @@ public class UserController {
 		return "profile";
 	}
 
-	@RequestMapping(value = "/viewClass", method = RequestMethod.GET)
-	public String viewClass(Model model) {
-		// model.addAttribute("userForm", new User());
-
-		return "viewClass";
-	}
+	
 
 	@RequestMapping(value = "/register")
 	public String register(Model model, HttpServletRequest request) {
@@ -108,7 +105,7 @@ public class UserController {
 		model.addAttribute("lstRole", lstrole);
 		String profile = (String) request.getParameter("update");
 		if (profile.equals("profile")) {
-			User  userlg =(User) session.getAttribute("UserLogin");
+			User userlg = (User) session.getAttribute("UserLogin");
 			userForm.setPassword(userlg.getPassword());
 			userForm.setUserId(userlg.getUserId());
 			userForm.setUserName(userlg.getUserName());
@@ -140,13 +137,14 @@ public class UserController {
 
 		return "updateUser";
 	}
+
 	@RequestMapping(value = "/orderCalendar", method = RequestMethod.GET)
-	public String orderCalendar(Model model, HttpSession session,HttpServletRequest req, HttpServletResponse resp)
+	public String orderCalendar(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp)
 			throws ParseException {
 		String day = req.getParameter("dayBooking");
 		String time = req.getParameter("timeBooking");
 		String room = req.getParameter("room");
-		User u = (User)session.getAttribute("UserLogin");
+		User u = (User) session.getAttribute("UserLogin");
 		OrderCalendar orderCalendar = new OrderCalendar();
 		orderCalendar.setOrderId(userserviceimpl.autoCodeOrderId());
 		orderCalendar.setCreatDate(userserviceimpl.currentDate().toString());
@@ -161,28 +159,14 @@ public class UserController {
 		return "redirect:/home";
 	}
 
+	@RequestMapping(value = "/editProfile", method = RequestMethod.GET)
+	public String editProfile(Model model) {
+		return "editProfile";
+	}
+	@RequestMapping(value = "/historyBooking", method = RequestMethod.GET)
+	public String viewHistoryOrder(Model model) {
+		// model.addAttribute("userForm", new User());
 
-	@RequestMapping(value = "/viewRoom", method = RequestMethod.GET)
-	public String listRoom(@RequestParam("d") String date, Model model, String error, String logout,
-			HttpSession session, HttpServletRequest req, HttpServletResponse response) throws ParseException {
-		if (date == null || date.isEmpty()) {
-			CommonService coService = new CommonService();
-			date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-		}
-		// Get date, month, year value
-		// String yearVal = date.substring(0, 4);
-		// String monthVal = date.substring(5, 7);
-		// String dateVal = date.substring(8);
-		String roomType = "public";
-		User user = (User) session.getAttribute("UserLogin");
-		if (user.getRole().getRoleName().equals("ROLE_TEACHER"))
-			roomType = "protected";
-		else if (user.getRole().getRoleName().equals("ROLE_STUDENT")) {
-			roomType = "public";
-		}
-		List<Room> listRoom = (List<Room>) roomRepository.findAllRoom(roomType);
-		
-		model.addAttribute("listRoom", listRoom);
-		return "viewRoom";
+		return "historyOrder";
 	}
 }
