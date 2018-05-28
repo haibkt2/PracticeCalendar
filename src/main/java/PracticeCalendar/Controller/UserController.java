@@ -1,27 +1,28 @@
 
 package PracticeCalendar.Controller;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import PracticeCalendar.Model.OrderCalendar;
 import PracticeCalendar.Model.Role;
@@ -31,7 +32,6 @@ import PracticeCalendar.Repository.OrderCalendarRepository;
 import PracticeCalendar.Repository.RoleRepository;
 import PracticeCalendar.Repository.RoomRepository;
 import PracticeCalendar.Repository.UserRepository;
-import PracticeCalendar.Service.CommonService;
 import PracticeCalendar.Service.RoomServiceImpl;
 import PracticeCalendar.Service.UserServiceImpl;
 
@@ -64,6 +64,8 @@ public class UserController {
 	@Value("${string.domain.default}")
 	private String domain;
 
+	private static final String UPLOAD_DIRECTORY = "d:/server_reponsitory";
+
 	@RequestMapping(value = "/orderCld", method = RequestMethod.GET)
 	public String orderCld(Model model) {
 		return "orderCld";
@@ -75,18 +77,65 @@ public class UserController {
 		return "profile";
 	}
 
-	
-
 	@RequestMapping(value = "/register")
-	public String register(Model model, HttpServletRequest request) {
+	public String register(Model model, HttpServletRequest request) throws Exception {
 		User user = new User();
-		user.setUserId(request.getParameter("mssv"));
-		user.setName(request.getParameter("f_name") + " " + request.getParameter("l_name"));
-		user.setPhone(request.getParameter("phone"));
-		user.setEmail(request.getParameter("mail"));
-		user.setBirthday(request.getParameter("birthday"));
-		user.setGender(request.getParameter("gender"));
 		String messageRegis;
+		if (!ServletFileUpload.isMultipartContent(request)) {
+			request.setAttribute("message", "Error: Form tag must has 'enctype=multipart/form-data' attribute");
+		} else {
+			File uploadDir = new File(UPLOAD_DIRECTORY);
+			if (!uploadDir.exists()) {
+				uploadDir.mkdir();
+			}
+			String file = "";
+			List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+			for (FileItem item : multiparts) {
+				// if (!item.isFormField()) {
+				// String name = new File(item.getName()).getName();
+				// item.write(new File(UPLOAD_DIRECTORY + File.separator
+				// + name));
+				// }
+
+				if (!item.isFormField()) {
+					String name = new File(item.getName()).getName();
+					file = name;
+					item.write(new File(UPLOAD_DIRECTORY + File.separator + name + "massv"));
+					request.setAttribute("message", "File(s) uploaded successfully!");
+				} else {
+					String fieldname = item.getFieldName();
+					String fieldvalue = item.getString();
+
+					if (fieldname.equals("mssv")) {
+						user.setUserId(
+								new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+						// new String (s.getBytes ("iso-8859-1"),
+						// "UTF-8");
+					} else if (fieldname.equals("name")) {
+						// next logic goes here...
+						user.setName(
+								new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+					} else if (fieldname.equals("phone")) {
+						// next logic goes here...
+						user.setPhone(
+								new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+					} else if (fieldname.equals("mail")) {
+						// next logic goes here...
+						user.setEmail(
+								new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+					} else if (fieldname.equals("birthday")) {
+						// next logic goes here...
+						user.setBirthday(
+								new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+					} else if (fieldname.equals("gender")) {
+						// next logic goes here...
+						user.setGender(
+								new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+					}
+				}
+			}
+			System.out.println(1);
+		}
 		try {
 			messageRegis = userserviceimpl.insertUser(user);
 			model.addAttribute("messageRegis", messageRegis);
@@ -141,6 +190,7 @@ public class UserController {
 	@RequestMapping(value = "/orderCalendar", method = RequestMethod.GET)
 	public String orderCalendar(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp)
 			throws ParseException {
+		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
 		String day = req.getParameter("dayBooking");
 		String time = req.getParameter("timeBooking");
 		String room = req.getParameter("room");
@@ -149,24 +199,47 @@ public class UserController {
 		orderCalendar.setOrderId(userserviceimpl.autoCodeOrderId());
 		orderCalendar.setCreatDate(userserviceimpl.currentDate().toString());
 		orderCalendar.setDateOrder(userserviceimpl.setDateOrder(day));
-		orderCalendar.setCreatDate(userserviceimpl.currentDate().toString());
+		orderCalendar.setCreatDate(sdfDate.format(userserviceimpl.currentDate()));
 		orderCalendar.setUser(u);
 		orderCalendar.setFlg("1");
 		orderCalendar.setTimeOrder(time);
 		Room r = roomRepository.findByRoomName(room);
 		orderCalendar.setRoom(r);
 		userserviceimpl.orderCalendar(orderCalendar);
-		return "redirect:/home";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/editProfile", method = RequestMethod.GET)
 	public String editProfile(Model model) {
 		return "editProfile";
 	}
-	@RequestMapping(value = "/historyBooking", method = RequestMethod.GET)
-	public String viewHistoryOrder(Model model) {
-		// model.addAttribute("userForm", new User());
 
+	@RequestMapping(value = "/historyBooking", method = RequestMethod.GET)
+	public String viewHistoryOrder(Model model, HttpSession session) {
+		// model.addAttribute("userForm", new User());
+		User user = (User) session.getAttribute("UserLogin");
+		List<OrderCalendar> listOr = orderRepository.findByOrderUser(user.getUserId());
+		model.addAttribute("orderUser", listOr);
 		return "historyOrder";
+	}
+
+	@RequestMapping(value = "/manageOrder", method = RequestMethod.GET)
+	public String manageOrder(Model model, HttpSession session, HttpServletRequest request) {
+		// model.addAttribute("userForm", new User());
+		// User user = (User) session.getAttribute("UserLogin");
+		String cancel = request.getParameter("cancel");
+		String delete = request.getParameter("delete");
+		if (cancel != null) {
+			orderRepository.deleteOrderId(cancel);
+		} else if (delete != null) {
+			OrderCalendar orderCalendar = orderRepository.findByOrderId(delete);
+			if (orderCalendar != null)
+				orderCalendar.setFlg("0");
+			orderRepository.save(orderCalendar);
+		}
+		// List<OrderCalendar> listOr =
+		// orderRepository.findByOrderUser(user.getUserId());
+		// model.addAttribute("orderUser", listOr);
+		return "redirect:/historyBooking";
 	}
 }

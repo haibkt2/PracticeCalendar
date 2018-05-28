@@ -81,6 +81,9 @@
 													</thead>
 													<tbody>
 														<c:forEach items="${listRoom}" var="listRoom">
+															<%
+																String oder_min = ((Room) pageContext.findAttribute("listRoom")).getOrderMax();
+															%>
 															<tr>
 																<td>
 																	<button type="button" class="btn btn-primary"
@@ -158,9 +161,22 @@
 																		%>
 																		<c:if
 																			test="${setDay.get(loopday.index).substring(0,3) eq 'Sun'}">
-																			<td style="background-color: #00c0ef52"><a
-																				data-toggle="modal" data-target="#booking-info">
-																					Day Off </a></td>
+																			<td style="background-color: #00c0ef52"><c:choose>
+																					<c:when
+																						test="${UserLogin.getRole().getRoleName() eq 'ROLE_STUDENT' }">
+																						<a data-toggle="modal" data-target="#booking-info">
+																							Day Off </a>
+																					</c:when>
+																					<c:otherwise>
+																						<c:if test="${empty listRoom.getRequestCalendar()}">
+																						<a data-toggle="modal" data-target="#booking-info">
+																							Sáng : Request </a>
+																						<a data-toggle="modal" data-target="#booking-info">
+																							Chiều : Request </a>
+																						</c:if>
+																						${listRoom.getRequestCalendar().getReqId()}
+																					</c:otherwise>
+																				</c:choose></td>
 																		</c:if>
 																		<c:if
 																			test="${setDay.get(loopday.index).substring(0,3) ne 'Sun'}">
@@ -168,15 +184,18 @@
 																				<c:when test="${empty listRoom.getOrderCalendar()}">
 																					<!-- 																			dd -->
 																					<td style="background-color: #00c0ef52"><a
-																						href="#" style="background-color: #00c0ef52">
-																							<span> Sáng: </span> <strong
+																						href="${contextPath}/<%if(b_cl_s.equals("red") || Integer.parseInt(oder_min) < i){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>"
+																						style="background-color: #00c0ef52"> <span>
+																								Sáng: </span> <strong
 																							style="padding-left: 10px; padding-right: 5px;">
 																								<a data-toggle="modal"
 																								data-target="#booking-info${listRoom.getRoomName()}${loopday.index}s">
 																									0/${listRoom.getOrderMax() }</a>
 																						</strong>
-																					</a><a href="#" style="background-color: #00c0ef52">
-																							<span> Chiều: </span> <strong
+																					</a><a
+																						href="${contextPath}/<%if(b_cl_s.equals("red") || Integer.parseInt(oder_min) < i){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Noon<%}%>"
+																						style="background-color: #00c0ef52"> <span>
+																								Chiều: </span> <strong
 																							style="padding-left: 10px; padding-right: 4px;">
 																								<a data-toggle="modal"
 																								data-target="#booking-info${listRoom.getRoomName()}${loopday.index}c">
@@ -196,27 +215,28 @@
 																							<c:when
 																								test="${isDay eq setDay.get(loopday.index).substring(4,9)}">
 																								<c:if
-																									test="${lsOrder.getTimeOrder() eq 'Morning'}">
+																									test="${lsOrder.getTimeOrder() eq 'Morning' && lsOrder.getFlg() eq '1'}">
 																									<%
 																										students_s.add(i, ((OrderCalendar) pageContext.findAttribute("lsOrder"))
 																																					.getUser());
 																																			i++;
 																									%>
 																									<c:if
-																										test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId()}">
+																										test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId() && lsOrder.getFlg() eq '1'}">
 																										<%
 																											b_cl_s = "red";
 																										%>
 																									</c:if>
 																								</c:if>
-																								<c:if test="${lsOrder.getTimeOrder() eq 'Noon'}">
+																								<c:if
+																									test="${lsOrder.getTimeOrder() eq 'Noon' && lsOrder.getFlg() eq '1'}">
 																									<%
 																										students_c.add(j, ((OrderCalendar) pageContext.findAttribute("lsOrder"))
 																																					.getUser());
 																																			j++;
 																									%>
 																									<c:if
-																										test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId() }">
+																										test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId() && lsOrder.getFlg() eq '1'}">
 																										<%
 																											b_cl_c = "red";
 																										%>
@@ -226,9 +246,6 @@
 																						</c:choose>
 																					</c:forEach>
 																					<td style="background-color: #00c0ef52"><a
-																						<%
-																						String oder_min = ((Room) pageContext.findAttribute("listRoom")).getOrderMax();
-																					%>
 																						href="${contextPath}/<%if(b_cl_s.equals("red") || Integer.parseInt(oder_min) < i){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>"
 																						style="background-color: <%=b_cl_s%>"> <span>
 																								Sáng: </span> <strong

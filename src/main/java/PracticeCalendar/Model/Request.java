@@ -4,7 +4,15 @@ package PracticeCalendar.Model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Request")
@@ -18,7 +26,7 @@ public class Request implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "ROOM_ID")
-	private Room room;
+	private Room rooms;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATE_REQ")
@@ -53,11 +61,11 @@ public class Request implements Serializable {
 	}
 
 	public Room getRoom() {
-		return room;
+		return rooms;
 	}
 
 	public void setRoom(Room room) {
-		this.room = room;
+		this.rooms = room;
 	}
 
 	public String getStatus() {

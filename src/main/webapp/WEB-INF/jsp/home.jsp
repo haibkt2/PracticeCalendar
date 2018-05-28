@@ -104,20 +104,12 @@
 											</button>
 										</div>
 										<div class="modal-body">
-											<form action="${contextPath}/register" method="post">
+											<form action="${contextPath}/register" method="post" enctype="multipart/form-data">
 												<div class="form-group">
-													<div>
-														<p for="recipient-name" class="col-form-label">First
-															name *</p>
-														<input type="text" required minlength="3" maxlength="60"
-															autocomplete="off" name="f_name"/>
-														
-													</div>
 
 													<div>
-														<p for="recipient-name" class="col-form-label">Last
-															name *</p>
-														<input type="text" required autocomplete="off" name="l_name" />
+														<p for="recipient-name" class="col-form-label">Full Name *</p>
+														<input type="text" required autocomplete="off" name="name" />
 														
 													</div>
 
@@ -150,12 +142,13 @@
 														
 													</div>
 
-<!-- 													<div class="form-group"> -->
-<!-- 														<input class="form-control" type="file" name="hinhanh" -->
-<!-- 															required="true" /> -->
-<!-- 														<p for="recipient-name" class="col-form-label">Avatar -->
-<!-- 															*</p> -->
-<!-- 													</div> -->
+													<div >
+													<p for="recipient-name" class="col-form-label">Avatar
+															*</p>
+														<input type="file" name="hinhanh"
+															required="true" />
+														
+													</div>
 
 													<div>
 														<p for="recipient-name" class="col-form-label">Gender

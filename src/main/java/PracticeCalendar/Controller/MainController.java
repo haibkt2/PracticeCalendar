@@ -77,6 +77,7 @@ public class MainController {
 			List<Room> listRoom;
 			listRoom = (List<Room>) roomRepository.findAllRoom(roomType);
 			model.addAttribute("listRoom", listRoom);
+			System.out.println(listRoom.get(0).getRequestCalendar().get(0).getStatus());
 			model.addAttribute("setDay",setDay);
 			return "viewRoom";
 

@@ -3,9 +3,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page isELIgnored="false"%>
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate var="date" value="${now}" pattern="yyyy-MM-dd" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -81,40 +84,34 @@
 													class="table table-bordered table-striped">
 													<thead>
 														<tr>
-															<th>Post ID</th>
-															<th>Post Name</th>
-															<th>Category</th>
-															<th>Author</th>
-															<th>Discription</th>
-															<th>Avatar</th>
-															<th>Create at</th>
-															<th>Update at</th>
-															<th>Status</th>
-															<th>Edit</th>
+															<th>STT</th>
+															<th>Room</th>
+															<th>Date Booking</th>
+															<th>Time Booking</th>
+															<th>Create Date</th>
+															<th>Cancel</th>
 															<th>Delete</th>
 														</tr>
 													</thead>
 													<tbody>
-
+													<c:forEach items="${orderUser}" var="listOr" varStatus="lopList">
 														<tr>
-															<td>Google</td>
-															<td>Google</td>
-															<td>Google</td>
-															<td>Google</td>
-															<td>Google</td>
-															<td><img src="img/nhat.jpg" alt="" height="80px"
-																width="80px" /></td>
-															<td>Google</td>
-															<td>Google</td>
-															<td>Google</td>
-
-															<td><a href="#">
-																	<button type="button" class="btn bg-green1 margin">Cancel</button>
+															<td>${lopList.index+1}</td>
+															<td>${listOr.getRoom().getRoomName()}</td>
+															<td>${listOr.getDateOrder()}</td>
+															<td>${listOr.getTimeOrder()}</td>
+															<td>${listOr.getCreatDate()}</td>
+															
+															<td><a href="${contextPath}/manageOrder?cancel=${listOr.getOrderId()}">
+																	<button type="button" class="btn bg-green1 margin" ${date ge listOr.getDateOrder() ? 'disabled="disabled"': ''}>Cancel</button>
 															</a></td>
-															<td><a href="#">
-																	<button type="button" class="btn bg-red margin">Delete</button>
+															<td><a href="${contextPath}/manageOrder?delete=${listOr.getOrderId()}">
+																	<button type="button" class="btn bg-red margin" ${listOr.getDateOrder() gt date ? 'disabled="disabled"': ''}>Delete</button>
 															</a></td>
 														</tr>
+													
+													</c:forEach>
+														
 													</tfoot>
 												</table>
 											</div>

@@ -23,7 +23,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 	<ul class="nav nav-tabs">
 		<li><a href="${contextPath}/editProfile">Profile</a></li>
-		<li><a href="${contextPath}/home">Room</a></li>
+		<li><a href="${contextPath}/">Room</a></li>
 		<li><a href="${contextPath}/historyBooking">History Booking</a></li>
 		<li><a href="">Events</a></li>
 		<li><a href="">Messages</a></li>
