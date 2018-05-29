@@ -73,17 +73,9 @@ public class UserServiceImpl {
 
 	}
 
-	public String updateUser(User user) throws ParseException {
+	public String updateUser(User user,int r) throws ParseException {
 		String messageInfo = "";
-		// Map<String, String> getSendMail = new HashMap<String, String>();
-		CommonService coService = new CommonService();
-		User findUser = userRepository.findByUserId(user.getUserId());
-		Role findRole = roleRepository.findByRoleName(role);
-		if (user.getRole() == null)
-			user.setRole(findRole);
-		user.setPassword(findUser.getPassword());
-		user.setUserName(user.getUserId());
-		user.setCreateDate(coService.currentDate());
+		if(r == 1) user.setPassword(bcrypass.encode(user.getPassword()));
 		messageInfo = "Update Sussecs";
 		userRepository.save(user);
 		return messageInfo;

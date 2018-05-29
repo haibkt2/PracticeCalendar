@@ -18,7 +18,7 @@
         <div class="box-header">
           <h3 class="box-title">List of Post</h3>
               <p style="text-align: center;">
-                <a href = "${contextPath}/addUser" class="addtop"><img src="assets/img/add.png" alt="" /> 
+                <a href = "${contextPath}/createNotify" class="addtop"><img src="assets/img/add.png" alt="" /> 
                   <button type="button" class="btn bg-green margin">Create Post</button>
                 </a>
               </p>

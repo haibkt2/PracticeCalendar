@@ -69,8 +69,10 @@
 							<div class="tab-content">
 								<div class="active tab-pane" id="settings">
 									<div class="">
-										<h3 class="">Update yout information</h3>
+										<h3 class="">Update your information</h3>
 										<hr>
+										${mss_up }
+										
 										<p style="text-align: center;">
 											<a href="#" class="addtop"><img src="assets/img/add.png"
 												alt="" /> </a>
@@ -141,8 +143,8 @@
 											id="role" value="${UserLogin.getRole().getRoleId()}">
 										<input type="hidden" class="form-control" name="status"
 											id="status" value="Actived">
-										<input type="hidden" class="form-control" name="check"
-											id="check" value="member">
+										<input type="hidden" class="form-control" name="userId"
+											id="userId" value="${UserLogin.getUserId()}">
 
 										<div class="clearfix"></div>
 									</form:form>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import PracticeCalendar.Model.Notify;
 import PracticeCalendar.Model.Request;
 import PracticeCalendar.Model.Role;
 import PracticeCalendar.Model.User;
@@ -100,6 +101,22 @@ public class AdminController {
 		return "addUser";
 	}
 
+	@RequestMapping(value = "/createNotify", method = RequestMethod.GET)
+	public String showNotify(Model model, HttpServletRequest request, HttpSession session) {
+		return "createNotify";
+	}
+
+	// Insert staff information
+	@RequestMapping(value = "/createNotify", method = RequestMethod.POST)
+	public String createNotify(@ModelAttribute("postForm") Notify notify, Model model, HttpSession session)
+			throws ParseException {
+//		List<Role> lstrole = (List<Role>) roleRepository.findAll();
+//		model.addAttribute("lstRole", lstrole);
+//		String messageSave = userserviceimpl.insertUser(userForm);
+//		model.addAttribute("messageSave", messageSave);
+//		model.addAttribute("userForm", new User());
+		return "createNotify";
+	}
 	
 
 }

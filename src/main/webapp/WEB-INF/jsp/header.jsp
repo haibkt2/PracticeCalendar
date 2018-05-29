@@ -309,8 +309,14 @@
 										class="btn btn-default btn-flat">Profile</a>
 								</div>
 								<div class="pull-right">
-									<a href="${contextPath}/home?logout=log"
-										class="btn btn-default btn-flat">Logout</a>
+									<a href="javascript:document.forms['logoutForm'].submit();"
+									style="color: blue; float: right"
+									class="btn btn-primary btn-block"> Log out </a>
+								<form id="logoutForm" method="POST"
+									action="${contextPath}/logout">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
+								</form>
 								</div>
 							</li>
 						</ul></li>

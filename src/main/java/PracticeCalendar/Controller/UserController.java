@@ -72,90 +72,110 @@ public class UserController {
 		return "profile";
 	}
 
-//	@RequestMapping(value = "/register")
-//	public String register(Model model, HttpServletRequest request) throws Exception {
-//		User user = new User();
-//		String messageRegis;
-//		if (!ServletFileUpload.isMultipartContent(request)) {
-//			request.setAttribute("message", "Error: Form tag must has 'enctype=multipart/form-data' attribute");
-//		} else {
-//			File uploadDir = new File(UPLOAD_DIRECTORY);
-//			if (!uploadDir.exists()) {
-//				uploadDir.mkdir();
-//			}
-//			String file = "";
-//			List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-//			for (FileItem item : multiparts) {
-//				// if (!item.isFormField()) {
-//				// String name = new File(item.getName()).getName();
-//				// item.write(new File(UPLOAD_DIRECTORY + File.separator
-//				// + name));
-//				// }
-//
-//				if (!item.isFormField()) {
-//					String name = new File(item.getName()).getName();
-//					file = name;
-//					item.write(new File(UPLOAD_DIRECTORY + File.separator + name + "massv"));
-//					request.setAttribute("message", "File(s) uploaded successfully!");
-//				} else {
-//					String fieldname = item.getFieldName();
-//					String fieldvalue = item.getString();
-//
-//					if (fieldname.equals("mssv")) {
-//						user.setUserId(
-//								new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
-//						// new String (s.getBytes ("iso-8859-1"),
-//						// "UTF-8");
-//					} else if (fieldname.equals("name")) {
-//						// next logic goes here...
-//						user.setName(
-//								new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
-//					} else if (fieldname.equals("phone")) {
-//						// next logic goes here...
-//						user.setPhone(
-//								new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
-//					} else if (fieldname.equals("mail")) {
-//						// next logic goes here...
-//						user.setEmail(
-//								new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
-//					} else if (fieldname.equals("birthday")) {
-//						// next logic goes here...
-//						user.setBirthday(
-//								new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
-//					} else if (fieldname.equals("gender")) {
-//						// next logic goes here...
-//						user.setGender(
-//								new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
-//					}
-//				}
-//			}
-//			System.out.println(1);
-//		}
-//		try {
-//			messageRegis = userserviceimpl.insertUser(user);
-//			model.addAttribute("messageRegis", messageRegis);
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		return "home";
-//	}
+	// @RequestMapping(value = "/register")
+	// public String register(Model model, HttpServletRequest request) throws
+	// Exception {
+	// User user = new User();
+	// String messageRegis;
+	// if (!ServletFileUpload.isMultipartContent(request)) {
+	// request.setAttribute("message", "Error: Form tag must has
+	// 'enctype=multipart/form-data' attribute");
+	// } else {
+	// File uploadDir = new File(UPLOAD_DIRECTORY);
+	// if (!uploadDir.exists()) {
+	// uploadDir.mkdir();
+	// }
+	// String file = "";
+	// List<FileItem> multiparts = new ServletFileUpload(new
+	// DiskFileItemFactory()).parseRequest(request);
+	// for (FileItem item : multiparts) {
+	// // if (!item.isFormField()) {
+	// // String name = new File(item.getName()).getName();
+	// // item.write(new File(UPLOAD_DIRECTORY + File.separator
+	// // + name));
+	// // }
+	//
+	// if (!item.isFormField()) {
+	// String name = new File(item.getName()).getName();
+	// file = name;
+	// item.write(new File(UPLOAD_DIRECTORY + File.separator + name + "massv"));
+	// request.setAttribute("message", "File(s) uploaded successfully!");
+	// } else {
+	// String fieldname = item.getFieldName();
+	// String fieldvalue = item.getString();
+	//
+	// if (fieldname.equals("mssv")) {
+	// user.setUserId(
+	// new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1),
+	// StandardCharsets.UTF_8));
+	// // new String (s.getBytes ("iso-8859-1"),
+	// // "UTF-8");
+	// } else if (fieldname.equals("name")) {
+	// // next logic goes here...
+	// user.setName(
+	// new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1),
+	// StandardCharsets.UTF_8));
+	// } else if (fieldname.equals("phone")) {
+	// // next logic goes here...
+	// user.setPhone(
+	// new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1),
+	// StandardCharsets.UTF_8));
+	// } else if (fieldname.equals("mail")) {
+	// // next logic goes here...
+	// user.setEmail(
+	// new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1),
+	// StandardCharsets.UTF_8));
+	// } else if (fieldname.equals("birthday")) {
+	// // next logic goes here...
+	// user.setBirthday(
+	// new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1),
+	// StandardCharsets.UTF_8));
+	// } else if (fieldname.equals("gender")) {
+	// // next logic goes here...
+	// user.setGender(
+	// new String(fieldvalue.getBytes(StandardCharsets.ISO_8859_1),
+	// StandardCharsets.UTF_8));
+	// }
+	// }
+	// }
+	// System.out.println(1);
+	// }
+	// try {
+	// messageRegis = userserviceimpl.insertUser(user);
+	// model.addAttribute("messageRegis", messageRegis);
+	// } catch (ParseException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	//
+	// return "home";
+	// }
 
 	@RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
 	public String updateUser(@ModelAttribute("userForm") User userForm, Model model, HttpSession session,
 			HttpServletRequest request) throws ParseException {
 		List<Role> lstrole = (List<Role>) roleRepository.findAll();
 		model.addAttribute("lstRole", lstrole);
-		String profile = (String) request.getParameter("update");
-		if (profile.equals("profile")) {
-			User userlg = (User) session.getAttribute("UserLogin");
-			userForm.setPassword(userlg.getPassword());
-			userForm.setUserId(userlg.getUserId());
-			userForm.setUserName(userlg.getUserName());
+		// String profile = (String) request.getParameter("update");
+		User userLg = (User) session.getAttribute("UserLogin");
+		User userUp = userRepository.findByUserId(userForm.getUserId());
+		// update is user
+		int p_n = 1;
+		if (userForm.getUserId().equals(userLg.getUserId())) {
+			if (userForm.getPassword().isEmpty() || userForm.getPassword() == null) {
+				userForm.setPassword(userLg.getPassword());
+				p_n =0;
+			}
+			userForm.setUserName(userLg.getUserName());
+			userserviceimpl.updateUser(userForm, p_n);
+			model.addAttribute("mss_up", "update finnish");
+			return "editProfile";
+		} else { // update is admin
+			userForm.setPassword(userUp.getPassword());
+			userForm.setUserName(userUp.getUserName());
+			String messageInfo = userserviceimpl.updateUser(userForm, 0);
+			return "redirect:/updateInfo" + "?userid=" + userForm.getUserId() + "&messageInfo=" + messageInfo;
 		}
-		String messageInfo = userserviceimpl.updateUser(userForm);
-		return "redirect:/updateInfo" + "?userid=" + userForm.getUserId() + "&messageInfo=" + messageInfo;
 	}
 
 	@RequestMapping(value = "/updateInfo", method = RequestMethod.GET)
@@ -172,11 +192,6 @@ public class UserController {
 
 		if (messageInfo != null) {
 			model.addAttribute("messUpdate", messageInfo);
-		}
-
-		if (model.asMap().containsKey("bindingResult")) {
-			model.addAttribute("org.springframework.validation.BindingResult.userForm",
-					model.asMap().get("bindingResult"));
 		}
 
 		return "updateUser";
@@ -234,6 +249,7 @@ public class UserController {
 		}
 		return "redirect:/historyBooking";
 	}
+
 	@RequestMapping(value = "/request", method = RequestMethod.GET)
 	public String request(Model model, HttpSession session, HttpServletRequest request) throws ParseException {
 		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");

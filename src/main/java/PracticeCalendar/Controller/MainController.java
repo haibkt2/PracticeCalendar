@@ -66,21 +66,23 @@ public class MainController {
 		String userName = auth.getName();
 		User user = userRepository.findByUserName(userName);
 		if (user != null) {
-			String roomType = "public";
-			if (user.getRole().getRoleName().equals("ROLE_TEACHER"))
-				roomType = "protected";
-			else if (user.getRole().getRoleName().equals("ROLE_STUDENT")) {
-				roomType = "public";
-			}
-			CommonService cmsv = new CommonService();
-			List<String> setDay = cmsv.setDay();
-			List<Room> listRoom;
-			listRoom = (List<Room>) roomRepository.findAllRoom(roomType);
-			model.addAttribute("listRoom", listRoom);
-//			System.out.println(listRoom.get(0).getRequestCalendar().get(0).getStatus());
-			model.addAttribute("setDay",setDay);
-			return "viewRoom";
-
+			if (!user.getRole().getRoleName().equals("ROLE_ADMIN")) {
+				String roomType = "public";
+				if (user.getRole().getRoleName().equals("ROLE_TEACHER"))
+					roomType = "protected";
+				else if (user.getRole().getRoleName().equals("ROLE_STUDENT")) {
+					roomType = "public";
+				}
+				CommonService cmsv = new CommonService();
+				List<String> setDay = cmsv.setDay();
+				List<Room> listRoom;
+				listRoom = (List<Room>) roomRepository.findAllRoom(roomType);
+				model.addAttribute("listRoom", listRoom);
+				// System.out.println(listRoom.get(0).getRequestCalendar().get(0).getStatus());
+				model.addAttribute("setDay", setDay);
+				return "viewRoom";
+			} else
+				return "redirect:/userStatistics";
 		}
 		return "home";
 	}

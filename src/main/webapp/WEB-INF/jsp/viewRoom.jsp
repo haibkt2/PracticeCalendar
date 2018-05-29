@@ -149,16 +149,18 @@
 																				</div>
 																			</div>
 																		</div>
-																	</div> <c:forEach begin="0" end="6" varStatus="loopday">
+																	</div> 
+																	<c:forEach begin="0" end="6" varStatus="loopday">
 																		<!-- 																		ss -->
 																		<%
-																			int i = 0;
+																				int i = 0;
 																					int j = 0;
 																					String b_cl_s = "#00c0ef52";
 																					String b_cl_c = "#00c0ef52";
 																					List<User> students_s = new ArrayList();
 																					List<User> students_c = new ArrayList();
 																		%>
+<!-- 																		is sun -->
 																		<c:if
 																			test="${setDay.get(loopday.index).substring(0,3) eq 'Sun'}">
 																			<td style="background-color: #00c0ef52"><c:choose>
@@ -247,10 +249,12 @@
 																					</c:otherwise>
 																				</c:choose></td>
 																		</c:if>
+<!-- 																		is not sun -->
 																		<c:if
 																			test="${setDay.get(loopday.index).substring(0,3) ne 'Sun'}">
+<!-- 																			is student -->
 																			<c:if
-																				test="${UserLogin.getRole().getRoleName() eq 'ROLE_STUDENTS' }">
+																				test="${UserLogin.getRole().getRoleName() eq 'ROLE_STUDENT' }">
 																				<c:choose>
 																					<c:when test="${empty listRoom.getOrderCalendar()}">
 																						<!-- 																			dd -->
@@ -339,6 +343,7 @@
 
 																				</c:choose>
 																			</c:if>
+<!-- 																			is teacher -->
 																			<c:if
 																				test="${UserLogin.getRole().getRoleName() eq 'ROLE_TEACHER' }">
 																				<c:choose>
@@ -446,6 +451,7 @@
 																				</c:choose>
 																			</c:if>
 																		</c:if>
+<!-- 																		request-info-s  -->
 																		<div class="modal fade"
 																			id="request-info${listRoom.getRoomName()}${loopday.index}s"
 																			tabindex="-1" role="dialog"
@@ -481,6 +487,7 @@
 																				</div>
 																			</div>
 																		</div>
+<!-- 																		request-info-c -->
 																		<div class="modal fade"
 																			id="request-info${listRoom.getRoomName()}${loopday.index}c"
 																			tabindex="-1" role="dialog"
@@ -516,6 +523,7 @@
 																				</div>
 																			</div>
 																		</div>
+<!-- 																		booking info s -->
 																		<div class="modal fade"
 																			id="booking-info${listRoom.getRoomName()}${loopday.index}s"
 																			tabindex="-1" role="dialog"
@@ -533,9 +541,9 @@
 																					</div>
 																					<div class="modal-body">
 																						<c:if
-																							test="${UserLogin.getRole().getRoleName() eq 'ROLE_STUDENTS' }">
+																							test="${UserLogin.getRole().getRoleName() eq 'ROLE_STUDENT' }">
 																							<p>Tên: ${listRoom.getRoomName()}</p>
-																							<p>Trạng thái: ${listRoom.getRoomName()}</p>
+																							<p>Trạng thái: ${listRoom.getRoomStatus().getRoomStatusValue()}</p>
 																							<p>
 																								Số lượng hiện tại:
 																								<%=i%>
@@ -592,6 +600,7 @@
 																				</div>
 																			</div>
 																		</div>
+<!-- 																		booking - info -c -->
 																		<div class="modal fade"
 																			id="booking-info${listRoom.getRoomName()}${loopday.index}c"
 																			tabindex="-1" role="dialog"
@@ -609,17 +618,17 @@
 																					</div>
 																					<div class="modal-body">
 																						<c:if
-																							test="${UserLogin.getRole().getRoleName() eq 'ROLE_STUDENTS' }">
+																							test="${UserLogin.getRole().getRoleName() eq 'ROLE_STUDENT' }">
 																							<p>Tên: ${listRoom.getRoomName()}</p>
 																							<p>Trạng thái: ${listRoom.getRoomName()}</p>
 																							<p>
 																								Số lượng hiện tại:
-																								<%=i%>
+																								<%=j%>
 
 																							</p>
 																							<h2>Danh sách người đăng ký</h2>
 																							<%
-																								for (User u : students_s) {
+																								for (User u : students_c) {
 																							%>
 																							<%=u.getName()%>
 																						-
@@ -636,7 +645,7 @@
 																							<p>
 																								Trạng thái:
 																								<%
-																								if (i > 0) {
+																								if (j > 0) {
 																							%>
 																								Booked
 																								<%
@@ -649,7 +658,7 @@
 																							</p>
 																							<h2>Giáo viên đăng kí</h2>
 																							<%
-																								for (User u : students_s) {
+																								for (User u : students_c) {
 																							%>
 																							<%=u.getName()%>
 
