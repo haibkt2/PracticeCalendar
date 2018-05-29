@@ -66,6 +66,7 @@ public class CommonService {
 	}
 
 	public String autoOrderId(String orderId) {
+		if(orderId.isEmpty() || orderId == null) orderId = "ORDER0000";
 		String strorderid = orderId.substring(5, 9);
 		int odId = Integer.parseInt(strorderid);
 		++odId;
@@ -79,6 +80,20 @@ public class CommonService {
 		return "ORDER".concat("" + countUserId);
 	}
 
-	
+	public String autoRqId(String rId) {
+		if(rId.isEmpty() || rId == null) rId = "REQUE0000";
+		String strorderid = rId.substring(5, 9);
+		int odId = Integer.parseInt(strorderid);
+		++odId;
+		String countUserId = "" + odId;
+		if (countUserId.trim().length() != 4) {
+			int count = 4 - countUserId.trim().length();
+			for (int i = 0; i < count; i++) {
+				countUserId = "0" + countUserId;
+			}
+		}
+		return "REQUE".concat("" + countUserId);
+	}
+
 
 }

@@ -17,9 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import PracticeCalendar.Model.OrderCalendar;
+import PracticeCalendar.Model.Request;
 import PracticeCalendar.Model.Role;
 import PracticeCalendar.Model.User;
 import PracticeCalendar.Repository.OrderCalendarRepository;
+import PracticeCalendar.Repository.RequestRepository;
 import PracticeCalendar.Repository.RoleRepository;
 import PracticeCalendar.Repository.UserRepository;
 
@@ -33,6 +35,8 @@ public class UserServiceImpl {
 
 	@Autowired
 	private OrderCalendarRepository orderCalendarRepository;
+	@Autowired
+	private RequestRepository requestRepository;
 
 	@Value("${string.role.default}")
 	private String role;
@@ -93,10 +97,22 @@ public class UserServiceImpl {
 
 	public String autoCodeOrderId() {
 		List<OrderCalendar> lstOrder = (List<OrderCalendar>) orderCalendarRepository.findAll();
-		String orderId = lstOrder.get(lstOrder.size()-1).getOrderId();
+		String orderId = "";
+		if (lstOrder.size() > 0)
+			orderId = lstOrder.get(lstOrder.size() - 1).getOrderId();
 		CommonService autoCode = new CommonService();
 		String uId = autoCode.autoOrderId(orderId);
 		return uId;
+	}
+
+	public String autoCodeRequsetId() {
+		List<Request> lstRq = (List<Request>) requestRepository.findAll();
+		String rqId = "";
+		if (lstRq.size() > 0)
+			rqId = lstRq.get(lstRq.size() - 1).getReqId();
+		CommonService autoCode = new CommonService();
+		String rId = autoCode.autoRqId(rqId);
+		return rId;
 	}
 
 	public Date currentDate() throws ParseException {
@@ -118,12 +134,16 @@ public class UserServiceImpl {
 	}
 
 	public void orderCalendar(OrderCalendar orderCalendar) {
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Date day = orderCalendar.getDateOrder();
-		String date = df.format(day);
 		OrderCalendar order = orderCalendarRepository.findByOrderId(orderCalendar.getOrderId());
 		if (order == null)
 			orderCalendarRepository.save(orderCalendar);
+
+	}
+
+	public void reqCalendar(Request request) {
+		Request req = requestRepository.findByReqId(request.getReqId());
+		if (req == null)
+			requestRepository.save(request);
 
 	}
 }

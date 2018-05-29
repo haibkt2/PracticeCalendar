@@ -168,106 +168,286 @@
 																							Day Off </a>
 																					</c:when>
 																					<c:otherwise>
-																						<c:if test="${empty listRoom.getRequestCalendar()}">
-																						<a data-toggle="modal" data-target="#booking-info">
-																							Sáng : Request </a>
-																						<a data-toggle="modal" data-target="#booking-info">
-																							Chiều : Request </a>
+																						<c:if
+																							test="${empty listRoom.getRequestCalendar()}">
+																							<a style="background-color: #00c0ef52"> <span>
+																									Sáng: </span> <strong
+																								style="padding-left: 10px; padding-right: 5px;">
+																									<a
+																									href="/request?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning">
+																										Request </a>
+																							</strong>
+																							</a>
+																							<a style="background-color: #00c0ef52"> <span>
+																									Chiều: </span> <strong
+																								style="padding-left: 10px; padding-right: 5px;">
+																									<a
+																									href="/request?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Noon">
+																										Request </a>
+																							</strong>
+																							</a>
 																						</c:if>
-																						${listRoom.getRequestCalendar().getReqId()}
+																						<c:if
+																							test="${not empty listRoom.getRequestCalendar()}">
+																							<%
+																								int ri = 0;
+																														int rj = 0;
+																														String status_s = "";
+																														String status_c = "";
+																							%>
+																							<c:forEach
+																								items="${listRoom.getRequestCalendar()}"
+																								var="lRq">
+																								<c:if test="${lRq.getTimeOrder() eq 'Morning' }">
+																									<%
+																										ri++;
+																									status_s = ((Request) pageContext.findAttribute("lRq")).getStatus();
+																									%>
+																								</c:if>
+																								<c:if test="${lRq.getTimeOrder() eq 'Noon' }">
+																									<%
+																										rj++;
+																									status_c = ((Request) pageContext.findAttribute("lRq")).getStatus();
+																									%>
+																								</c:if>
+																								
+																							</c:forEach>
+																							<a style="background-color: #00c0ef52"> <span>
+																										Sáng: </span> <strong
+																									style="padding-left: 10px; padding-right: 5px;">
+																									<%if(ri>0) {%>
+																										<a data-toggle="modal" style="color: red"
+																									data-target="#request-info${listRoom.getRoomName()}${loopday.index}s">
+																										<%=status_s %>
+																										</a>
+																									<%}else { %>
+																									<a
+																										href="/request?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning">
+																											Request </a>
+																									<%} %>
+																								</strong>
+																								</a>
+																								<a style="background-color: #00c0ef52"> <span>
+																										Chiều: </span> <strong
+																									style="padding-left: 10px; padding-right: 5px;">
+																										<%if(rj>0) {%>
+																										<a data-toggle="modal" style="color: red"
+																									data-target="#request-info${listRoom.getRoomName()}${loopday.index}c">
+																										<%=status_c %>
+																										</a>
+																									<%}else { %>
+																									<a
+																										href="/request?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Noon">
+																											Request </a>
+																									<%} %>
+																								</strong>
+																								</a>
+																						</c:if>
+
 																					</c:otherwise>
 																				</c:choose></td>
 																		</c:if>
 																		<c:if
 																			test="${setDay.get(loopday.index).substring(0,3) ne 'Sun'}">
-																			<c:choose>
-																				<c:when test="${empty listRoom.getOrderCalendar()}">
-																					<!-- 																			dd -->
-																					<td style="background-color: #00c0ef52"><a
-																						href="${contextPath}/<%if(b_cl_s.equals("red") || Integer.parseInt(oder_min) < i){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>"
-																						style="background-color: #00c0ef52"> <span>
-																								Sáng: </span> <strong
-																							style="padding-left: 10px; padding-right: 5px;">
-																								<a data-toggle="modal"
-																								data-target="#booking-info${listRoom.getRoomName()}${loopday.index}s">
-																									0/${listRoom.getOrderMax() }</a>
-																						</strong>
-																					</a><a
-																						href="${contextPath}/<%if(b_cl_s.equals("red") || Integer.parseInt(oder_min) < i){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Noon<%}%>"
-																						style="background-color: #00c0ef52"> <span>
-																								Chiều: </span> <strong
-																							style="padding-left: 10px; padding-right: 4px;">
-																								<a data-toggle="modal"
-																								data-target="#booking-info${listRoom.getRoomName()}${loopday.index}c">
-																									0/${listRoom.getOrderMax() }</a>
-																						</strong>
-																					</a></td>
-																				</c:when>
-																				<c:otherwise>
+																			<c:if
+																				test="${UserLogin.getRole().getRoleName() eq 'ROLE_STUDENTS' }">
+																				<c:choose>
+																					<c:when test="${empty listRoom.getOrderCalendar()}">
+																						<!-- 																			dd -->
+																						<td style="background-color: #00c0ef52"><a
+																							href="${contextPath}/<%if(b_cl_s.equals("red") || Integer.parseInt(oder_min) < i){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>"
+																							style="background-color: #00c0ef52"> <span>
+																									Sáng: </span> <strong
+																								style="padding-left: 10px; padding-right: 5px;">
+																									<a data-toggle="modal"
+																									data-target="#booking-info${listRoom.getRoomName()}${loopday.index}s">
+																										0/${listRoom.getOrderMax() } </a>
+																							</strong>
+																						</a><a
+																							href="${contextPath}/<%if(b_cl_s.equals("red") || Integer.parseInt(oder_min) < i){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Noon<%}%>"
+																							style="background-color: #00c0ef52"> <span>
+																									Chiều: </span> <strong
+																								style="padding-left: 10px; padding-right: 4px;">
+																									<a data-toggle="modal"
+																									data-target="#booking-info${listRoom.getRoomName()}${loopday.index}c">
+																										0/${listRoom.getOrderMax() }</a>
+																							</strong>
+																						</a></td>
+																					</c:when>
+																					<c:otherwise>
 
-																					<c:forEach items="${listRoom.getOrderCalendar()}"
-																						var="lsOrder" varStatus="orderIndex">
-																						<c:set var="isDay"
-																							value="${lsOrder.setDateString().substring(0, 5)}" />
+																						<c:forEach items="${listRoom.getOrderCalendar()}"
+																							var="lsOrder" varStatus="orderIndex">
+																							<c:set var="isDay"
+																								value="${lsOrder.setDateString().substring(0, 5)}" />
 
-																						<c:choose>
+																							<c:choose>
 
-																							<c:when
-																								test="${isDay eq setDay.get(loopday.index).substring(4,9)}">
-																								<c:if
-																									test="${lsOrder.getTimeOrder() eq 'Morning' && lsOrder.getFlg() eq '1'}">
-																									<%
-																										students_s.add(i, ((OrderCalendar) pageContext.findAttribute("lsOrder"))
-																																					.getUser());
-																																			i++;
-																									%>
+																								<c:when
+																									test="${isDay eq setDay.get(loopday.index).substring(4,9)}">
 																									<c:if
-																										test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId() && lsOrder.getFlg() eq '1'}">
+																										test="${lsOrder.getTimeOrder() eq 'Morning' && lsOrder.getFlg() eq '1'}">
 																										<%
-																											b_cl_s = "red";
+																											students_s.add(i,
+																																							((OrderCalendar) pageContext.findAttribute("lsOrder"))
+																																									.getUser());
+																																					i++;
 																										%>
+																										<c:if
+																											test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId() && lsOrder.getFlg() eq '1'}">
+																											<%
+																												b_cl_s = "red";
+																											%>
+																										</c:if>
 																									</c:if>
-																								</c:if>
-																								<c:if
-																									test="${lsOrder.getTimeOrder() eq 'Noon' && lsOrder.getFlg() eq '1'}">
-																									<%
-																										students_c.add(j, ((OrderCalendar) pageContext.findAttribute("lsOrder"))
-																																					.getUser());
-																																			j++;
-																									%>
 																									<c:if
-																										test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId() && lsOrder.getFlg() eq '1'}">
+																										test="${lsOrder.getTimeOrder() eq 'Noon' && lsOrder.getFlg() eq '1'}">
 																										<%
-																											b_cl_c = "red";
+																											students_c.add(j,
+																																							((OrderCalendar) pageContext.findAttribute("lsOrder"))
+																																									.getUser());
+																																					j++;
 																										%>
+																										<c:if
+																											test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId() && lsOrder.getFlg() eq '1'}">
+																											<%
+																												b_cl_c = "red";
+																											%>
+																										</c:if>
 																									</c:if>
-																								</c:if>
-																							</c:when>
-																						</c:choose>
-																					</c:forEach>
-																					<td style="background-color: #00c0ef52"><a
-																						href="${contextPath}/<%if(b_cl_s.equals("red") || Integer.parseInt(oder_min) < i){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>"
-																						style="background-color: <%=b_cl_s%>"> <span>
-																								Sáng: </span> <strong
-																							style="padding-left: 10px; padding-right: 5px;">
-																								<a data-toggle="modal"
-																								data-target="#booking-info${listRoom.getRoomName()}${loopday.index}s"><%=i%>/${listRoom.getOrderMax() }</a>
-																						</strong>
-																					</a><a
-																						href="${contextPath}/<%if(b_cl_c.equals("red") || Integer.parseInt(oder_min) < j){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Noon<%}%>"
-																						style="background-color: <%=b_cl_c%>"> <span>
-																								Chiều: </span> <strong
-																							style="padding-left: 10px; padding-right: 5px;">
-																								<a data-toggle="modal"
-																								data-target="#booking-info${listRoom.getRoomName()}${loopday.index}c"><%=j%>/${listRoom.getOrderMax() }</a>
-																						</strong>
-																					</a></td>
-																				</c:otherwise>
+																								</c:when>
+																							</c:choose>
+																						</c:forEach>
+																						<td style="background-color: #00c0ef52"><a
+																							href="${contextPath}/<%if(b_cl_s.equals("red") || Integer.parseInt(oder_min) < i){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>"
+																							style="background-color: <%=b_cl_s%>"> <span>
+																									Sáng: </span> <strong
+																								style="padding-left: 10px; padding-right: 5px;">
+																									<a data-toggle="modal"
+																									data-target="#booking-info${listRoom.getRoomName()}${loopday.index}s"><%=i%>/${listRoom.getOrderMax() }</a>
+																							</strong>
+																						</a><a
+																							href="${contextPath}/<%if(b_cl_c.equals("red") || Integer.parseInt(oder_min) < j){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Noon<%}%>"
+																							style="background-color: <%=b_cl_c%>"> <span>
+																									Chiều: </span> <strong
+																								style="padding-left: 10px; padding-right: 5px;">
+																									<a data-toggle="modal"
+																									data-target="#booking-info${listRoom.getRoomName()}${loopday.index}c"><%=j%>/${listRoom.getOrderMax() }</a>
+																							</strong>
+																						</a></td>
+																					</c:otherwise>
 
-																			</c:choose>
+																				</c:choose>
+																			</c:if>
+																			<c:if
+																				test="${UserLogin.getRole().getRoleName() eq 'ROLE_TEACHER' }">
+																				<c:choose>
+																					<c:when test="${empty listRoom.getOrderCalendar()}">
+																						<!-- 																			dd -->
+																						<td style="background-color: #00c0ef52"><a
+																							href="${contextPath}/<%if(b_cl_s.equals("red") || Integer.parseInt(oder_min) < i){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>"
+																							style="background-color: #00c0ef52"> <span>
+																									Sáng: </span> <strong
+																								style="padding-left: 10px; padding-right: 5px;">
+																									<a data-toggle="modal"
+																									data-target="#booking-info${listRoom.getRoomName()}${loopday.index}s">
+																										Free</a>
+																							</strong>
+																						</a><a
+																							href="${contextPath}/<%if(b_cl_s.equals("red") || Integer.parseInt(oder_min) < i){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Noon<%}%>"
+																							style="background-color: #00c0ef52"> <span>
+																									Chiều: </span> <strong
+																								style="padding-left: 10px; padding-right: 4px;">
+																									<a data-toggle="modal"
+																									data-target="#booking-info${listRoom.getRoomName()}${loopday.index}c">
+																										Free</a>
+																							</strong>
+																						</a></td>
+																					</c:when>
+																					<c:otherwise>
+
+																						<c:forEach items="${listRoom.getOrderCalendar()}"
+																							var="lsOrder" varStatus="orderIndex">
+																							<c:set var="isDay"
+																								value="${lsOrder.setDateString().substring(0, 5)}" />
+
+																							<c:choose>
+
+																								<c:when
+																									test="${isDay eq setDay.get(loopday.index).substring(4,9)}">
+																									<c:if
+																										test="${lsOrder.getTimeOrder() eq 'Morning' && lsOrder.getFlg() eq '1'}">
+																										<%
+																											students_s.add(i,
+																																							((OrderCalendar) pageContext.findAttribute("lsOrder"))
+																																									.getUser());
+																																					i++;
+																										%>
+																										<c:if
+																											test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId() && lsOrder.getFlg() eq '1'}">
+																											<%
+																												b_cl_s = "red";
+																											%>
+																										</c:if>
+																									</c:if>
+																									<c:if
+																										test="${lsOrder.getTimeOrder() eq 'Noon' && lsOrder.getFlg() eq '1'}">
+																										<%
+																											students_c.add(j,
+																																							((OrderCalendar) pageContext.findAttribute("lsOrder"))
+																																									.getUser());
+																																					j++;
+																										%>
+																										<c:if
+																											test="${lsOrder.getUser().getUserId() eq UserLogin.getUserId() && lsOrder.getFlg() eq '1'}">
+																											<%
+																												b_cl_c = "red";
+																											%>
+																										</c:if>
+																									</c:if>
+																								</c:when>
+																							</c:choose>
+																						</c:forEach>
+																						<td style="background-color: #00c0ef52"><a
+																							href="${contextPath}/<%if(b_cl_s.equals("red") || Integer.parseInt(oder_min) < i){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Morning<%}%>"
+																							style="background-color: <%=b_cl_s%>"> <span>
+																									Sáng: </span> <strong
+																								style="padding-left: 10px; padding-right: 5px;">
+																									<a data-toggle="modal"
+																									data-target="#booking-info${listRoom.getRoomName()}${loopday.index}s">
+																										<%
+																											if (i > 0) {
+																										%> Booked <%
+																											} else {
+																										%> Free <%
+																											}
+																										%>
+																								</a>
+																							</strong>
+																						</a><a
+																							href="${contextPath}/<%if(b_cl_c.equals("red") || Integer.parseInt(oder_min) < j){%>#yourpet<%} else {%>orderCalendar?room=${listRoom.getRoomName()}&dayBooking=${setDay.get(loopday.index).substring(4,9)}&timeBooking=Noon<%}%>"
+																							style="background-color: <%=b_cl_c%>"> <span>
+																									Chiều: </span> <strong
+																								style="padding-left: 10px; padding-right: 5px;">
+																									<a data-toggle="modal"
+																									data-target="#booking-info${listRoom.getRoomName()}${loopday.index}c">
+																										<%
+																											if (j > 0) {
+																										%> Booked <%
+																											} else {
+																										%> Free <%
+																											}
+																										%>
+																								</a>
+																							</strong>
+																						</a></td>
+																					</c:otherwise>
+
+																				</c:choose>
+																			</c:if>
 																		</c:if>
 																		<div class="modal fade"
-																			id="booking-info${listRoom.getRoomName()}${loopday.index}s"
+																			id="request-info${listRoom.getRoomName()}${loopday.index}s"
 																			tabindex="-1" role="dialog"
 																			aria-labelledby="exampleModalLongTitle"
 																			aria-hidden="true">
@@ -282,26 +462,127 @@
 																						</button>
 																					</div>
 																					<div class="modal-body">
-																						<p>Tên: ${listRoom.getRoomName()}</p>
-																						<p>Trạng thái: ${listRoom.getRoomName()}</p>
-																						<p>
-																							Số lượng hiện tại:
-																							<%=i%>
+																						<p>Phòng: ${listRoom.getRoomName()}</p>
+																						<c:forEach
+																							items="${listRoom.getRequestCalendar()}"
+																							var="lRd">
+																							<c:if test="${lRd.getTimeOrder() eq 'Morning' }">
+																								<p>Giáo viên: ${lRd.getUser().getName()}</p>
+																								<p>Trạng thái: ${lRd.getStatus()}</p>
+																							</c:if>
+																						</c:forEach>
 
-																						</p>
-																						<h2>Danh sách người đăng ký</h2>
-																						<%
-																							for (User u : students_s) {
-																						%>
-																						<%=u.getName()%>
+																					</div>
+																					<div class="modal-footer">
+																						<button type="button" class="btn btn-secondary"
+																							data-dismiss="modal">Close</button>
+																						<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="modal fade"
+																			id="request-info${listRoom.getRoomName()}${loopday.index}c"
+																			tabindex="-1" role="dialog"
+																			aria-labelledby="exampleModalLongTitle"
+																			aria-hidden="true">
+																			<div class="modal-dialog" role="document">
+																				<div class="modal-content">
+																					<div class="modal-header">
+																						<h2 class="modal-title" id="exampleModalLongTitle">Chi
+																							tiết phòng - ${listRoom.getRoomName()}</h2>
+																						<button type="button" class="close"
+																							data-dismiss="modal" aria-label="Close">
+																							<span aria-hidden="true">&times;</span>
+																						</button>
+																					</div>
+																					<div class="modal-body">
+																						<p>Phòng: ${listRoom.getRoomName()}</p>
+																						<c:forEach
+																							items="${listRoom.getRequestCalendar()}"
+																							var="lRd">
+																							<c:if test="${lRd.getTimeOrder() eq 'Noon' }">
+																								<p>Giáo viên: ${lRd.getUser().getName()}</p>
+																								<p>Trạng thái: ${lRd.getStatus()}</p>
+																							</c:if>
+																						</c:forEach>
+
+																					</div>
+																					<div class="modal-footer">
+																						<button type="button" class="btn btn-secondary"
+																							data-dismiss="modal">Close</button>
+																						<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="modal fade"
+																			id="booking-info${listRoom.getRoomName()}${loopday.index}s"
+																			tabindex="-1" role="dialog"
+																			aria-labelledby="exampleModalLongTitle"
+																			aria-hidden="true">
+																			<div class="modal-dialog" role="document">
+																				<div class="modal-content">
+																					<div class="modal-header">
+																						<h2 class="modal-title" id="exampleModalLongTitle">Chi
+																							tiết phòng - ${listRoom.getRoomName()}</h2>
+																						<button type="button" class="close"
+																							data-dismiss="modal" aria-label="Close">
+																							<span aria-hidden="true">&times;</span>
+																						</button>
+																					</div>
+																					<div class="modal-body">
+																						<c:if
+																							test="${UserLogin.getRole().getRoleName() eq 'ROLE_STUDENTS' }">
+																							<p>Tên: ${listRoom.getRoomName()}</p>
+																							<p>Trạng thái: ${listRoom.getRoomName()}</p>
+																							<p>
+																								Số lượng hiện tại:
+																								<%=i%>
+
+																							</p>
+																							<h2>Danh sách người đăng ký</h2>
+																							<%
+																								for (User u : students_s) {
+																							%>
+																							<%=u.getName()%>
 																						-
 																						<%=u.getUserId()%>
-																						<br>
+																							<br>
 
-																						<%
-																							}
-																						%>
+																							<%
+																								}
+																							%>
+																						</c:if>
+																						<c:if
+																							test="${UserLogin.getRole().getRoleName() eq 'ROLE_TEACHER' }">
+																							<p>Tên: ${listRoom.getRoomName()}</p>
+																							<p>
+																								Trạng thái:
+																								<%
+																								if (i > 0) {
+																							%>
+																								Booked
+																								<%
+																								} else {
+																							%>
+																								Free
+																								<%
+																								}
+																							%>
+																							</p>
+																							<h2>Giáo viên đăng kí</h2>
+																							<%
+																								for (User u : students_s) {
+																							%>
+																							<%=u.getName()%>
 
+																							<br>
+
+																							<%
+																								}
+																							%>
+																						</c:if>
 																					</div>
 																					<div class="modal-footer">
 																						<button type="button" class="btn btn-secondary"
@@ -327,24 +608,57 @@
 																						</button>
 																					</div>
 																					<div class="modal-body">
-																						<p>Tên: ${listRoom.getRoomName()}</p>
-																						<p>Trạng thái: ${listRoom.getRoomName()}</p>
-																						<p>
-																							Số lượng hiện tại:
-																							<%=j%>
+																						<c:if
+																							test="${UserLogin.getRole().getRoleName() eq 'ROLE_STUDENTS' }">
+																							<p>Tên: ${listRoom.getRoomName()}</p>
+																							<p>Trạng thái: ${listRoom.getRoomName()}</p>
+																							<p>
+																								Số lượng hiện tại:
+																								<%=i%>
 
-																						</p>
-																						<h2>Danh sách người đăng ký</h2>
-																						<%
-																							for (User u : students_c) {
-																						%>
-																						<%=u.getName()%>
+																							</p>
+																							<h2>Danh sách người đăng ký</h2>
+																							<%
+																								for (User u : students_s) {
+																							%>
+																							<%=u.getName()%>
 																						-
 																						<%=u.getUserId()%>
-																						<br>
-																						<%
-																							}
-																						%>
+																							<br>
+
+																							<%
+																								}
+																							%>
+																						</c:if>
+																						<c:if
+																							test="${UserLogin.getRole().getRoleName() eq 'ROLE_TEACHER' }">
+																							<p>Tên: ${listRoom.getRoomName()}</p>
+																							<p>
+																								Trạng thái:
+																								<%
+																								if (i > 0) {
+																							%>
+																								Booked
+																								<%
+																								} else {
+																							%>
+																								Free
+																								<%
+																								}
+																							%>
+																							</p>
+																							<h2>Giáo viên đăng kí</h2>
+																							<%
+																								for (User u : students_s) {
+																							%>
+																							<%=u.getName()%>
+
+																							<br>
+
+																							<%
+																								}
+																							%>
+																						</c:if>
 																					</div>
 																					<div class="modal-footer">
 																						<button type="button" class="btn btn-secondary"
