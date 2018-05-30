@@ -80,9 +80,32 @@ public class AdminController {
 
 	@RequestMapping(value = "/userStatistics", method = RequestMethod.GET)
 	public String userStatistics(Model model) {
-		List<Request> listReq = (List<Request>) requestRepository.findAll();
+		List<Request> listReq = (List<Request>) requestRepository.findAllRequest();
+		List<Request> listAgr = (List<Request>) requestRepository.findAllAgree();
 		model.addAttribute("listReq", listReq);
+		model.addAttribute("listAgr", listAgr);
 		return "userStatistics";
+	}
+
+	@RequestMapping(value = "/responseRequest", method = RequestMethod.GET)
+	public String responseRequest(Model model, HttpServletRequest request,HttpSession session) {
+		String agree = request.getParameter("agree");
+		User u = (User) session.getAttribute("UserLogin");
+		String disagree = request.getParameter("disagree");
+		if (agree != null) {
+			Request rq = requestRepository.findByReqId(agree);
+			if (rq != null) {
+				rq.setStatus("Booked");
+				rq.setAdminAgree(u.getName());
+				requestRepository.save(rq);
+			}
+		} else {
+			Request rq = requestRepository.findByReqId(disagree);
+			if (rq != null) {
+				requestRepository.deleteRequest(rq.getReqId());
+			}
+		}
+		return "redirect:/userStatistics";
 	}
 
 	@RequestMapping(value = "/managementAccount", method = RequestMethod.GET)

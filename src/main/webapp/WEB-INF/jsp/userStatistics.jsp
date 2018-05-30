@@ -26,12 +26,12 @@
 			</div>
 			<input type="hidden" id="serverTime" />
 		</section>
-
+<h3>List Request</h3>
 <div class="box-body">
       <table id="example1" class="table table-bordered table-striped">
         <thead>
         <tr>
-          <th>User Id</th>
+          <th>STT</th>
           <th>Full name</th>
           <th>Room</th>
           <th>Date Request</th>
@@ -42,18 +42,59 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${listReq}" var="listReq">
+        <c:forEach items="${listReq}" var="listReq" varStatus="looprq">
           <tr>
              
-            <td>${listReq.getUser().getUserId()}</td>
+            <td>${looprq.index+1}</td>
             <td>${listReq.getUser().getName()}</td>
             <td>${listReq.getRoom().getRoomName()}</td>
             <td>${listReq.getCreatDate()}</td>
             <td>${listReq.getDateReq()}</td>
             <td>${listReq.getTimeOrder()}</td>
             <td>${listReq.getStatus()}</td>
-            <td>Button phản hồi</td>
-<%--             <td><a href="${contextPath}/updateInfo?userid=${listUser.getUserId()}"><button>Update</button></a></td> --%>
+<!--             <td>Button phản hồi</td> -->
+            <td>
+            <a href="${contextPath}/responseRequest?agree=${listReq.getReqId()}"><button>OK</button></a>
+            <a href="${contextPath}/responseRequest?disagree=${listReq.getReqId()}"><button>NO</button></a>
+            </td>
+            
+          </tr>
+          </c:forEach>
+        </tbody>
+      </table>
+      </div>
+      <h3>History</h3>
+<div class="box-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Full name</th>
+          <th>Room</th>
+          <th>Date Request</th>
+          <th>Date Order</th>
+          <th>Time Order</th>
+          <th>Status</th>
+          <th>Admin</th>
+<!--           <th>Response</th> -->
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${listAgr}" var="listAgr" varStatus="loopagr">
+          <tr>
+             
+            <td>${loopagr.index+1}</td>
+            <td>${listAgr.getUser().getName()}</td>
+            <td>${listAgr.getRoom().getRoomName()}</td>
+            <td>${listAgr.getCreatDate()}</td>
+            <td>${listAgr.getDateReq()}</td>
+            <td>${listAgr.getTimeOrder()}</td>
+            <td>${listAgr.getStatus()}</td>
+            <td>${listAgr.getAdminAgree()}</td>
+<!--             <td>Button phản hồi</td> -->
+<!--             <td> -->
+<%--             <a href="${contextPath}/responseRequest?userid=${listUser.getUserId()}"><button>Delete</button></a> --%>
+<!--             </td> -->
             
           </tr>
           </c:forEach>

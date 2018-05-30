@@ -115,6 +115,44 @@
 													</tfoot>
 												</table>
 											</div>
+											<div class="box-body">
+											<h3>List Request</h3>
+												<table id="example1"
+													class="table table-bordered table-striped">
+													<thead>
+														<tr>
+															<th>STT</th>
+															<th>Room</th>
+															<th>Date Request</th>
+															<th>Time Request</th>
+															<th>Create Date</th>
+															<th>Status</th>
+															<th>Cancel</th>
+															<th>Delete</th>
+														</tr>
+													</thead>
+													<tbody>
+													<c:forEach items="${orderUser}" var="listOr" varStatus="lopList">
+														<tr>
+															<td>${lopList.index+1}</td>
+															<td>${listOr.getRoom().getRoomName()}</td>
+															<td>${listOr.getDateOrder()}</td>
+															<td>${listOr.getTimeOrder()}</td>
+															<td>${listOr.getCreatDate()}</td>
+															<td>${listOr.getCreatDate()}</td>
+															<td><a href="${contextPath}/manageOrder?cancel=${listOr.getOrderId()}">
+																	<button type="button" class="btn bg-green1 margin" ${date ge listOr.getDateOrder() ? 'disabled="disabled"': ''}>Cancel</button>
+															</a></td>
+															<td><a href="${contextPath}/manageOrder?delete=${listOr.getOrderId()}">
+																	<button type="button" class="btn bg-red margin" ${listOr.getDateOrder() gt date ? 'disabled="disabled"': ''}>Delete</button>
+															</a></td>
+														</tr>
+													
+													</c:forEach>
+														
+													</tfoot>
+												</table>
+											</div>
 											<!-- /.box-body -->
 										</div>
 									</div>

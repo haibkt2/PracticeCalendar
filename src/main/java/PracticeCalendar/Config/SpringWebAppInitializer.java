@@ -28,4 +28,5 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
         fr.setInitParameter("forceEncoding", "true");
         fr.addMappingForUrlPatterns(null, true, "/*");
     }
+//    https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
 }

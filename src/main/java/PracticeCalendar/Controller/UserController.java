@@ -230,6 +230,8 @@ public class UserController {
 		User user = (User) session.getAttribute("UserLogin");
 		List<OrderCalendar> listOr = orderRepository.findByOrderUser(user.getUserId());
 		model.addAttribute("orderUser", listOr);
+		List<OrderCalendar> listRq = orderRepository.findByOrderUser(user.getUserId());
+		model.addAttribute("orderUser", listOr);
 		return "historyOrder";
 	}
 

@@ -39,10 +39,35 @@ public class Request implements Serializable {
 	private String creatDate;
 
 	private String status;
+	private String fl;
 	private String timeOrder;
-
+	private String adminAgree;
 	public User getUser() {
 		return user;
+	}
+	
+	private String getFl() {
+		return fl;
+	}
+
+	private void setFl(String fl) {
+		this.fl = fl;
+	}
+
+	public Room getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(Room rooms) {
+		this.rooms = rooms;
+	}
+
+	public String getAdminAgree() {
+		return adminAgree;
+	}
+
+	public void setAdminAgree(String adminAgree) {
+		this.adminAgree = adminAgree;
 	}
 
 	public void setUser(User user) {
