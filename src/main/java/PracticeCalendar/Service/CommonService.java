@@ -94,6 +94,19 @@ public class CommonService {
 		}
 		return "REQUE".concat("" + countUserId);
 	}
-
+	public String autoNtid(String ntId) {
+		if(ntId.isEmpty() || ntId == null) ntId = "NOTIF0000";
+		String strorderid = ntId.substring(5, 9);
+		int odId = Integer.parseInt(strorderid);
+		++odId;
+		String countUserId = "" + odId;
+		if (countUserId.trim().length() != 4) {
+			int count = 4 - countUserId.trim().length();
+			for (int i = 0; i < count; i++) {
+				countUserId = "0" + countUserId;
+			}
+		}
+		return "NOTIF".concat("" + countUserId);
+	}
 
 }

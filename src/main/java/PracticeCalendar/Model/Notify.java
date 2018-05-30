@@ -12,6 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 @Entity
 @NamedQuery(name="Notify.findAll", query="SELECT n FROM Notify n")
 public class Notify implements Serializable{
@@ -22,13 +24,13 @@ public class Notify implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "NOTIFY_ID")
-	private String notify_id;
+	private String notifyId;
 
 	@Column(name = "NOTIFY_TITLE")
-	private String notify_title;
+	private String notifyTitle;
 	
 	@Column(name = "NOTIFY_CONTENT")
-	private String notify_content;
+	private String notifyContent;
 	
 	@Temporal(TemporalType.DATE)
     @Column(name="CREATE_DATE")
@@ -37,29 +39,37 @@ public class Notify implements Serializable{
 	@ManyToOne
     @JoinColumn(name="USER_ID")
     private User user;
+	private CommonsMultipartFile[] fileDatas;
+	public CommonsMultipartFile[] getFileDatas() {
+		return fileDatas;
+	}
+
+	public void setFileDatas(CommonsMultipartFile[] fileDatas) {
+		this.fileDatas = fileDatas;
+	}
 
 	public String getNotify_id() {
-		return notify_id;
+		return notifyId;
 	}
 
 	public void setNotify_id(String notify_id) {
-		this.notify_id = notify_id;
+		this.notifyId = notify_id;
 	}
 
 	public String getNotify_title() {
-		return notify_title;
+		return notifyTitle;
 	}
 
 	public void setNotify_title(String notify_title) {
-		this.notify_title = notify_title;
+		this.notifyTitle = notify_title;
 	}
 
 	public String getNotify_content() {
-		return notify_content;
+		return notifyContent;
 	}
 
 	public void setNotify_content(String notify_content) {
-		this.notify_content = notify_content;
+		this.notifyContent = notify_content;
 	}
 
 	public Date getCreateDate() {

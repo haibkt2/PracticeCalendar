@@ -20,6 +20,7 @@
               <p style="text-align: center;">
                 <a href = "${contextPath}/createNotify" class="addtop"><img src="assets/img/add.png" alt="" /> 
                   <button type="button" class="btn bg-green margin">Create Post</button>
+                  ${mess_nt}
                 </a>
               </p>
 
@@ -29,31 +30,26 @@
       <table id="example1" class="table table-bordered table-striped">
         <thead>
         <tr>
-          <th>User Id</th>
-          <th>Full name</th>
-          <th>Role</th>
-          <th>Email</th>
-          <th>Birthday</th>
-          <th>Phone number</th>
-          <th>Gender</th>
-          <th>Status</th>
+          <th>STT</th>
+          <th>Summary</th>
+          <th>Content</th>
+          <th>User</th>
+          <th>Date</th>
           <th>Edit</th>
+          <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${listUser}" var="listUser">
+        <c:forEach items="${listNt}" var="listNt" varStatus="loop">
           <tr>
              
-            <td>${listUser.getUserId()}</td>
-            <td>${listUser.getName()}</td>
-            <td>${listUser.getRole().getRoleName()}</td>
-            <td>${listUser.getEmail()}</td>
-            <td>${listUser.getBirthday()}</td>
-            <td>${listUser.getPhone()}</td>
-            <td>${listUser.getGender()}</td>
-            <td>${listUser.getStatus()}</td>
+            <td>${loop.index+1 }</td>
+            <td>${listNt.getNotify_title()}</td>
+             <td>${listNt.getNotify_content()}</td>
+            <td>${listNt.getUser().getName()}</td>
+            <td>${listNt.getCreateDate()}</td>
             <td><a href="${contextPath}/updateInfo?userid=${listUser.getUserId()}"><button>Update</button></a></td>
-            
+            <td><a href="${contextPath}/updateInfo?userid=${listUser.getUserId()}"><button>Delete</button></a></td>
           </tr>
           </c:forEach>
         </tbody>

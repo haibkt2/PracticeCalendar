@@ -16,10 +16,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import PracticeCalendar.Model.Notify;
 import PracticeCalendar.Model.OrderCalendar;
 import PracticeCalendar.Model.Request;
 import PracticeCalendar.Model.Role;
 import PracticeCalendar.Model.User;
+import PracticeCalendar.Repository.NotifyRepository;
 import PracticeCalendar.Repository.OrderCalendarRepository;
 import PracticeCalendar.Repository.RequestRepository;
 import PracticeCalendar.Repository.RoleRepository;
@@ -37,6 +39,8 @@ public class UserServiceImpl {
 	private OrderCalendarRepository orderCalendarRepository;
 	@Autowired
 	private RequestRepository requestRepository;
+	@Autowired
+	private NotifyRepository notifyRepository;
 
 	@Value("${string.role.default}")
 	private String role;
@@ -106,6 +110,15 @@ public class UserServiceImpl {
 		String rId = autoCode.autoRqId(rqId);
 		return rId;
 	}
+	public String autoCodeNotifyId() {
+		List<Notify> lstNt = (List<Notify>) notifyRepository.findAll();
+		String ntId = "";
+		if (lstNt.size() > 0)
+			ntId = lstNt.get(lstNt.size() - 1).getNotify_id();
+		CommonService autoCode = new CommonService();
+		String rId = autoCode.autoNtid(ntId);
+		return rId;
+	}
 
 	public Date currentDate() throws ParseException {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -136,6 +149,12 @@ public class UserServiceImpl {
 		Request req = requestRepository.findByReqId(request.getReqId());
 		if (req == null)
 			requestRepository.save(request);
+
+	}
+	public void creNotify(Notify notify) {
+		Notify noti = notifyRepository.findByNotifyId(notify.getNotify_id());
+		if (noti == null)
+			notifyRepository.save(notify);
 
 	}
 }

@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import PracticeCalendar.Model.Notify;
 import PracticeCalendar.Model.Room;
 import PracticeCalendar.Model.User;
+import PracticeCalendar.Repository.NotifyRepository;
 import PracticeCalendar.Repository.RoleRepository;
 import PracticeCalendar.Repository.RoomRepository;
 import PracticeCalendar.Repository.UserRepository;
@@ -38,6 +40,8 @@ public class MainController {
 
 	@Autowired
 	RoleRepository roleRepository;
+	@Autowired
+	NotifyRepository notifyRepository;
 
 	@Autowired
 	MessageSource msgSrc;
@@ -83,8 +87,12 @@ public class MainController {
 				return "viewRoom";
 			} else
 				return "redirect:/userStatistics";
+		} else {
+			List<Notify> listNt = (List<Notify>) notifyRepository.findAll();
+			model.addAttribute("listNt", listNt);
+			return "home";
 		}
-		return "home";
+
 	}
 
 	@RequestMapping(value = "/getServerTime", method = RequestMethod.GET)
