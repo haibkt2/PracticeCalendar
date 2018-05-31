@@ -355,50 +355,16 @@
 			<!-- /.search form -->
 			<!-- sidebar menu: : style can be found in sidebar.less -->
 			<ul class="sidebar-menu" data-widget="tree">
-				<c:if test="${UserLogin.getRole().getRoleName() eq 'ROLE_ADMIN'}">
-					<li class="treeview"><a href="#"> <i class="fa fa-cog"></i>
-							<span>Managements</span> <span class="pull-right-container">
-								<i class="fa fa-cogs pull-right"></i>
-						</span>
-					</a>
-						<ul class="treeview-menu">
+				
 							<li><a href="${contextPath}/managementPost"><i
 									class="fa fa-circle-o"></i> Management Post</a></li>
 							<li><a href="${contextPath}/managementAccount"><i
 									class="fa fa-circle-o"></i> Management Account </a></li>
 							<li><a href="${contextPath}/managementClass"><i
 									class="fa fa-circle-o"></i> Management Class</a></li>
-							<li><a href="${contextPath}/home"><i
-									class="fa fa-circle-o"></i> View Website</a></li>
 							<li><a href="${contextPath}/userStatistics"><i
 									class="fa fa-circle-o"></i> User Statistics</a></li>
-						</ul></li>
-				</c:if>
-				<li class="treeview"><a href="#"> <i
-						class="fa fa-user-circle-o"></i> <span>Account Managements</span>
-						<span class="pull-right-container"> <i
-							class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-					<ul class="treeview-menu">
-						
-						<li><a href="${contextPath}/profile"><i
-								class="fa fa-circle-o"></i>Profile</a></li>
-						<li><a href="${contextPath}/orderCld"><i
-								class="fa fa-circle-o"></i>Order Calendar </a></li>
-						<li>
-							
-						</li>
-					</ul></li>
-					<li>
-					<form method="GET"
-								action="${contextPath}/viewRoom">
-								<input type="hidden" name="d" id="date-picker" /><input
-									type="submit"
-									value="View Room"
-									class="btn btn-primary" style="margin-left: 20px" />
-							</form>
-					</li>
+				
 			</ul>
 		</section>
 		<!-- /.sidebar -->

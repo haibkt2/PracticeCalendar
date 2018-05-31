@@ -40,6 +40,7 @@ import PracticeCalendar.Model.User;
 import PracticeCalendar.Repository.NotifyRepository;
 import PracticeCalendar.Repository.RequestRepository;
 import PracticeCalendar.Repository.RoleRepository;
+import PracticeCalendar.Repository.RoomRepository;
 import PracticeCalendar.Repository.UserRepository;
 import PracticeCalendar.Service.UserServiceImpl;
 import org.apache.commons.fileupload.FileItem;
@@ -58,7 +59,8 @@ public class AdminController {
 
 	@Autowired
 	UserRepository userRepository;
-
+	@Autowired
+	RoomRepository roomRepository;
 	@Autowired
 	RoleRepository roleRepository;
 
@@ -88,7 +90,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/responseRequest", method = RequestMethod.GET)
-	public String responseRequest(Model model, HttpServletRequest request,HttpSession session) {
+	public String responseRequest(Model model, HttpServletRequest request, HttpSession session) {
 		String agree = request.getParameter("agree");
 		User u = (User) session.getAttribute("UserLogin");
 		String disagree = request.getParameter("disagree");
@@ -108,6 +110,40 @@ public class AdminController {
 		return "redirect:/userStatistics";
 	}
 
+	@RequestMapping(value = "/updatePost", method = RequestMethod.POST)
+	public String updatePost(@ModelAttribute("notifyForm") Notify notifyForm, Model model, HttpSession session,
+			HttpServletRequest request) throws ParseException {
+		User u = (User) session.getAttribute("UserLogin");
+		notifyForm.setCreateDate(userserviceimpl.currentDate());
+		notifyForm.setUser(u);
+		model.addAttribute("mess_nt", "sussecess");
+		Notify nt = notifyRepository.findByNotifyId(notifyForm.getNotifyId());
+		if (nt != null)
+			notifyRepository.save(notifyForm);
+		notifyRepository.save(notifyForm);
+		return "redirect:/managementPost?mess_nt=sussecess";
+	}
+
+	@RequestMapping(value = "/updatePost", method = RequestMethod.GET)
+	public String updateInfoPost(Model model, HttpServletRequest request,
+			@ModelAttribute("notifyForm") final Notify notifyForm) {
+		// get parameter date
+		String notifyIdUp = request.getParameter("updatePid");
+		String notifyIdDel = request.getParameter("deletePid");
+		if (notifyIdDel != null) {
+			notifyRepository.deleteNotifyId(notifyIdDel);
+			return "redirect:/managementPost?mess_nt=delss";
+		} else {
+			Notify notify = new Notify();
+			notify = notifyRepository.findByNotifyId(notifyIdUp);
+			model.addAttribute("notifyForm", notify);
+			String mess = request.getParameter("mess_nt");
+			if (mess != null)
+				model.addAttribute("mess_nt", mess);
+			return "updatePost";
+		}
+	}
+
 	@RequestMapping(value = "/managementAccount", method = RequestMethod.GET)
 	public String managementAccount(Model model, String error, String logout, HttpSession session,
 			HttpServletRequest req, HttpServletResponse response) {
@@ -119,6 +155,8 @@ public class AdminController {
 	@RequestMapping(value = "/managementClass", method = RequestMethod.GET)
 	public String managementClass(Model model, String error, String logout, HttpSession session, HttpServletRequest req,
 			HttpServletResponse response) {
+		List<Room> listRm = (List<Room>) roomRepository.findAll();
+		model.addAttribute("listRm", listRm);
 		return "managementClass";
 	}
 
@@ -127,7 +165,7 @@ public class AdminController {
 			HttpServletResponse response) {
 		List<Notify> listNt = (List<Notify>) notifyRepository.findAll();
 		model.addAttribute("listNt", listNt);
-		model.addAttribute("mess_nt", req.getAttribute("mess_nt"));
+		model.addAttribute("mess_nt", req.getParameter("mess_nt"));
 		return "managementPost";
 	}
 
@@ -162,18 +200,17 @@ public class AdminController {
 	// Insert staff information
 	@RequestMapping(value = "/createNotify", method = RequestMethod.POST)
 	public String createNotify(Model model, HttpSession session, HttpServletRequest request) throws Exception {
-		File uploadDir = new File(UPLOAD_DIRECTORY);
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		Notify notify = new Notify();
 		User u = (User) session.getAttribute("UserLogin");
-		notify.setNotify_id(userserviceimpl.autoCodeNotifyId());
+		notify.setNotifyId(userserviceimpl.autoCodeNotifyId());
 		notify.setCreateDate(userserviceimpl.currentDate());
 		notify.setUser(u);
-		notify.setNotify_content(content);
-		notify.setNotify_title(title);
+		notify.setNotifyContent(content);
+		notify.setNotifyTitle(title);
 		userserviceimpl.creNotify(notify);
 		model.addAttribute("mess_nt", "sussecess");
-		return "redirect:/managementPost";
+		return "redirect:/managementPost?mess_nt=sussecess";
 	}
 }

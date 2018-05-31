@@ -29,29 +29,25 @@
       <table id="example1" class="table table-bordered table-striped">
         <thead>
         <tr>
-          <th>User Id</th>
-          <th>Full name</th>
-          <th>Role</th>
-          <th>Email</th>
-          <th>Birthday</th>
-          <th>Phone number</th>
-          <th>Gender</th>
-          <th>Status</th>
-          <th>Edit</th>
+          <th>STT</th>
+          <th>Room Name</th>
+          <th>Room Type</th>
+          <th>Room Status</th>
+          <th>Quantum</th>
+          <th>Info</th>
+          <th>Update</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${listUser}" var="listUser">
+        <c:forEach items="${listRm}" var="listRm" varStatus="loopR">
           <tr>
              
-            <td>${listUser.getUserId()}</td>
-            <td>${listUser.getName()}</td>
-            <td>${listUser.getRole().getRoleName()}</td>
-            <td>${listUser.getEmail()}</td>
-            <td>${listUser.getBirthday()}</td>
-            <td>${listUser.getPhone()}</td>
-            <td>${listUser.getGender()}</td>
-            <td>${listUser.getStatus()}</td>
+            <td>${loopR.index + 1}</td>
+            <td><a href="#">${listRm.getRoomName()}</a></td>
+            <td>${listRm.getRoomType().getRoomTypeValue()}</td>
+            <td>${listRm.getRoomStatus().getRoomStatusValue()}</td>
+            <td>${listRm.getOrderMax()}</td>
+            <td>${listRm.getInfo()}</td>
             <td><a href="${contextPath}/updateInfo?userid=${listUser.getUserId()}"><button>Update</button></a></td>
             
           </tr>

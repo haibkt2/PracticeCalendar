@@ -253,12 +253,12 @@
 						<c:forEach items="${listNt}" var="listNt">
 							<div>
 								<h3 class="article-title">
-									<a href="">${listNt.getNotify_title() }</a>
+									<a href="">${listNt.getNotifyTitle() }</a>
 								</h3>
 								<ul class="article-meta">
 									<li><i class="fa fa-clock-o"></i> ${listNt.getCreateDate()}</li>
 								</ul>
-								<p>${listNt.getNotify_content()}</p>
+								<p>${listNt.getNotifyContent()}</p>
 
 							</div>
 						</c:forEach>

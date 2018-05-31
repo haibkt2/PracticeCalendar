@@ -20,10 +20,11 @@
               <p style="text-align: center;">
                 <a href = "${contextPath}/createNotify" class="addtop"><img src="assets/img/add.png" alt="" /> 
                   <button type="button" class="btn bg-green margin">Create Post</button>
-                  ${mess_nt}
+                  
                 </a>
+               
               </p>
-
+<p style="text-align: center;color: blue;"> ${mess_nt}</p>
         </div>
             <!-- /.box-header -->
     <div class="box-body">
@@ -44,12 +45,12 @@
           <tr>
              
             <td>${loop.index+1 }</td>
-            <td>${listNt.getNotify_title()}</td>
-             <td>${listNt.getNotify_content()}</td>
+            <td>${listNt.getNotifyTitle()}</td>
+             <td>${listNt.getNotifyContent()}</td>
             <td>${listNt.getUser().getName()}</td>
             <td>${listNt.getCreateDate()}</td>
-            <td><a href="${contextPath}/updateInfo?userid=${listUser.getUserId()}"><button>Update</button></a></td>
-            <td><a href="${contextPath}/updateInfo?userid=${listUser.getUserId()}"><button>Delete</button></a></td>
+            <td><a href="${contextPath}/updatePost?updatePid=${listNt.getNotifyId()}"><button>Update</button></a></td>
+            <td><a href="${contextPath}/updatePost?deletePid=${listNt.getNotifyId()}"><button>Delete</button></a></td>
           </tr>
           </c:forEach>
         </tbody>

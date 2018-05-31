@@ -24,6 +24,7 @@ import PracticeCalendar.Model.Role;
 import PracticeCalendar.Model.Room;
 import PracticeCalendar.Model.User;
 import PracticeCalendar.Repository.OrderCalendarRepository;
+import PracticeCalendar.Repository.RequestRepository;
 import PracticeCalendar.Repository.RoleRepository;
 import PracticeCalendar.Repository.RoomRepository;
 import PracticeCalendar.Repository.UserRepository;
@@ -40,7 +41,8 @@ public class UserController {
 
 	@Autowired
 	OrderCalendarRepository orderRepository;
-
+	@Autowired
+	RequestRepository requestRepository;
 	@Autowired
 	RoomRepository roomRepository;
 
@@ -162,14 +164,22 @@ public class UserController {
 		// update is user
 		int p_n = 1;
 		if (userForm.getUserId().equals(userLg.getUserId())) {
-			if (userForm.getPassword().isEmpty() || userForm.getPassword() == null) {
+			if (userForm.getPassword() == null) {
 				userForm.setPassword(userLg.getPassword());
-				p_n =0;
+				p_n = 0;
+			} else {
+				if (userForm.getPassword().isEmpty()) {
+					userForm.setPassword(userLg.getPassword());
+					p_n = 0;
+				}
 			}
 			userForm.setUserName(userLg.getUserName());
 			userserviceimpl.updateUser(userForm, p_n);
 			model.addAttribute("mss_up", "update finnish");
-			return "editProfile";
+			if (userLg.getRole().getRoleName().equals("ROLE_ADMIN"))
+				return "redirect:/updateInfo" + "?userid=" + userForm.getUserId() + "&messageInfo=updatess";
+			else
+				return "editProfile";
 		} else { // update is admin
 			userForm.setPassword(userUp.getPassword());
 			userForm.setUserName(userUp.getUserName());
@@ -193,7 +203,6 @@ public class UserController {
 		if (messageInfo != null) {
 			model.addAttribute("messUpdate", messageInfo);
 		}
-
 		return "updateUser";
 	}
 
@@ -230,7 +239,10 @@ public class UserController {
 		User user = (User) session.getAttribute("UserLogin");
 		List<OrderCalendar> listOr = orderRepository.findByOrderUser(user.getUserId());
 		model.addAttribute("orderUser", listOr);
-		List<OrderCalendar> listRq = orderRepository.findByOrderUser(user.getUserId());
+		if (user.getRole().getRoleName().equals("ROLE_TEACHER")) {
+			List<Request> listRq = requestRepository.findByRqUser(user.getUserId());
+			model.addAttribute("listRq", listRq);
+		}
 		model.addAttribute("orderUser", listOr);
 		return "historyOrder";
 	}

@@ -114,7 +114,7 @@ public class UserServiceImpl {
 		List<Notify> lstNt = (List<Notify>) notifyRepository.findAll();
 		String ntId = "";
 		if (lstNt.size() > 0)
-			ntId = lstNt.get(lstNt.size() - 1).getNotify_id();
+			ntId = lstNt.get(lstNt.size() - 1).getNotifyId();
 		CommonService autoCode = new CommonService();
 		String rId = autoCode.autoNtid(ntId);
 		return rId;
@@ -152,7 +152,7 @@ public class UserServiceImpl {
 
 	}
 	public void creNotify(Notify notify) {
-		Notify noti = notifyRepository.findByNotifyId(notify.getNotify_id());
+		Notify noti = notifyRepository.findByNotifyId(notify.getNotifyId());
 		if (noti == null)
 			notifyRepository.save(notify);
 

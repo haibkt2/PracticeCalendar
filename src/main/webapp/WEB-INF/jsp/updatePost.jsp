@@ -1,10 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ page isELIgnored="false"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<jsp:include page="header.jsp"></jsp:include><html>
+<jsp:include page="header.jsp"></jsp:include>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -28,21 +31,27 @@
                             </ul>
                         </div>
                     @endif -->
-						<form
-							action="${contextPath}/createNotify"
-							method="POST" >
+						<form:form action="${contextPath}/updatePost"
+							modelAttribute="notifyForm">
 							<div class="box-body">
-								
+
 
 								<div class="form-group">
-									<label for="">Tiêu đề</label> <input type="text"
-										class="form-control" required="true" name="title"
-										id="fullname" placeholder="Enter fullname">
+									<form:input type="text" class="form-control" required="true"
+										name="title" path="notifyId" id="fullname"
+										placeholder="Enter fullname" readonly="true"/>
+								</div>
+								<div class="form-group">
+									<label for="">Tiêu đề</label>
+									<form:input type="text" class="form-control" required="true"
+										name="title" path="notifyTitle" id="fullname"
+										placeholder="Enter fullname" />
 								</div>
 								<div class="form-group">
 									<label>Content</label>
-									<textarea class="ckeditor" id="mess_content" required="true"
-										rows="5" name="content" placeholder="Enter your email content"></textarea>
+									<form:textarea class="ckeditor" id="mess_content"
+										required="true" rows="5" name="notifyContent"
+										placeholder="Enter your email content" path="notifyContent"></form:textarea>
 									<script>
 										CKEDITOR
 												.replace(
@@ -60,13 +69,14 @@
 							</div>
 							<!-- /.box-body -->
 							<div class="box-footer">
-								<button type="submit" class="btn btn-primary">Submit</button>  
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<a href="${contextPath}/managementPost"><button
+										class="btn btn-primary" style="background-color: red">Cancel</button></a>
 							</div>
 							<div class="clearfix"></div>
 							<input type="hidden" name="${_csrf.parameterName}"
-									value="${_csrf.token}" />
-						</form>
-						<a href="${contextPath}/managementPost"><button class="btn btn-cancel" style="background-color: red;margin-left: 12px">Cancel</button></a>
+								value="${_csrf.token}" />
+						</form:form>
 					</div>
 				</div>
 			</div>

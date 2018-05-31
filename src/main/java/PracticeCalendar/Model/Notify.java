@@ -48,28 +48,28 @@ public class Notify implements Serializable{
 		this.fileDatas = fileDatas;
 	}
 
-	public String getNotify_id() {
+	public String getNotifyId() {
 		return notifyId;
 	}
 
-	public void setNotify_id(String notify_id) {
-		this.notifyId = notify_id;
+	public void setNotifyId(String notifyId) {
+		this.notifyId = notifyId;
 	}
 
-	public String getNotify_title() {
+	public String getNotifyTitle() {
 		return notifyTitle;
 	}
 
-	public void setNotify_title(String notify_title) {
-		this.notifyTitle = notify_title;
+	public void setNotifyTitle(String notifyTitle) {
+		this.notifyTitle = notifyTitle;
 	}
 
-	public String getNotify_content() {
+	public String getNotifyContent() {
 		return notifyContent;
 	}
 
-	public void setNotify_content(String notify_content) {
-		this.notifyContent = notify_content;
+	public void setNotifyContent(String notifyContent) {
+		this.notifyContent = notifyContent;
 	}
 
 	public Date getCreateDate() {

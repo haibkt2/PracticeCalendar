@@ -115,6 +115,7 @@
 													</tfoot>
 												</table>
 											</div>
+											<c:if test="${UserLogin.getRole().getRoleName() eq 'ROLE_TEACHER' }">
 											<div class="box-body">
 											<h3>List Request</h3>
 												<table id="example1"
@@ -153,6 +154,7 @@
 													</tfoot>
 												</table>
 											</div>
+											</c:if>
 											<!-- /.box-body -->
 										</div>
 									</div>
