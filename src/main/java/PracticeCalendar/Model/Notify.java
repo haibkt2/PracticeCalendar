@@ -39,12 +39,13 @@ public class Notify implements Serializable{
 	@ManyToOne
     @JoinColumn(name="USER_ID")
     private User user;
-	private CommonsMultipartFile[] fileDatas;
-	public CommonsMultipartFile[] getFileDatas() {
+	private String fileDatas;
+
+	public String getFileDatas() {
 		return fileDatas;
 	}
 
-	public void setFileDatas(CommonsMultipartFile[] fileDatas) {
+	public void setFileDatas(String fileDatas) {
 		this.fileDatas = fileDatas;
 	}
 

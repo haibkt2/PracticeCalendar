@@ -72,14 +72,14 @@
 										<h3 class="">Update your information</h3>
 										<hr>
 										${mss_up }
-										
+
 										<p style="text-align: center;">
 											<a href="#" class="addtop"><img src="assets/img/add.png"
 												alt="" /> </a>
 										</p>
 									</div>
-									<form:form action="${contextPath}/updateInfo?update=profile"
-										modelAttribute="userForm">
+									<form:form action="${contextPath}/updateInfoUser?${_csrf.parameterName}=${_csrf.token}"
+										modelAttribute="userForm" enctype="multipart/form-data">
 										<div class="box-body">
 											<div class="form-group">
 												<label for="">Username</label> <input type="text"
@@ -123,14 +123,17 @@
 												<!-- /.input group -->
 											</div>
 
-											<!--                             <div class="form-group"> -->
-											<!--                                 <label>Choose a new picture</label> -->
-											<!--                                 <input class="form-control" type="file" name="newPicture" placeholder="Choose your picture" value="Choose your picture" /> -->
-											<!--                             </div> -->
-											<!--                             <div class="form-group"> -->
-											<!--                                 <label>Your current picture</label> <br /> -->
-											<!--                                 <img src="img/nhat.jpg" name="oldPicture" width="30%" height="30%"> -->
-											<!--                             </div> -->
+											<div class="form-group">
+												<label>Choose a new Avartar</label> <input
+													class="form-control" type="file" name="file"
+													placeholder="Choose your picture"
+													value="Choose your picture" />
+											</div>
+											<div class="form-group">
+												<label>Your current picture</label> <br /> <img
+													src="${contextPath}/Reponsitory/Avatar/${UserLogin.getAvatar()}" name="oldPicture" width="30%"
+													height="30%">
+											</div>
 
 										</div>
 										<!-- /.box-body -->

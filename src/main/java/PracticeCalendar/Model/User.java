@@ -38,7 +38,7 @@ public class User implements Serializable {
 	private String phone;
 	private String gender;
 	private String status;
-	
+	private String avatar;
 
 	@Column(name = "USER_NAME")
 	private String userName;
@@ -146,6 +146,30 @@ public class User implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public List<OrderCalendar> getOrderCalendar() {
+		return orderCalendar;
+	}
+
+	public void setOrderCalendar(List<OrderCalendar> orderCalendar) {
+		this.orderCalendar = orderCalendar;
+	}
+
+	public List<Request> getRequest() {
+		return request;
+	}
+
+	public void setRequest(List<Request> request) {
+		this.request = request;
 	}
 
 }

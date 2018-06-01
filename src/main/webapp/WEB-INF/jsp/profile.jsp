@@ -50,7 +50,7 @@
 						<div class="box box-primary">
 							<div class="box-body box-profile">
 								<img class="profile-user-img img-responsive img-circle"
-									src="img/nhat.jpg" alt="User profile picture">
+									src="${contextPath}/Reponsitory/Avatar/${UserLogin.getAvatar()}" alt="User profile picture">
 
 								<h3 class="profile-username text-center">${UserLogin.getName()}</h3>
 

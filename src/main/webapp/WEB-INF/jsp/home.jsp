@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -61,6 +61,7 @@
 						<div class="col-lg-7">
 							<ul>
 								<li><a href="${contextPath}/home">Thông báo</a></li>
+								<li><a href="${contextPath}/home">${contextPath}</a></li>
 								<li><a href="#">Quy chế & Quy định</a></li>
 								<li><a href="#">Hướng dẫn sử dụng mail sinh viên - đăng
 										ký</a></li>
@@ -105,7 +106,7 @@
 											</button>
 										</div>
 										<div class="modal-body">
-											<form action="${contextPath}/register" method="post"
+											<form action="${contextPath}/register?${_csrf.parameterName}=${_csrf.token}" method="post"
 												enctype="multipart/form-data">
 												<div class="form-group">
 
@@ -148,7 +149,7 @@
 													<div>
 														<p for="recipient-name" class="col-form-label">Avatar
 															*</p>
-														<input type="file" name="hinhanh" required="true" />
+														<input type="file" name="file" required="true" />
 
 													</div>
 
@@ -173,8 +174,8 @@
 															target="_blank"><i>Guide to student email</i></a>
 													</p>
 												</div>
-												<input type="hidden" name="${_csrf.parameterName}"
-													value="${_csrf.token}" />
+<%-- 												<input type="hidden" name="${_csrf.parameterName}" --%>
+<%-- 													value="${_csrf.token}" /> --%>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary"
 														data-dismiss="modal">Close</button>
@@ -256,10 +257,16 @@
 									<a href="">${listNt.getNotifyTitle() }</a>
 								</h3>
 								<ul class="article-meta">
-									<li><i class="fa fa-clock-o"></i> ${listNt.getCreateDate()}</li>
+									<li><i class="fa fa-clock-o"></i>
+										${listNt.getCreateDate()}</li>
 								</ul>
 								<p>${listNt.getNotifyContent()}</p>
-
+								<br>
+								<p><c:if test="${fn:length(listNt.getFileDatas()) gt 0}">
+									Download File : <a
+										href="${contextPath}/downloadFile?file=${listNt.getFileDatas()}">${listNt.getFileDatas()}</a>
+										</c:if>
+								</p>
 							</div>
 						</c:forEach>
 					</div>

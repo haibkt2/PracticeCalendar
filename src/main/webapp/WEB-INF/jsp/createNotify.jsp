@@ -29,10 +29,10 @@
                         </div>
                     @endif -->
 						<form
-							action="${contextPath}/createNotify"
-							method="POST" >
+							action="${contextPath}/savePost?${_csrf.parameterName}=${_csrf.token}"
+							method="POST" enctype="multipart/form-data">
 							<div class="box-body">
-								
+
 
 								<div class="form-group">
 									<label for="">Tiêu đề</label> <input type="text"
@@ -57,16 +57,19 @@
 														});
 									</script>
 								</div>
+								<br> Upload File: <input type="file" name="file"> <br />
 							</div>
 							<!-- /.box-body -->
 							<div class="box-footer">
-								<button type="submit" class="btn btn-primary">Submit</button>  
+								<button type="submit" class="btn btn-primary">Submit</button>
 							</div>
 							<div class="clearfix"></div>
 							<input type="hidden" name="${_csrf.parameterName}"
-									value="${_csrf.token}" />
+								value="${_csrf.token}" />
 						</form>
-						<a href="${contextPath}/managementPost"><button class="btn btn-cancel" style="background-color: red;margin-left: 12px">Cancel</button></a>
+						<a href="${contextPath}/managementPost"><button
+								class="btn btn-cancel"
+								style="background-color: red; margin-left: 12px">Cancel</button></a>
 					</div>
 				</div>
 			</div>

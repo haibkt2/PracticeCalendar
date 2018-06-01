@@ -33,9 +33,6 @@ public class UserServiceImpl {
 	private UserRepository userRepository;
 
 	@Autowired
-	private RoleRepository roleRepository;
-
-	@Autowired
 	private OrderCalendarRepository orderCalendarRepository;
 	@Autowired
 	private RequestRepository requestRepository;
