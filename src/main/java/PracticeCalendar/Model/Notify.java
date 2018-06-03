@@ -12,7 +12,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Entity
 @NamedQuery(name="Notify.findAll", query="SELECT n FROM Notify n")

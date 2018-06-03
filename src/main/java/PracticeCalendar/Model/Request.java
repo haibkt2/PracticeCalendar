@@ -46,11 +46,11 @@ public class Request implements Serializable {
 		return user;
 	}
 	
-	private String getFl() {
+	public String getFl() {
 		return fl;
 	}
 
-	private void setFl(String fl) {
+	public void setFl(String fl) {
 		this.fl = fl;
 	}
 
@@ -124,13 +124,6 @@ public class Request implements Serializable {
 	public void setCreatDate(String creatDate) {
 		this.creatDate = creatDate;
 	}
-
-	public String getFlg() {
-		return status;
-	}
-
-	public void setFlg(String status) {
-		this.status = status;
-	}
+	
 
 }

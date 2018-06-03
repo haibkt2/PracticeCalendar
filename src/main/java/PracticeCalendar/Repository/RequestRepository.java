@@ -29,6 +29,6 @@ public interface RequestRepository extends CrudRepository<Request, Integer> {
 	@Query(value = "SELECT rq.fl,rq.admin_agree,rq.request_id,rq.user_id,rq.date_req,rq.status,rq.room_id,rq.time_order,rq.creat_date,u.name "
 			+ "from request as rq join user as u "
 			+ "on u.user_id = rq.user_id "
-			+ "where u.user_id = ?1", nativeQuery = true)
+			+ "where u.user_id = ?1 ORDER BY rq.date_req DESC", nativeQuery = true)
 	List<Request> findByRqUser(String userId);
 }

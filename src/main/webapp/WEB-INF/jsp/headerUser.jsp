@@ -25,8 +25,7 @@
 		<li><a href="${contextPath}/editProfile">Profile</a></li>
 		<li><a href="${contextPath}/">Room</a></li>
 		<li><a href="${contextPath}/historyBooking">History Booking</a></li>
-		<li><a href="">Events</a></li>
-		<li><a href="">Messages</a></li>
+		
 	</ul>
 </body>
 </html>

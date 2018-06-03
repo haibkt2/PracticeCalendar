@@ -44,14 +44,14 @@
 									<div class="">
 										<div class="">
 											<div class="">
-												<jsp:include page="testHead.jsp"></jsp:include>
-												<section class="content-header">
-													<div id="header-info-center">
-														<div id="header-time"
-															style="padding-top: 10px; text-align: center; color: red; font-size: 40px;"></div>
-													</div>
-													<input type="hidden" id="serverTime" />
-												</section>
+<%-- 												<jsp:include page="testHead.jsp"></jsp:include> --%>
+<!-- 												<section class="content-header"> -->
+<!-- 													<div id="header-info-center"> -->
+<!-- 														<div id="header-time" -->
+<!-- 															style="padding-top: 10px; text-align: center; color: red; font-size: 40px;"></div> -->
+<!-- 													</div> -->
+<!-- 													<input type="hidden" id="serverTime" /> -->
+<!-- 												</section> -->
 												<hr>
 											</div>
 											<!-- /.box-header -->
@@ -345,7 +345,7 @@
 																			</c:if>
 <!-- 																			is teacher -->
 																			<c:if
-																				test="${UserLogin.getRole().getRoleName() eq 'ROLE_TEACHER' }">
+																				test="${UserLogin.getRole().getRoleName() ne 'ROLE_STUDENT' }">
 																				<c:choose>
 																					<c:when test="${empty listRoom.getOrderCalendar()}">
 																						<!-- 																			dd -->
@@ -563,7 +563,7 @@
 																							%>
 																						</c:if>
 																						<c:if
-																							test="${UserLogin.getRole().getRoleName() eq 'ROLE_TEACHER' }">
+																							test="${UserLogin.getRole().getRoleName() ne 'ROLE_TEACHER' }">
 																							<p>Tên: ${listRoom.getRoomName()}</p>
 																							<p>
 																								Trạng thái:
@@ -640,7 +640,7 @@
 																							%>
 																						</c:if>
 																						<c:if
-																							test="${UserLogin.getRole().getRoleName() eq 'ROLE_TEACHER' }">
+																							test="${UserLogin.getRole().getRoleName() ne 'ROLE_TEACHER' }">
 																							<p>Tên: ${listRoom.getRoomName()}</p>
 																							<p>
 																								Trạng thái:
@@ -695,7 +695,6 @@
 						</div>
 						<!-- /.nav-tabs-custom -->
 					</div>
-					>
 					<!-- /.col -->
 				</div>
 				<!-- /.row -->

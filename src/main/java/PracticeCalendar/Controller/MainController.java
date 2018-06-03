@@ -52,9 +52,6 @@ import PracticeCalendar.Service.UserServiceImpl;
 public class MainController {
 
 	@Autowired
-	private ServletContext servletContext;
-
-	@Autowired
 	UserRepository userRepository;
 
 	@Autowired
@@ -95,7 +92,7 @@ public class MainController {
 		String userName = auth.getName();
 		User user = userRepository.findByUserName(userName);
 		if (user != null) {
-			if (!user.getRole().getRoleName().equals("ROLE_ADMIN")) {
+//			if (!user.getRole().getRoleName().equals("ROLE_ADMIN")) {
 				String roomType = "public";
 				if (user.getRole().getRoleName().equals("ROLE_TEACHER"))
 					roomType = "protected";
@@ -110,8 +107,8 @@ public class MainController {
 				// System.out.println(listRoom.get(0).getRequestCalendar().get(0).getStatus());
 				model.addAttribute("setDay", setDay);
 				return "viewRoom";
-			} else
-				return "redirect:/userStatistics";
+//			} else
+//				return "redirect:/userStatistics";
 		} else {
 			List<Notify> listNt = (List<Notify>) notifyRepository.findAll();
 			model.addAttribute("listNt", listNt);
@@ -207,16 +204,18 @@ public class MainController {
 					return "editProfile";
 				}
 			}
+			else userForm.setAvatar(userLg.getAvatar());
 			userForm.setUserName(userLg.getUserName());
 			userserviceimpl.updateUser(userForm, p_n);
 			model.addAttribute("mss_up", "update finnish");
-			if (userLg.getRole().getRoleName().equals("ROLE_ADMIN")) {
-				return "redirect:/updateInfo" + "?userid=" + userForm.getUserId() + "&messageInfo=updatess";
-			} else
+//			if (userLg.getRole().getRoleName().equals("ROLE_ADMIN")) {
+//				return "redirect:/updateInfo" + "?userid=" + userForm.getUserId() + "&messageInfo=updatess";
+//			} else
 				return "redirect:/editProfile";
 		} else { // update is admin
 			userForm.setPassword(userUp.getPassword());
 			userForm.setUserName(userUp.getUserName());
+			userForm.setAvatar(userUp.getAvatar());
 			String messageInfo = userserviceimpl.updateUser(userForm, 0);
 			return "redirect:/updateInfo" + "?userid=" + userForm.getUserId() + "&messageInfo=" + messageInfo;
 		}
@@ -277,7 +276,7 @@ public class MainController {
 		User user = (User) session.getAttribute("UserLogin");
 		List<OrderCalendar> listOr = orderRepository.findByOrderUser(user.getUserId());
 		model.addAttribute("orderUser", listOr);
-		if (user.getRole().getRoleName().equals("ROLE_TEACHER")) {
+		if (!user.getRole().getRoleName().equals("ROLE_STUDENT")) {
 			List<Request> listRq = requestRepository.findByRqUser(user.getUserId());
 			model.addAttribute("listRq", listRq);
 		}
@@ -301,6 +300,22 @@ public class MainController {
 		}
 		return "redirect:/historyBooking";
 	}
+	@RequestMapping(value = "/manageRequest", method = RequestMethod.GET)
+	public String manageRequest(Model model, HttpSession session, HttpServletRequest request) {
+		// model.addAttribute("userForm", new User());
+		// User user = (User) session.getAttribute("UserLogin");
+		String cancel = request.getParameter("cancel");
+		String delete = request.getParameter("delete");
+		if (cancel != null) {
+			requestRepository.deleteRequest(cancel);
+		} else if (delete != null) {
+			Request rq = requestRepository.findByReqId(delete);
+			if (rq != null)
+				rq.setFl("0");
+			requestRepository.save(rq);
+		}
+		return "redirect:/historyBooking";
+	}
 
 	@RequestMapping(value = "/request", method = RequestMethod.GET)
 	public String request(Model model, HttpSession session, HttpServletRequest request) throws ParseException {
@@ -315,8 +330,9 @@ public class MainController {
 		rq.setDateReq(userserviceimpl.setDateOrder(day));
 		rq.setCreatDate(sdfDate.format(userserviceimpl.currentDate()));
 		rq.setUser(u);
-		rq.setFlg("Request");
+		rq.setStatus("Waiting");
 		rq.setTimeOrder(time);
+		rq.setFl("1");
 		Room r = roomRepository.findByRoomName(room);
 		rq.setRoom(r);
 		userserviceimpl.reqCalendar(rq);

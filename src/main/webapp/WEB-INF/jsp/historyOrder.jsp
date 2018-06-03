@@ -115,7 +115,7 @@
 													</tfoot>
 												</table>
 											</div>
-											<c:if test="${UserLogin.getRole().getRoleName() eq 'ROLE_TEACHER' }">
+											<c:if test="${UserLogin.getRole().getRoleName() ne 'ROLE_STUDENT' }">
 											<div class="box-body">
 											<h3>List Request</h3>
 												<table id="example1"
@@ -133,19 +133,19 @@
 														</tr>
 													</thead>
 													<tbody>
-													<c:forEach items="${orderUser}" var="listOr" varStatus="lopList">
+													<c:forEach items="${listRq}" var="listRq" varStatus="lopList">
 														<tr>
 															<td>${lopList.index+1}</td>
-															<td>${listOr.getRoom().getRoomName()}</td>
-															<td>${listOr.getDateOrder()}</td>
-															<td>${listOr.getTimeOrder()}</td>
-															<td>${listOr.getCreatDate()}</td>
-															<td>${listOr.getCreatDate()}</td>
-															<td><a href="${contextPath}/manageOrder?cancel=${listOr.getOrderId()}">
-																	<button type="button" class="btn bg-green1 margin" ${date ge listOr.getDateOrder() ? 'disabled="disabled"': ''}>Cancel</button>
+															<td>${listRq.getRoom().getRoomName()}</td>
+															<td>${listRq.getDateReq()}</td>
+															<td>${listRq.getTimeOrder()}</td>
+															<td>${listRq.getCreatDate()}</td>
+															<td>${listRq.getStatus()}</td>
+															<td><a href="${contextPath}/manageRequest?cancel=${listRq.getReqId()}">
+																	<button type="button" class="btn bg-green1 margin" ${date ge listRq.getDateReq() ? 'disabled="disabled"': ''}>Cancel</button>
 															</a></td>
-															<td><a href="${contextPath}/manageOrder?delete=${listOr.getOrderId()}">
-																	<button type="button" class="btn bg-red margin" ${listOr.getDateOrder() gt date ? 'disabled="disabled"': ''}>Delete</button>
+															<td><a href="${contextPath}/manageRequest?delete=${listRq.getReqId()}">
+																	<button type="button" class="btn bg-red margin" ${listRq.getDateReq() gt date ? 'disabled="disabled"': ''}>Delete</button>
 															</a></td>
 														</tr>
 													
