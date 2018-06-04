@@ -93,10 +93,8 @@ public class MainController {
 		User user = userRepository.findByUserName(userName);
 		if (user != null) {
 //			if (!user.getRole().getRoleName().equals("ROLE_ADMIN")) {
-				String roomType = "public";
-				if (user.getRole().getRoleName().equals("ROLE_TEACHER"))
-					roomType = "protected";
-				else if (user.getRole().getRoleName().equals("ROLE_STUDENT")) {
+				String roomType = "protected";
+				if (user.getRole().getRoleName().equals("ROLE_STUDENT")) {
 					roomType = "public";
 				}
 				CommonService cmsv = new CommonService();
@@ -110,6 +108,7 @@ public class MainController {
 //			} else
 //				return "redirect:/userStatistics";
 		} else {
+			if(error != null ) model.addAttribute("error_login", "pass or mssv sai");
 			List<Notify> listNt = (List<Notify>) notifyRepository.findAll();
 			model.addAttribute("listNt", listNt);
 			return "home";

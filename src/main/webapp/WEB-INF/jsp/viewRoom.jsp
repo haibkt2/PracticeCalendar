@@ -6,6 +6,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page isELIgnored="false"%>
+<jsp:useBean id="now" class="java.util.Date" />
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:formatDate var="date" value="${now}" pattern="yyyy-MM-dd" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -105,9 +108,8 @@
 																					</button>
 																				</div>
 																				<div class="modal-body">
-																					<p>Tên: ${listRoom.getRoomName()}</p>
-																					<p>Trạng thái: Sẵn sàng</p>
-																					<p>Số lượng hiện tại: 10</p>
+																					<p>Tên　: ${listRoom.getRoomName()}</p>
+																					<p>Trạng thái　:　${listRoom.getRoomStatus().getRoomStatusValue()} </p>
 																					<h2>Danh sách các thiết bị</h2>
 
 																					<table class="table table-striped"
@@ -121,8 +123,10 @@
 																							</tr>
 																						</thead>
 																						<tbody>
+																						<c:forEach items="${listRoom.getDevices()}" var ="ldv" varStatus="loopdv">
+																						
 																							<tr>
-																								<th scope="row">1</th>
+																								<th scope="row">${loopdv + 1}</th>
 																								<td>Mark</td>
 																								<td>Otto</td>
 																								<td>@mdo</td>
@@ -139,6 +143,7 @@
 																								<td>the Bird</td>
 																								<td>@twitter</td>
 																							</tr>
+																						</c:forEach>
 																						</tbody>
 																					</table>
 																				</div>
@@ -200,13 +205,13 @@
 																							<c:forEach
 																								items="${listRoom.getRequestCalendar()}"
 																								var="lRq">
-																								<c:if test="${lRq.getTimeOrder() eq 'Morning' }">
+																								<c:if test="${lRq.getTimeOrder() eq 'Morning' and  lRq.getDateReq() ge date}">
 																									<%
 																										ri++;
 																									status_s = ((Request) pageContext.findAttribute("lRq")).getStatus();
 																									%>
 																								</c:if>
-																								<c:if test="${lRq.getTimeOrder() eq 'Noon' }">
+																								<c:if test="${lRq.getTimeOrder() eq 'Noon' and  lRq.getDateReq() ge date}">
 																									<%
 																										rj++;
 																									status_c = ((Request) pageContext.findAttribute("lRq")).getStatus();
@@ -472,7 +477,7 @@
 																						<c:forEach
 																							items="${listRoom.getRequestCalendar()}"
 																							var="lRd">
-																							<c:if test="${lRd.getTimeOrder() eq 'Morning' }">
+																							<c:if test="${lRd.getTimeOrder() eq 'Morning' and lRd.getDateReq() ge date}">
 																								<p>Giáo viên: ${lRd.getUser().getName()}</p>
 																								<p>Trạng thái: ${lRd.getStatus()}</p>
 																							</c:if>
@@ -497,18 +502,18 @@
 																				<div class="modal-content">
 																					<div class="modal-header">
 																						<h2 class="modal-title" id="exampleModalLongTitle">Chi
-																							tiết phòng - ${listRoom.getRoomName()}</h2>
+																							tiết phòng - ${listRoom.getRoomName() }</h2>
 																						<button type="button" class="close"
 																							data-dismiss="modal" aria-label="Close">
 																							<span aria-hidden="true">&times;</span>
 																						</button>
 																					</div>
 																					<div class="modal-body">
-																						<p>Phòng: ${listRoom.getRoomName()}</p>
+																						<p>Phòng : ${listRoom.getRoomName()}</p>
 																						<c:forEach
 																							items="${listRoom.getRequestCalendar()}"
 																							var="lRd">
-																							<c:if test="${lRd.getTimeOrder() eq 'Noon' }">
+																							<c:if test="${lRd.getTimeOrder() eq 'Noon' and lRd.getDateReq() ge date}">
 																								<p>Giáo viên: ${lRd.getUser().getName()}</p>
 																								<p>Trạng thái: ${lRd.getStatus()}</p>
 																							</c:if>
@@ -563,7 +568,7 @@
 																							%>
 																						</c:if>
 																						<c:if
-																							test="${UserLogin.getRole().getRoleName() ne 'ROLE_TEACHER' }">
+																							test="${UserLogin.getRole().getRoleName() ne 'ROLE_STUDENT' }">
 																							<p>Tên: ${listRoom.getRoomName()}</p>
 																							<p>
 																								Trạng thái:
@@ -640,7 +645,7 @@
 																							%>
 																						</c:if>
 																						<c:if
-																							test="${UserLogin.getRole().getRoleName() ne 'ROLE_TEACHER' }">
+																							test="${UserLogin.getRole().getRoleName() ne 'ROLE_STUDENT' }">
 																							<p>Tên: ${listRoom.getRoomName()}</p>
 																							<p>
 																								Trạng thái:

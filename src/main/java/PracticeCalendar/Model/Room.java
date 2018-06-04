@@ -39,6 +39,17 @@ public class Room implements Serializable {
 
 	@OneToMany(mappedBy = "room")
 	private List<OrderCalendar> orderCalendar;
+	
+	@OneToMany(mappedBy = "room")
+	private List<Devices> devices;
+
+	public List<Devices> getDevices() {
+		return devices;
+	}
+
+	public void setDevices(List<Devices> devices) {
+		this.devices = devices;
+	}
 
 	@OneToMany(mappedBy = "rooms")
 	private List<Request> requestCalendar;

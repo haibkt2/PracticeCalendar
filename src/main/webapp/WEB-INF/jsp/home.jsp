@@ -63,12 +63,13 @@
 								<li><a href="${contextPath}/home">Thông báo</a></li>
 								<li><a href="${contextPath}/home">${contextPath}</a></li>
 								<li><a href="#">Quy chế & Quy định</a></li>
-								<li><a href="#">Hướng dẫn sử dụng mail sinh viên - đăng
+								<li><a href="http://daotao.dut.udn.vn/download2/Email_Guide.pdf" target="blank">Hướng dẫn sử dụng mail sinh viên - đăng
 										ký</a></li>
 							</ul>
 						</div>
 
 						<div class="col-lg-3">
+						
 							<form class="form-group login_form" action="${contextPath}/home"
 								method="post">
 								<div class="row">
@@ -168,11 +169,7 @@
 														style="color: red; text-align: right;">
 														<i>Check you email after you finish, please!</i>
 													</p>
-													<p for="recipient-name" class="col-form-label"
-														style="color: red; text-align: right;">
-														<a href="https://www.youtube.com/watch?v=MuanZsUy5lQ"
-															target="_blank"><i>Guide to student email</i></a>
-													</p>
+													
 												</div>
 <%-- 												<input type="hidden" name="${_csrf.parameterName}" --%>
 <%-- 													value="${_csrf.token}" /> --%>
@@ -224,8 +221,8 @@
 							<!-- 								</div> -->
 							<!-- 							</div> -->
 						</div>
-
 						${messageRegis}
+						${error_login}
 					</div>
 
 				</div>
