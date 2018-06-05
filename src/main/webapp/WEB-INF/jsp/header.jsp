@@ -72,7 +72,7 @@
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
 </head>
-<body >
+<body>
 
 	<header class="main-header">
 		<!-- Logo -->
@@ -90,82 +90,82 @@
 			<div class="navbar-custom-menu">
 				<ul class="nav navbar-nav">
 					<!-- Messages: style can be found in dropdown.less-->
-<!-- 					<li class="dropdown messages-menu"><a href="#" -->
-<!-- 						class="dropdown-toggle" data-toggle="dropdown"> <i -->
-<!-- 							class="fa fa-envelope-o"></i> <span class="label label-success">4</span> -->
-<!-- 					</a> -->
-<!-- 						<ul class="dropdown-menu"> -->
-<!-- 							<li class="header">You have 4 messages</li> -->
-<!-- 							<li> -->
-<!-- 								inner menu: contains the actual data -->
-<!-- 								<ul class="menu"> -->
-<!-- 									<li> -->
-<!-- 										start message <a href="#"> -->
-<!-- 											<div class="pull-left"> -->
-<!-- 												<img -->
-<%-- 													src="${contextPath}/Reponsitory/Avatar/${UserLogin.getAvatar()}" --%>
-<!-- 													class="img-circle" alt="User Image"> -->
-<!-- 											</div> -->
-<!-- 											<h4> -->
-<!-- 												Support Team <small><i class="fa fa-clock-o"></i> 5 -->
-<!-- 													mins</small> -->
-<!-- 											</h4> -->
-<!-- 											<p>Why not buy a new awesome theme?</p> -->
-<!-- 									</a> -->
-<!-- 									</li> -->
-<!-- 									end message -->
-<!-- 									<li><a href="#"> -->
-<!-- 											<div class="pull-left"> -->
-<!-- 												<img -->
-<%-- 													src="${contextPath}/Reponsitory/Avatar/${UserLogin.getAvatar()}" --%>
-<!-- 													class="img-circle" alt="User Image"> -->
-<!-- 											</div> -->
-<!-- 											<h4> -->
-<!-- 												Petfinder Management <small><i class="fa fa-clock-o"></i> -->
-<!-- 													2 hours</small> -->
-<!-- 											</h4> -->
-<!-- 											<p>Why not buy a new awesome theme?</p> -->
-<!-- 									</a></li> -->
-<!-- 									<li><a href="#"> -->
-<!-- 											<div class="pull-left"> -->
-<!-- 												<img -->
-<%-- 													src="${contextPath}/resources/AdminUI/dist/img/user4-128x128.jpg" --%>
-<!-- 													class="img-circle" alt="User Image"> -->
-<!-- 											</div> -->
-<!-- 											<h4> -->
-<!-- 												Developers <small><i class="fa fa-clock-o"></i> -->
-<!-- 													Today</small> -->
-<!-- 											</h4> -->
-<!-- 											<p>Why not buy a new awesome theme?</p> -->
-<!-- 									</a></li> -->
-<!-- 									<li><a href="#"> -->
-<!-- 											<div class="pull-left"> -->
-<!-- 												<img -->
-<%-- 													src="${contextPath}/resources/AdminUI/dist/img/user3-128x128.jpg" --%>
-<!-- 													class="img-circle" alt="User Image"> -->
-<!-- 											</div> -->
-<!-- 											<h4> -->
-<!-- 												Sales Department <small><i class="fa fa-clock-o"></i> -->
-<!-- 													Yesterday</small> -->
-<!-- 											</h4> -->
-<!-- 											<p>Why not buy a new awesome theme?</p> -->
-<!-- 									</a></li> -->
-<!-- 									<li><a href="#"> -->
-<!-- 											<div class="pull-left"> -->
-<!-- 												<img -->
-<%-- 													src="${contextPath}/resources/AdminUI/dist/img/user4-128x128.jpg" --%>
-<!-- 													class="img-circle" alt="User Image"> -->
-<!-- 											</div> -->
-<!-- 											<h4> -->
-<!-- 												Reviewers <small><i class="fa fa-clock-o"></i> 2 -->
-<!-- 													days</small> -->
-<!-- 											</h4> -->
-<!-- 											<p>Why not buy a new awesome theme?</p> -->
-<!-- 									</a></li> -->
-<!-- 								</ul> -->
-<!-- 							</li> -->
-<!-- 							<li class="footer"><a href="#">See All Messages</a></li> -->
-<!-- 						</ul></li> -->
+					<!-- 					<li class="dropdown messages-menu"><a href="#" -->
+					<!-- 						class="dropdown-toggle" data-toggle="dropdown"> <i -->
+					<!-- 							class="fa fa-envelope-o"></i> <span class="label label-success">4</span> -->
+					<!-- 					</a> -->
+					<!-- 						<ul class="dropdown-menu"> -->
+					<!-- 							<li class="header">You have 4 messages</li> -->
+					<!-- 							<li> -->
+					<!-- 								inner menu: contains the actual data -->
+					<!-- 								<ul class="menu"> -->
+					<!-- 									<li> -->
+					<!-- 										start message <a href="#"> -->
+					<!-- 											<div class="pull-left"> -->
+					<!-- 												<img -->
+					<%-- 													src="${contextPath}/Reponsitory/Avatar/${UserLogin.getAvatar()}" --%>
+					<!-- 													class="img-circle" alt="User Image"> -->
+					<!-- 											</div> -->
+					<!-- 											<h4> -->
+					<!-- 												Support Team <small><i class="fa fa-clock-o"></i> 5 -->
+					<!-- 													mins</small> -->
+					<!-- 											</h4> -->
+					<!-- 											<p>Why not buy a new awesome theme?</p> -->
+					<!-- 									</a> -->
+					<!-- 									</li> -->
+					<!-- 									end message -->
+					<!-- 									<li><a href="#"> -->
+					<!-- 											<div class="pull-left"> -->
+					<!-- 												<img -->
+					<%-- 													src="${contextPath}/Reponsitory/Avatar/${UserLogin.getAvatar()}" --%>
+					<!-- 													class="img-circle" alt="User Image"> -->
+					<!-- 											</div> -->
+					<!-- 											<h4> -->
+					<!-- 												Petfinder Management <small><i class="fa fa-clock-o"></i> -->
+					<!-- 													2 hours</small> -->
+					<!-- 											</h4> -->
+					<!-- 											<p>Why not buy a new awesome theme?</p> -->
+					<!-- 									</a></li> -->
+					<!-- 									<li><a href="#"> -->
+					<!-- 											<div class="pull-left"> -->
+					<!-- 												<img -->
+					<%-- 													src="${contextPath}/resources/AdminUI/dist/img/user4-128x128.jpg" --%>
+					<!-- 													class="img-circle" alt="User Image"> -->
+					<!-- 											</div> -->
+					<!-- 											<h4> -->
+					<!-- 												Developers <small><i class="fa fa-clock-o"></i> -->
+					<!-- 													Today</small> -->
+					<!-- 											</h4> -->
+					<!-- 											<p>Why not buy a new awesome theme?</p> -->
+					<!-- 									</a></li> -->
+					<!-- 									<li><a href="#"> -->
+					<!-- 											<div class="pull-left"> -->
+					<!-- 												<img -->
+					<%-- 													src="${contextPath}/resources/AdminUI/dist/img/user3-128x128.jpg" --%>
+					<!-- 													class="img-circle" alt="User Image"> -->
+					<!-- 											</div> -->
+					<!-- 											<h4> -->
+					<!-- 												Sales Department <small><i class="fa fa-clock-o"></i> -->
+					<!-- 													Yesterday</small> -->
+					<!-- 											</h4> -->
+					<!-- 											<p>Why not buy a new awesome theme?</p> -->
+					<!-- 									</a></li> -->
+					<!-- 									<li><a href="#"> -->
+					<!-- 											<div class="pull-left"> -->
+					<!-- 												<img -->
+					<%-- 													src="${contextPath}/resources/AdminUI/dist/img/user4-128x128.jpg" --%>
+					<!-- 													class="img-circle" alt="User Image"> -->
+					<!-- 											</div> -->
+					<!-- 											<h4> -->
+					<!-- 												Reviewers <small><i class="fa fa-clock-o"></i> 2 -->
+					<!-- 													days</small> -->
+					<!-- 											</h4> -->
+					<!-- 											<p>Why not buy a new awesome theme?</p> -->
+					<!-- 									</a></li> -->
+					<!-- 								</ul> -->
+					<!-- 							</li> -->
+					<!-- 							<li class="footer"><a href="#">See All Messages</a></li> -->
+					<!-- 						</ul></li> -->
 					<!-- Notifications: style can be found in dropdown.less -->
 					<!--           <li class="dropdown notifications-menu"> -->
 					<!--             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> -->
@@ -310,13 +310,13 @@
 								</div>
 								<div class="pull-right">
 									<a href="javascript:document.forms['logoutForm'].submit();"
-									style="color: blue; float: right"
-									class="btn btn-primary btn-block"> Log out </a>
-								<form id="logoutForm" method="POST"
-									action="${contextPath}/logout">
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" />
-								</form>
+										style="color: blue; float: right"
+										class="btn btn-primary btn-block"> Log out </a>
+									<form id="logoutForm" method="POST"
+										action="${contextPath}/logout">
+										<input type="hidden" name="${_csrf.parameterName}"
+											value="${_csrf.token}" />
+									</form>
 								</div>
 							</li>
 						</ul></li>
@@ -355,16 +355,18 @@
 			<!-- /.search form -->
 			<!-- sidebar menu: : style can be found in sidebar.less -->
 			<ul class="sidebar-menu" data-widget="tree">
-				
-							<li><a href="${contextPath}/managementPost"><i
-									class="fa fa-circle-o"></i> Management Post</a></li>
-							<li><a href="${contextPath}/managementAccount"><i
-									class="fa fa-circle-o"></i> Management Account </a></li>
-							<li><a href="${contextPath}/managementClass"><i
-									class="fa fa-circle-o"></i> Management Class</a></li>
-							<li><a href="${contextPath}/userStatistics"><i
-									class="fa fa-circle-o"></i> User Statistics</a></li>
-				
+
+				<li><a href="${contextPath}/managementPost"><i
+						class="fa fa-circle-o"></i> Management Post</a></li>
+				<li><a href="${contextPath}/managementAccount"><i
+						class="fa fa-circle-o"></i> Management Account </a></li>
+				<li><a href="${contextPath}/managementClass"><i
+						class="fa fa-circle-o"></i> Management Class</a></li>
+				<li><a href="${contextPath}/userStatistics"><i
+						class="fa fa-circle-o"></i> Management Request</a></li>
+				<li><a href="${contextPath}/bookingStatistics"><i
+						class="fa fa-circle-o"></i> Statistics Booking</a></li>
+
 			</ul>
 		</section>
 		<!-- /.sidebar -->

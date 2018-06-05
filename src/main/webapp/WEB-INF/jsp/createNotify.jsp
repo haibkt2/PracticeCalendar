@@ -7,7 +7,7 @@
 <jsp:include page="header.jsp"></jsp:include><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Create a new Post</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -67,9 +67,6 @@
 							<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
 						</form>
-						<a href="${contextPath}/managementPost"><button
-								class="btn btn-cancel"
-								style="background-color: red; margin-left: 12px">Cancel</button></a>
 					</div>
 				</div>
 			</div>

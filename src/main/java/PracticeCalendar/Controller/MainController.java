@@ -238,6 +238,19 @@ public class MainController {
 		return "updateUser";
 	}
 
+	@RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
+	public String updateInfoU(Model model, HttpServletRequest request, @ModelAttribute("userForm") final User userForm) throws ParseException {
+		// get parameter date
+
+		User user = new User();
+		user = userserviceimpl.searchUserId(userForm.getUserId());
+		userForm.setAvatar(user.getAvatar());
+		userForm.setPassword(user.getPassword());
+		userForm.setUserName(user.getUserName());
+		
+		String messageInfo = userserviceimpl.updateUser(userForm, 0);
+		return "redirect:/updateInfo" + "?userid=" + userForm.getUserId() + "&messageInfo=" + messageInfo;
+	}
 	@RequestMapping(value = "/orderCalendar", method = RequestMethod.GET)
 	public String orderCalendar(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp)
 			throws ParseException {
@@ -346,7 +359,12 @@ public class MainController {
 		model.addAttribute("listAgr", listAgr);
 		return "userStatistics";
 	}
-
+	@RequestMapping(value = "/bookingStatistics", method = RequestMethod.GET)
+	public String bookingStatistics(Model model) {
+		List<OrderCalendar> listOrder = (List<OrderCalendar>) orderRepository.findAll();
+		model.addAttribute("listOrder", listOrder);
+		return "bookingStatistics";
+	}
 	@RequestMapping(value = "/responseRequest", method = RequestMethod.GET)
 	public String responseRequest(Model model, HttpServletRequest request, HttpSession session) {
 		String agree = request.getParameter("agree");
@@ -369,17 +387,31 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/updatePost", method = RequestMethod.POST)
-	public String updatePost(@ModelAttribute("notifyForm") Notify notifyForm, Model model, HttpSession session,
+	public String updatePost(@RequestParam("file") MultipartFile file,@ModelAttribute("notifyForm") Notify notifyForm, Model model, HttpSession session,
 			HttpServletRequest request) throws ParseException {
 		User u = (User) session.getAttribute("UserLogin");
 		notifyForm.setCreateDate(userserviceimpl.currentDate());
 		notifyForm.setUser(u);
-		model.addAttribute("mess_nt", "sussecess");
+		model.addAttribute("mess_nt", "update sussecess");
+		String fileName = "";
+		if (!file.isEmpty()) {
+			try {
+				fileName = file.getOriginalFilename();
+				byte[] bytes = file.getBytes();
+				BufferedOutputStream buffStream = new BufferedOutputStream(
+						new FileOutputStream(new File(localPost + fileName)));
+				buffStream.write(bytes);
+				buffStream.close();
+				notifyForm.setFileDatas(fileName);
+			} catch (Exception e) {
+				return "redirect:/managementPost?mess_nt=update fail";
+			}
+		}
 		Notify nt = notifyRepository.findByNotifyId(notifyForm.getNotifyId());
 		if (nt != null)
 			notifyRepository.save(notifyForm);
 		notifyRepository.save(notifyForm);
-		return "redirect:/managementPost?mess_nt=sussecess";
+		return "redirect:/managementPost?mess_nt=update sussecess";
 	}
 
 	@RequestMapping(value = "/updatePost", method = RequestMethod.GET)
@@ -390,10 +422,11 @@ public class MainController {
 		String notifyIdDel = request.getParameter("deletePid");
 		if (notifyIdDel != null) {
 			notifyRepository.deleteNotifyId(notifyIdDel);
-			return "redirect:/managementPost?mess_nt=delss";
+			return "redirect:/managementPost?mess_nt= delete sussecess";
 		} else {
 			Notify notify = new Notify();
 			notify = notifyRepository.findByNotifyId(notifyIdUp);
+			model.addAttribute("notifyFile", notify.getFileDatas());
 			model.addAttribute("notifyForm", notify);
 			String mess = request.getParameter("mess_nt");
 			if (mess != null)

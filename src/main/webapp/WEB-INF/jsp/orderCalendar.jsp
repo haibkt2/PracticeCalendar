@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Create New User</title>
+<title>Booking Calendar</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="row">

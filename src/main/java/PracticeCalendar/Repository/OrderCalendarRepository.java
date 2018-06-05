@@ -25,4 +25,6 @@ public interface OrderCalendarRepository extends CrudRepository<OrderCalendar, I
 	@Transactional
 	@Query(value="Delete from order_calendar where order_id = ?1",nativeQuery = true)
     int deleteOrderId(String orderId);
+	
+	
 }

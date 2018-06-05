@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>User - Statistics</title>
+<title>Booking Calendar</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="row">

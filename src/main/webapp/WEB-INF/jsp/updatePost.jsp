@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Update Post</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -18,7 +18,7 @@
 			<div class="col-lg-12 col-md-12">
 				<div class="content-wrapper">
 					<div class="box-header">
-						<h3 class="box-title">Create a new Post</h3>
+						<h3 class="box-title">Update Post</h3>
 
 					</div>
 					<div class="content">
@@ -32,8 +32,8 @@
                         </div>
                     @endif -->
 						<form:form action="${contextPath}/updatePost"
-							modelAttribute="notifyForm">
-							<div class="box-body">
+							modelAttribute="notifyForm" enctype="multipart/form-data">
+							<div class="box-body" >
 
 
 								<div class="form-group">
@@ -65,6 +65,13 @@
 															filebrowserFlashUploadUrl : '{{ $ADMIN_URL }}ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
 														});
 									</script>
+								</div >
+								<div class="form-group">
+									File đính kèm cũ : <a href="">${notifyFile }</a>
+								</div>
+								<div class="form-group">
+									<label>File Update</label>
+									<input type="file" name="file"> <br />
 								</div>
 							</div>
 							<!-- /.box-body -->

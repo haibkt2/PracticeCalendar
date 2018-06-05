@@ -47,7 +47,14 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.0&appId=199196537566575';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 </head>
 <body>
 
@@ -302,8 +309,10 @@
 				</div>
 				<!-- /Aside Column -->
 			</div>
+			<div class="fb-comments" data-href="http://localhost:8888/practice" data-numposts="5"></div>
 			<!-- /ROW -->
 		</div>
+		
 		<!-- /CONTAINER -->
 	</div>
 	</footer>
