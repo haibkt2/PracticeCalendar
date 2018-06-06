@@ -66,10 +66,10 @@ public class UserServiceImpl {
 					getSendMail.get("body"));
 			user.setPassword(bcrypass.encode(user.getPassword()));
 			userRepository.save(user);
-			messInsert = "Create New User Sussecs";
+			messInsert = "Register User New Sussecs";
 		}
 		if (findUser != null)
-			messInsert = "Create New User Fail! UserId already exist.";
+			messInsert = "Register User New Fail! UserId already exist.";
 		return messInsert;
 
 	}

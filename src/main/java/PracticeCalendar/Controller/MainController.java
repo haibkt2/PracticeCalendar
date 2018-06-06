@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -79,6 +80,8 @@ public class MainController {
 	private String localPost;
 	@Value("${string.reponsitory.image}")
 	private String localImage;
+	@Value("${spring.mail.username}")
+	private String username;
 
 	@GetMapping("/403")
 	public String accessDenied() {
@@ -86,29 +89,32 @@ public class MainController {
 	}
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
-	public String login(Model model, String error, String logout, String view, HttpServletRequest req,
+	public String login(Model model, String error, String logout, String view, String mess, HttpServletRequest req,
 			HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String userName = auth.getName();
 		User user = userRepository.findByUserName(userName);
 		if (user != null) {
-//			if (!user.getRole().getRoleName().equals("ROLE_ADMIN")) {
-				String roomType = "protected";
-				if (user.getRole().getRoleName().equals("ROLE_STUDENT")) {
-					roomType = "public";
-				}
-				CommonService cmsv = new CommonService();
-				List<String> setDay = cmsv.setDay();
-				List<Room> listRoom;
-				listRoom = (List<Room>) roomRepository.findAllRoom(roomType);
-				model.addAttribute("listRoom", listRoom);
-				// System.out.println(listRoom.get(0).getRequestCalendar().get(0).getStatus());
-				model.addAttribute("setDay", setDay);
-				return "viewRoom";
-//			} else
-//				return "redirect:/userStatistics";
+			// if (!user.getRole().getRoleName().equals("ROLE_ADMIN")) {
+			String roomType = "protected";
+			if (user.getRole().getRoleName().equals("ROLE_STUDENT")) {
+				roomType = "public";
+			}
+			CommonService cmsv = new CommonService();
+			List<String> setDay = cmsv.setDay();
+			List<Room> listRoom;
+			listRoom = (List<Room>) roomRepository.findAllRoom(roomType);
+			model.addAttribute("listRoom", listRoom);
+			// System.out.println(listRoom.get(0).getRequestCalendar().get(0).getStatus());
+			model.addAttribute("setDay", setDay);
+			return "viewRoom";
+			// } else
+			// return "redirect:/userStatistics";
 		} else {
-			if(error != null ) model.addAttribute("error_login", "pass or mssv sai");
+			if (error != null)
+				model.addAttribute("error_login", "pass or mssv sai");
+			if (mess != null)
+				model.addAttribute("error_register", mess);
 			List<Notify> listNt = (List<Notify>) notifyRepository.findAll();
 			model.addAttribute("listNt", listNt);
 			return "home";
@@ -146,6 +152,7 @@ public class MainController {
 		user.setBirthday(birthday);
 		user.setGender(gender);
 		user.setPhone(phone);
+		user.setCreateDate(userserviceimpl.currentDate());
 		File uploadDir = new File(localImage);
 		if (!uploadDir.exists()) {
 			uploadDir.mkdir();
@@ -161,11 +168,11 @@ public class MainController {
 				buffStream.close();
 				user.setAvatar(fileName);
 			} catch (Exception e) {
-				return "redirect:/home";
+				return "redirect:/home?error";
 			}
 		}
-		userserviceimpl.insertUser(user);
-		return "home?register=ss";
+		String m = userserviceimpl.insertUser(user);
+		return "redirect:/home?mess=" + m;
 	}
 
 	@RequestMapping(value = "/updateInfoUser", method = RequestMethod.POST)
@@ -202,15 +209,16 @@ public class MainController {
 					model.addAttribute("mss_up", "update fail");
 					return "editProfile";
 				}
-			}
-			else userForm.setAvatar(userLg.getAvatar());
+			} else
+				userForm.setAvatar(userLg.getAvatar());
 			userForm.setUserName(userLg.getUserName());
 			userserviceimpl.updateUser(userForm, p_n);
 			model.addAttribute("mss_up", "update finnish");
-//			if (userLg.getRole().getRoleName().equals("ROLE_ADMIN")) {
-//				return "redirect:/updateInfo" + "?userid=" + userForm.getUserId() + "&messageInfo=updatess";
-//			} else
-				return "redirect:/editProfile";
+			// if (userLg.getRole().getRoleName().equals("ROLE_ADMIN")) {
+			// return "redirect:/updateInfo" + "?userid=" + userForm.getUserId() +
+			// "&messageInfo=updatess";
+			// } else
+			return "redirect:/editProfile";
 		} else { // update is admin
 			userForm.setPassword(userUp.getPassword());
 			userForm.setUserName(userUp.getUserName());
@@ -239,7 +247,8 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
-	public String updateInfoU(Model model, HttpServletRequest request, @ModelAttribute("userForm") final User userForm) throws ParseException {
+	public String updateInfoU(Model model, HttpServletRequest request, @ModelAttribute("userForm") final User userForm)
+			throws ParseException {
 		// get parameter date
 
 		User user = new User();
@@ -247,10 +256,11 @@ public class MainController {
 		userForm.setAvatar(user.getAvatar());
 		userForm.setPassword(user.getPassword());
 		userForm.setUserName(user.getUserName());
-		
+
 		String messageInfo = userserviceimpl.updateUser(userForm, 0);
 		return "redirect:/updateInfo" + "?userid=" + userForm.getUserId() + "&messageInfo=" + messageInfo;
 	}
+
 	@RequestMapping(value = "/orderCalendar", method = RequestMethod.GET)
 	public String orderCalendar(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp)
 			throws ParseException {
@@ -259,22 +269,27 @@ public class MainController {
 		String time = req.getParameter("timeBooking");
 		String room = req.getParameter("room");
 		User u = (User) session.getAttribute("UserLogin");
-		OrderCalendar orderCalendar = new OrderCalendar();
-		orderCalendar.setOrderId(userserviceimpl.autoCodeOrderId());
-		orderCalendar.setCreatDate(userserviceimpl.currentDate().toString());
-		orderCalendar.setDateOrder(userserviceimpl.setDateOrder(day));
-		orderCalendar.setCreatDate(sdfDate.format(userserviceimpl.currentDate()));
-		orderCalendar.setUser(u);
-		orderCalendar.setFlg("1");
-		orderCalendar.setTimeOrder(time);
+		Date dateOrde = userserviceimpl.setDateOrder(day);
 		Room r = roomRepository.findByRoomName(room);
-		orderCalendar.setRoom(r);
-		userserviceimpl.orderCalendar(orderCalendar);
+		OrderCalendar findeOrder = orderRepository.findCheckOrdercalendarUser(dateOrde, time, u.getUserId(),
+				r.getRoomId());
+		if (findeOrder == null) {
+			OrderCalendar orderCalendar = new OrderCalendar();
+			orderCalendar.setOrderId(userserviceimpl.autoCodeOrderId());
+			orderCalendar.setCreatDate(userserviceimpl.currentDate().toString());
+			orderCalendar.setDateOrder(dateOrde);
+			orderCalendar.setCreatDate(sdfDate.format(userserviceimpl.currentDate()));
+			orderCalendar.setUser(u);
+			orderCalendar.setFlg("1");
+			orderCalendar.setTimeOrder(time);
+			orderCalendar.setRoom(r);
+			userserviceimpl.orderCalendar(orderCalendar);
+		}
 		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/editProfile", method = RequestMethod.GET)
-	public String editProfile(Model model,HttpServletRequest request,Authentication auth) {
+	public String editProfile(Model model, HttpServletRequest request, Authentication auth) {
 		String userName = auth.getName();
 		HttpSession session = request.getSession();
 		User loginUser = userRepository.findByUserName(userName);
@@ -312,6 +327,7 @@ public class MainController {
 		}
 		return "redirect:/historyBooking";
 	}
+
 	@RequestMapping(value = "/manageRequest", method = RequestMethod.GET)
 	public String manageRequest(Model model, HttpSession session, HttpServletRequest request) {
 		// model.addAttribute("userForm", new User());
@@ -359,12 +375,44 @@ public class MainController {
 		model.addAttribute("listAgr", listAgr);
 		return "userStatistics";
 	}
+
 	@RequestMapping(value = "/bookingStatistics", method = RequestMethod.GET)
 	public String bookingStatistics(Model model) {
+		List<Room> listRoom = (List<Room>) roomRepository.findAll();
 		List<OrderCalendar> listOrder = (List<OrderCalendar>) orderRepository.findAll();
 		model.addAttribute("listOrder", listOrder);
+		model.addAttribute("listRoom", listRoom);
 		return "bookingStatistics";
 	}
+
+	@RequestMapping(value = "/bookingStatisticsRoom")
+	public String bookingStatisticsRoom(Model model, @RequestParam("roomId") String roomId) {
+		
+		List<Room> listRoom = (List<Room>) roomRepository.findAll();
+		List<OrderCalendar> listOrderRoom = (List<OrderCalendar>) orderRepository.findOrderByRoom(roomId);
+		List<OrderCalendar> listOrder = (List<OrderCalendar>) orderRepository.findAll();
+		if (roomId == null || roomId.equals("all"))
+			model.addAttribute("listOrder", listOrder);
+		else {
+			model.addAttribute("listOrder", listOrderRoom);
+			model.addAttribute("roomIdView", roomId);
+		}
+		model.addAttribute("listRoom", listRoom);
+
+		return "bookingStatistics";
+	}
+	@RequestMapping(value = "/deleteOrder")
+	public String deleteOrder(Model model, @RequestParam("deleteOrder") String deleteOrder) {
+		String roomId = null;
+		if(deleteOrder != null) {
+			OrderCalendar order = orderRepository.findByOrderId(deleteOrder);
+			if(order != null) 
+				roomId = order.getRoom().getRoomId();
+				orderRepository.deleteOrderId(deleteOrder);
+		}
+		return "redirect:/bookingStatisticsRoom?roomId="+roomId;
+	}
+
 	@RequestMapping(value = "/responseRequest", method = RequestMethod.GET)
 	public String responseRequest(Model model, HttpServletRequest request, HttpSession session) {
 		String agree = request.getParameter("agree");
@@ -376,6 +424,7 @@ public class MainController {
 				rq.setStatus("Booked");
 				rq.setAdminAgree(u.getName());
 				requestRepository.save(rq);
+
 			}
 		} else {
 			Request rq = requestRepository.findByReqId(disagree);
@@ -387,8 +436,8 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/updatePost", method = RequestMethod.POST)
-	public String updatePost(@RequestParam("file") MultipartFile file,@ModelAttribute("notifyForm") Notify notifyForm, Model model, HttpSession session,
-			HttpServletRequest request) throws ParseException {
+	public String updatePost(@RequestParam("file") MultipartFile file, @ModelAttribute("notifyForm") Notify notifyForm,
+			Model model, HttpSession session, HttpServletRequest request) throws ParseException {
 		User u = (User) session.getAttribute("UserLogin");
 		notifyForm.setCreateDate(userserviceimpl.currentDate());
 		notifyForm.setUser(u);

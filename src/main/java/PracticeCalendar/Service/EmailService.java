@@ -18,7 +18,8 @@ public class EmailService {
 
 	@Value("${spring.mail.username}")
 	private String username;
-
+	@Value("${string.domain.default}")
+	private String domain;
 	public void sendMail(String from, String to, String subject, String body) {
 
 		SimpleMailMessage mail = new SimpleMailMessage();
@@ -32,9 +33,17 @@ public class EmailService {
 	public Map<String, String> SendMail(User user) {
 		Map<String, String> mapSendmail = new HashMap<String, String>();
 		mapSendmail.put("mailform", username);
-		mapSendmail.put("toMail", user.getEmail());
+		mapSendmail.put("toMail", user.getUserId()+domain);
 		mapSendmail.put("subject", "Password");
 		mapSendmail.put("body", "User Id : "+user.getUserId()+" Password : " + user.getPassword());
+		return mapSendmail;
+	}
+	public Map<String, String> SendMailRP(String from, String to, String subject, String body) {
+		Map<String, String> mapSendmail = new HashMap<String, String>();
+		mapSendmail.put("mailform", from);
+		mapSendmail.put("toMail", to);
+		mapSendmail.put("subject", subject);
+		mapSendmail.put("body", body);
 		return mapSendmail;
 	}
 }

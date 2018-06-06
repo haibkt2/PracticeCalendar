@@ -68,8 +68,7 @@
 						<div class="col-lg-7">
 							<ul>
 								<li><a href="${contextPath}/home">Thông báo</a></li>
-								<li><a href="${contextPath}/home">${contextPath}</a></li>
-								<li><a href="#">Quy chế & Quy định</a></li>
+								<li><a href="http://daotao.dut.udn.vn/sv/G_QuyCheChung.aspx" target="blank">Quy chế & Quy định</a></li>
 								<li><a href="http://daotao.dut.udn.vn/download2/Email_Guide.pdf" target="blank">Hướng dẫn sử dụng mail sinh viên - đăng
 										ký</a></li>
 							</ul>
@@ -228,11 +227,14 @@
 							<!-- 								</div> -->
 							<!-- 							</div> -->
 						</div>
-						${messageRegis}
-						${error_login}
+						
 					</div>
 
 				</div>
+				<div style="text-align: right; margin-right: 160px; color: red">
+						${error_register}
+						${error_login}
+						</div>
 			</div>
 		</div>
 		<!-- /Top Header -->

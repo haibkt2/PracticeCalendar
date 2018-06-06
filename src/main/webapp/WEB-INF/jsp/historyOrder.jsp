@@ -74,8 +74,7 @@
 									<div class="">
 										<div class="">
 											<div class="">
-												<h3 class="box-title">History of Your Booking</h3>
-												<hr>
+												<h3 class="box-title">List Booking</h3>
 												<br>
 											</div>
 											<!-- /.box-header -->

@@ -48,7 +48,7 @@
             <td>${listRm.getRoomStatus().getRoomStatusValue()}</td>
             <td>${listRm.getOrderMax()}</td>
             <td>${listRm.getInfo()}</td>
-            <td><a href="${contextPath}/updateInfo?userid=${listUser.getUserId()}"><button>Update</button></a></td>
+            <td><a href="#"><button>Update</button></a></td>
             
           </tr>
           </c:forEach>

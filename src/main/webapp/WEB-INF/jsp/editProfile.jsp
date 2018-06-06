@@ -170,12 +170,6 @@
 
 		<div class="control-sidebar-bg"></div>
 
-		<!-- MODEL -->
-		<!-- Modal -->
-
-
-
-
 	</div>
 
 </body>

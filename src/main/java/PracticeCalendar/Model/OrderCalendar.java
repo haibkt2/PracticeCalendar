@@ -35,8 +35,7 @@ public class OrderCalendar implements Serializable {
     private String creatDate;
     
     private String flg;
-    
-    private String orderMin;
+
     
     public User getUser() {
 		return user;
